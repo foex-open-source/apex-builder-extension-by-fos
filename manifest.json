@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "FOS Browser Extension",
+    "short_name": "FOS",
+    "description": "The FOS Browser Extension is a free and open-source extension that enhances the Oracle APEX Builder.",
+    "version": "0.1.0",
+    "author": "FOEX GmbH",
+    "homepage_url": "http://www.foex.at",
+    "icons": {
+        "128": "icons/FOS_browser_extension_128x128.png"
+    },
+    "browser_action": { 
+        "default_icon": "icons/FOS_browser_extension_128x128.png" 
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*/*f?p=4000:4410:*", "*://*/*f?p=4000:40:*", "*://*/*f?p=4000:312:*"],
+            "js": [
+                "main.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        "*"
+    ]
+}

@@ -1,0 +1,108 @@
+/* Files Region */
+#fos-files-region{
+    min-height: 60px;
+}
+
+/* Golden Layout */
+#fos-files-layout{
+    height: 500px;
+    padding: 8px;
+    background-color: #303233;
+    border-top: 1px solid rgb(71, 72, 74);
+}
+
+.fos-region-fullscreen#fos-files-region{
+    background-color: #303233;
+}
+
+.lm_header .lm_tab, .lm_tab .lm_active{
+    box-shadow: none !important;
+}
+
+.lm_goldenlayout {
+    background: transparent !important;
+    border-bottom: 1px solid rgb(71, 72, 74);
+}
+
+#fos-files-layout .lm_tab{
+    border: 1px solid #47484a;
+    border-bottom: none;
+}
+
+/* Code Editor*/
+
+.fos-code-editor-toolbar{
+    height: 40px;
+    border: 1px solid #47484a;
+    border-bottom: none;
+}
+
+.fos-code-editor-toolbar-button{
+    margin: 4px;
+    text-shadow: none;
+    background-color: transparent;
+    box-shadow: none;
+    color: #c0c1c3;
+}
+
+.fos-code-editor-toolbar-button:focus{
+    background-color: #3b3d3f;
+    box-shadow: inset 0 0 0 1px #0572ce,0 1px 2px rgba(0,0,0,.1)!important;
+}
+
+.fos-code-editor-toolbar-button:hover{
+    background-color: #3b3d3f;
+    box-shadow: inset 0 0 0 1px hsla(0,0%,100%,.2), 0 1px 4px rgba(0,0,0,.1);
+}
+
+.fos-code-editor-toolbar-button:active, .fos-code-editor-toolbar-button:focus:active{
+    background-color: #47484a;
+    box-shadow: inset 0 0 0 1px hsla(0,0%,100%,.1), inset 0 2px 1px rgba(0,0,0,.15);
+}
+
+.fos-code-editor-toolbar-button .fa.fam-blank::after{
+    color: #0572ce;
+    background-color: #0572ce;
+}
+
+.fos-code-editor{
+    border: 1px solid #47484a;
+    height: 440px;
+    width: 100%;
+}
+
+.fos-region-fullscreen{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+    border: none !important; /* makes dark mode look nicer */
+}
+
+.fos-body-region-maximized .a-EditScreen-header,
+.fos-body-region-maximized .ui-resizable-handle,
+.fos-body-region-maximized .a-IRR-region{
+    z-index: 1 !important;
+}
+
+.fos-region-fullscreen #fos-files-layout{
+    height: calc(100vh - 42px);
+}
+
+.fos-region-fullscreen .fos-code-editor{
+    height: 100%;
+}
+
+
+/* class meant to be added to the body element to avoid scrolling when in fullscreen mode */
+.fos-body-region-maximized{
+    overflow: hidden;
+}
+
+/* Font APEX additions */
+
+.fos-fa-rotate-45{
+    transform: rotate(45deg);
+}
