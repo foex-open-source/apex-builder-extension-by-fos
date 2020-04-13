@@ -39,7 +39,7 @@ const plugins = [
             src: 'node_modules/monaco-editor/min-maps',
             dest: 'dist/src/third-party/monaco-editor/'
         }, {
-            src: 'third-party/font-apex-2.1',
+            src: 'src/third-party/font-apex-2.1',
             dest: 'dist/src/third-party/'
         }]
     }),
