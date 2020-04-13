@@ -9,7 +9,7 @@ const plugins = [
                 'manifest.json',
                 'src/main.js',
                 'src/injectedMain.js',
-                'icons',
+                'src/assets',
                 'src/pages/common/style-base.css'
             ],
             dest: 'dist/src/'
@@ -44,7 +44,7 @@ const plugins = [
         }]
     }),
     babel({
-        exclude: ['node_modules/**', 'third-party/**']
+        exclude: ['node_modules/**']
     })
 ];
 

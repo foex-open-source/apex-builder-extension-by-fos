@@ -29,6 +29,10 @@
     border-bottom: none;
 }
 
+.lm_selected .lm_header {
+    background-color: transparent !important;
+}
+
 /* Code Editor*/
 
 .fos-code-editor-toolbar{
