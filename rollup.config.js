@@ -6,7 +6,7 @@ const plugins = [
     copy({
         targets: [{
             src: [
-                'manifest.json',
+                'src/manifest.json',
                 'src/main.js',
                 'src/injectedMain.js',
                 'src/assets',
