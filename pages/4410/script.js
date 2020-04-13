@@ -1,8 +1,3 @@
-/*
-    TODO
-        - check all server calls for session expired
-*/
-
 import * as data from './data.js';
 import * as global from '../../lib/util.js';
 import * as settings from './settings.js';

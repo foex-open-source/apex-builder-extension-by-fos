@@ -7,7 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./dist && rollup --config",
+    "run-firefox": ""
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,16 @@
   },
   "homepage": "https://github.com/foex-open-source/fos-browser-extension#readme",
   "devDependencies": {
+    "rollup": "^2.6.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-css-only": "^2.0.0",
     "web-ext": "^4.1.0"
+  },
+  "dependencies": {
+    "golden-layout": "^1.5.9",
+    "less": "^3.11.1",
+    "monaco-editor": "^0.20.0",
+    "terser": "^4.6.11"
   }
 }

@@ -42,7 +42,7 @@ async function injectScript(src, code, isModule) {
 }
 
 const styles = [
-    'pages/common/style-base.css',
+    'style-base.css',
     'third-party/font-apex-2.1/css/font-apex.min.css',
     'third-party/golden-layout-1.5.9/css/goldenlayout-base.css',
     'third-party/golden-layout-1.5.9/css/goldenlayout-dark-theme.css'
@@ -55,8 +55,8 @@ const scripts = [
 ];
 
 const requireScript = 'third-party/require-2.3.6/require.js';
-const page4410Script = 'pages/4410/script.js';
-const pages40_312Script = 'pages/40-312/script.js';
+const page4410Script = 'bundle-4410.js';
+const pages40_312Script = 'bundle-40-312.js';
 
 if(['4410', '40', '312'].indexOf(pageId) > -1){
     const requireIsPresent = window.require != undefined;
@@ -99,9 +99,9 @@ if(['4410', '40', '312'].indexOf(pageId) > -1){
         }
 
         if(pageId == 4410){
-            await injectScript(page4410Script, null, true);
+            await injectScript(page4410Script, null, false);
         } else {
-            await injectScript(pages40_312Script, null, true);
+            await injectScript(pages40_312Script, null, false);
         }
 
         if(requireIsPresent){
