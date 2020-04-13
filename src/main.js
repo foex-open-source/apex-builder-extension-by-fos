@@ -1,4 +1,4 @@
-const extensionBase = browser.extension.getURL('/');
+const extensionBase = chrome.extension.getURL('/');
 
 async function injectScript(src, code) {
     const head = document.getElementsByTagName('head')[0];
