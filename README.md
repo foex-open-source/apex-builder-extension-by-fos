@@ -1,2 +1,2 @@
 # FOS Browser Extension
-A free Chrome extension for Oracle APEX which enables the editing of static files in the browser.
+A Chrome&Firefox browser extension for the Oracle APEX Builder that enables the editing of static application, workspace and plug-in files.
