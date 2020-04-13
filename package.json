@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf ./dist && rollup --config",
-    "run-firefox": ""
+    "firefox": "cd dist/src && web-ext run"
   },
   "repository": {
     "type": "git",
