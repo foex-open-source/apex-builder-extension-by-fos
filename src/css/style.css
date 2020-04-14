@@ -1,3 +1,19 @@
+[data-fos-theme="dark"] {
+    --files-region-fs-bc: #303233;
+}
+
+[data-fos-theme="light"] {
+    --files-region-fs-bc: #fff;
+}
+
+[data-fos-theme="dark-redwood"] {
+    --files-region-fs-bc: #312d2a;
+}
+
+[data-fos-theme="light-redwood"] {
+    --files-region-fs-bc: #fcfbfa;
+}
+
 /* Files Region */
 #fos-files-region{
     min-height: 60px;
@@ -7,12 +23,11 @@
 #fos-files-layout{
     height: 500px;
     padding: 8px;
-    background-color: #303233;
     border-top: 1px solid rgb(71, 72, 74);
 }
 
 .fos-region-fullscreen#fos-files-region{
-    background-color: #303233;
+    background-color: var(--files-region-fs-bc);
 }
 
 .lm_header .lm_tab, .lm_tab .lm_active{
@@ -109,4 +124,8 @@
 
 .fos-fa-rotate-45{
     transform: rotate(45deg);
+}
+
+#FOS_STATIC_FILE_SELECTOR{
+    max-width: 200px;
 }

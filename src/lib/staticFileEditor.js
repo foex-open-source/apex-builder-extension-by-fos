@@ -1,9 +1,12 @@
-import * as common from './markup.js';
-import * as server from '../../lib/server.js';
+import * as common from '../markup.js';
+import * as server from './server.js';
 import * as staticFiles from './staticFiles.js';
-import * as globalUtil from '../../lib/util.js';
-import {ApexFileEditor} from '../../lib/ApexFileEditor.js';
-import {ExpandableRegion} from '../../lib/ExpandableRegion.js';
+import * as globalUtil from './util.js';
+import {ApexFileEditor} from './ApexFileEditor.js';
+import {ExpandableRegion} from './ExpandableRegion.js';
+import less from 'less';
+import Terser from 'terser';
+import GoldenLayout from 'golden-layout';
 
 let filesLayout;
 let openedFiles = [];

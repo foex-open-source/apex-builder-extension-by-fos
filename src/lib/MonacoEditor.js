@@ -1,3 +1,5 @@
+import * as globalUtil from './util.js';
+
 //https://github.com/microsoft/monaco-editor-webpack-plugin/issues/42
 self.MonacoEnvironment = {
     getWorkerUrl: function (workerId, label) {
@@ -28,6 +30,9 @@ export class MonacoEditor {
     }
 
     async init() {
+        if(window.require == undefined){
+            await globalUtil.injectScript(window.fosExtensionBase + 'third-party/monaco-editor/min/vs/loader.js');
+        }
         return new Promise((resolve) => {
             require.config({paths: {'vs': window.fosExtensionBase + 'third-party/monaco-editor/min/vs' }});
             require(['vs/editor/editor.main'], monaco => {

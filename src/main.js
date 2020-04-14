@@ -26,5 +26,5 @@ async function injectScript(src, code) {
 
 (async function(){
     await injectScript(null, 'window.fosExtensionBase = "' + extensionBase + '";', false);
-    await injectScript('injectedMain.js', null, false);
+    await injectScript('bundle.js', null, false);
 })();

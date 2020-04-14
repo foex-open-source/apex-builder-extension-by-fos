@@ -10,7 +10,7 @@
     }]
 */
 
-import * as globalUtil from '../../lib/util.js';
+import * as globalUtil from './util.js';
 
 const pageId = document.getElementById('pFlowStepId').value;
 

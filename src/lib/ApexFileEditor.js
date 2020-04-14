@@ -9,6 +9,7 @@ function createToolbar(features){
         buttons.push({
             buttonClasses: ['fos-compile-button'],
             title: 'Save & Compile',
+            label: 'Compile',
             icon: 'fa-play'
         });
     }
@@ -17,6 +18,7 @@ function createToolbar(features){
         buttons.push({
             buttonClasses: ['fos-minify-button'],
             title: 'Save & Minify',
+            label: 'Minify',
             icon: 'fa-file-archive-o'
             //icon: 'fa-compress',
             //iconClass: 'fos-fa-rotate-45'
@@ -27,6 +29,7 @@ function createToolbar(features){
         buttons.push({
             buttonClasses: ['fos-save-button'],
             title: 'Save',
+            label: 'Save',
             icon: 'fa-save'
         });
     }
@@ -43,20 +46,22 @@ function createToolbar(features){
                 buttonElement.classList.add(buttonConfig.buttonClasses, FOS_TOOLBAR_BUTTON_CLASS);
             }
 
-            if(buttonConfig.label){
-                buttonElement.innerText = buttonConfig.label;
-            } else {
-                buttonElement.classList.add('a-Button--noLabel');
-            }
-
             if(buttonConfig.icon){
                 buttonElement.classList.add('a-Button--withIcon');
                 const spanElement = document.createElement('span');
-                spanElement.classList.add('fa', buttonConfig.icon);
+                spanElement.classList.add('fa', buttonConfig.icon, 'a-Icon');
                 if(buttonConfig.iconClass){
                     spanElement.classList.add(buttonConfig.iconClass);
                 }
                 buttonElement.append(spanElement);
+            }
+
+            if(buttonConfig.label){
+                const el = document.createElement('span');
+                el.innerText = buttonConfig.label;
+                buttonElement.append(el);
+            } else {
+                buttonElement.classList.add('a-Button--noLabel');
             }
 
             buttonElement.title = buttonConfig.title;
