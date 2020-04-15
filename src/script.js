@@ -1,6 +1,7 @@
 import * as staticFileEditor from './lib/staticFileEditor.js';
 import * as data from './data.js';
 import * as global from './lib/util.js';
+import * as colorMode from './lib/colorMode.js';
 
 const pageId = parseInt(document.getElementById('pFlowStepId').value);
 const fosExtensionBase = window.fosExtensionBase;
@@ -14,46 +15,34 @@ function injectStyle(href){
     link.href = fosExtensionBase + href;  
 
     head.appendChild(link);
+
+    return link;
 }
 
 const styles = [
     'css/style.css',
     'third-party/font-apex-2.1/css/font-apex.min.css',
-    'css/golden-layout/goldenlayout-base.css',
-    'css/golden-layout/goldenlayout-dark-theme.css'
+    'css/golden-layout/goldenlayout-base.css'
 ];
 
-let apexVersion = global.apexVersion;
-
-function isDarkMode(){
-    return $('head link[rel="stylesheet"][type="text/css"]').filter(function(){
-        return $(this).attr('href').indexOf('/i/apex_ui/css/Theme-Dark') == 0;
-    }).length == 1;
+const glStyles = {
+    light: 'css/golden-layout/goldenlayout-light-theme.css',
+    dark: 'css/golden-layout/goldenlayout-dark-theme.css'
 }
 
-function setColorMode(mode){
-    document.querySelector('body').dataset.fosTheme = mode;
-}
-
-if(['19.1', '19.2'].indexOf(apexVersion) > -1){
-    setColorMode(isDarkMode() ? 'dark' : 'light');
-} else if (['20.1', '20.2'].indexOf(apexVersion) > -1) {
-    function evaluateColorMode(){
-        setColorMode(isDarkMode() ? 'dark-redwood' : 'light-redwood');
-    }
-    let mutationObserver = new MutationObserver(evaluateColorMode);
-    mutationObserver.observe(document.getElementsByTagName('body')[0], {
-        attributes: true,
-        attributeFilter: ['class']
-    });
-    evaluateColorMode();
-} else {
-    setColorMode('light');
-}
+colorMode.init();
 
 for(let i = 0; i<styles.length; i++){
-    injectStyle(styles[i]);
+    let elem = injectStyle(styles[i]);
 }
+
+let glStyleElem = injectStyle(glStyles[colorMode.getColorModeBinary()]);
+
+document.addEventListener('fosThemeChange', function(){
+    let glStyleElemNew = injectStyle(glStyles[colorMode.getColorModeBinary()]);
+    glStyleElem.parentNode.removeChild(glStyleElem);
+    glStyleElem = glStyleElemNew;
+});
 
 if([40, 312].indexOf(pageId) > -1){
     (async function(){

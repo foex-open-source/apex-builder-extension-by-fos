@@ -1,17 +1,45 @@
 [data-fos-theme="dark"] {
     --files-region-fs-bc: #303233;
+    --primary-color: #0572ce;
+    --editor-border-color: #47484a;
+    --editor-toolbar-bc: #353638;
+    --editor-toolbar-button-bc-hover: #3b3d3f;
+    --editor-toolbar-button-bc-focus: #3b3d3f;
+    --editor-toolbar-button-bc-active: #47484a;
+    --editor-toolbar-button-c: #c0c1c3;
 }
 
 [data-fos-theme="light"] {
     --files-region-fs-bc: #fff;
+    --primary-color: #0572ce;
+    --editor-border-color: #e0e0e0;
+    --editor-toolbar-bc: #f9f9f9;
+    --editor-toolbar-button-bc-hover: #fff;
+    --editor-toolbar-button-bc-focus: #fff;
+    --editor-toolbar-button-bc-active: #e0e0e0;
+    --editor-toolbar-button-c: #404040;
 }
 
 [data-fos-theme="dark-redwood"] {
     --files-region-fs-bc: #312d2a;
+    --primary-color: #377e55;
+    --editor-border-color: #403c38;
+    --editor-toolbar-bc: #211e1c;
+    --editor-toolbar-button-bc-hover: #56504b;
+    --editor-toolbar-button-bc-focus: #56504b;
+    --editor-toolbar-button-bc-active: #312d2a;
+    --editor-toolbar-button-c: #c0c1c3;
 }
 
 [data-fos-theme="light-redwood"] {
     --files-region-fs-bc: #fcfbfa;
+    --primary-color: #377e55;
+    --editor-border-color: #e6e3e0;
+    --editor-toolbar-bc: #f1efed;
+    --editor-toolbar-button-bc-hover: #fcfbfa;
+    --editor-toolbar-button-bc-focus: #fcfbfa;
+    --editor-toolbar-button-bc-active: #f1efed;
+    --editor-toolbar-button-c: #444;
 }
 
 /* Files Region */
@@ -23,24 +51,28 @@
 #fos-files-layout{
     height: 500px;
     padding: 8px;
-    border-top: 1px solid rgb(71, 72, 74);
+    border-top: 1px solid var(--editor-border-color);
 }
 
 .fos-region-fullscreen#fos-files-region{
     background-color: var(--files-region-fs-bc);
 }
 
-.lm_header .lm_tab, .lm_tab .lm_active{
+.lm_header .lm_tab.lm_active{
+    background-color: var(--editor-toolbar-bc);
+}
+
+.lm_header .lm_tab{
     box-shadow: none !important;
 }
 
 .lm_goldenlayout {
     background: transparent !important;
-    border-bottom: 1px solid rgb(71, 72, 74);
+    border-bottom: 1px solid var(--editor-border-color);
 }
 
 #fos-files-layout .lm_tab{
-    border: 1px solid #47484a;
+    border: 1px solid var(--editor-border-color);
     border-bottom: none;
 }
 
@@ -52,8 +84,9 @@
 
 .fos-code-editor-toolbar{
     height: 40px;
-    border: 1px solid #47484a;
+    border: 1px solid var(--editor-border-color);
     border-bottom: none;
+    background-color: var(--editor-toolbar-bc);
 }
 
 .fos-code-editor-toolbar-button{
@@ -61,31 +94,31 @@
     text-shadow: none;
     background-color: transparent;
     box-shadow: none;
-    color: #c0c1c3;
+    color: var(--editor-toolbar-button-c);
 }
 
 .fos-code-editor-toolbar-button:focus{
-    background-color: #3b3d3f;
-    box-shadow: inset 0 0 0 1px #0572ce,0 1px 2px rgba(0,0,0,.1)!important;
+    background-color: var(--editor-toolbar-button-bc-focus);
+    box-shadow: inset 0 0 0 1px var(--primary-color),0 1px 2px rgba(0,0,0,.1)!important;
 }
 
 .fos-code-editor-toolbar-button:hover{
-    background-color: #3b3d3f;
+    background-color: var(--editor-toolbar-button-bc-hover);
     box-shadow: inset 0 0 0 1px hsla(0,0%,100%,.2), 0 1px 4px rgba(0,0,0,.1);
 }
 
 .fos-code-editor-toolbar-button:active, .fos-code-editor-toolbar-button:focus:active{
-    background-color: #47484a;
+    background-color: var(--editor-toolbar-button-bc-active);
     box-shadow: inset 0 0 0 1px hsla(0,0%,100%,.1), inset 0 2px 1px rgba(0,0,0,.15);
 }
 
 .fos-code-editor-toolbar-button .fa.fam-blank::after{
-    color: #0572ce;
-    background-color: #0572ce;
+    color: var(--primary-color);
+    background-color: var(--primary-color);
 }
 
 .fos-code-editor{
-    border: 1px solid #47484a;
+    border: 1px solid var(--editor-border-color);
     height: 440px;
     width: 100%;
 }
@@ -128,4 +161,15 @@
 
 #FOS_STATIC_FILE_SELECTOR{
     max-width: 200px;
+}
+
+/* there is a discrepancy between gl dark and gl light. this makes it the same */
+#fos-files-layout .lm_content{
+    border: none;
+}
+
+/* fixing some css on pages 40/312 */
+.a-IRR-toolbar{
+    border-top-width: 1px;
+    border-top-style: solid;
 }

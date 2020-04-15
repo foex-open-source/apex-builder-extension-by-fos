@@ -1,6 +1,6 @@
 const fullVersion = $('.a-Footer-version').text();
 const versionParts = fullVersion.replace('Application Express ', '').split('.');
-export const apexVersion = versionParts[0] + '.' + versionParts[1];
+const apexVersion = versionParts[0] + '.' + versionParts[1];
 
 function showPageSuccess(message){
     apex.message.showPageSuccess(message);
@@ -28,10 +28,7 @@ function showItemError(itemName, message){
         }
     ]);
 }
-
-export {showPageSuccess, showPageError, showItemError};
-
-export async function injectScript(src){
+async function injectScript(src){
     const head = document.getElementsByTagName('head')[0];
     const script = document.createElement('script');
 
@@ -42,8 +39,7 @@ export async function injectScript(src){
         head.appendChild(script);
     });
 }
-
-export function injectStyle(href){
+function injectStyle(href){
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');  
   
@@ -53,3 +49,6 @@ export function injectStyle(href){
 
     head.appendChild(link);  
 }
+
+export {showPageSuccess, showPageError, showItemError, injectScript, injectStyle, apexVersion};
+

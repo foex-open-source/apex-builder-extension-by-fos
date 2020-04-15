@@ -18,7 +18,8 @@ const plugins = [
         }, {
             src: [
                 'node_modules/golden-layout/src/css/goldenlayout-base.css',
-                'node_modules/golden-layout/src/css/goldenlayout-dark-theme.css'
+                'node_modules/golden-layout/src/css/goldenlayout-dark-theme.css',
+                'node_modules/golden-layout/src/css/goldenlayout-light-theme.css'
             ],
             dest: 'dist/src/css/golden-layout/'
         }, {

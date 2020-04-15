@@ -1,4 +1,5 @@
-import * as globalUtil from './util.js';
+import * as util from './util.js';
+import * as colorMode from './colorMode.js';
 
 //https://github.com/microsoft/monaco-editor-webpack-plugin/issues/42
 self.MonacoEnvironment = {
@@ -11,6 +12,12 @@ self.MonacoEnvironment = {
         )}`;
     }
 };
+
+document.addEventListener('fosThemeChange', function(){
+    if(window.monaco){
+        monaco.editor.setTheme(colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs');
+    }
+});
 
 export class MonacoEditor {
 
@@ -31,7 +38,7 @@ export class MonacoEditor {
 
     async init() {
         if(window.require == undefined){
-            await globalUtil.injectScript(window.fosExtensionBase + 'third-party/monaco-editor/min/vs/loader.js');
+            await util.injectScript(window.fosExtensionBase + 'third-party/monaco-editor/min/vs/loader.js');
         }
         return new Promise((resolve) => {
             require.config({paths: {'vs': window.fosExtensionBase + 'third-party/monaco-editor/min/vs' }});
@@ -39,7 +46,7 @@ export class MonacoEditor {
                 this.editor = monaco.editor.create(this.config.element, {
                     value: this.config.value,
                     language: this.config.language,
-                    theme: 'vs-dark',
+                    theme: colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs',
                     scrollbar: {
                         alwaysConsumeMouseWheel: false
                     },

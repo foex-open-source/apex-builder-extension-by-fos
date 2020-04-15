@@ -403,9 +403,7 @@ export async function setupEnvironment(options){
 
     //fixing some css for the static files pages
     if(['40', '312'].indexOf(pageId) > -1){
-        const borderColor = $('#fos-files-region .a-Region').css('border-bottom-color');
         $('#fos-files-region .a-Region').css('border-top', 'none');
-        $('#fos-files-region').css('border-bottom', '1px solid ' + borderColor);
     }
 
     //Make it expandable
