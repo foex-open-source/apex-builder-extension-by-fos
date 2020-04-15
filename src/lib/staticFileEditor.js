@@ -282,8 +282,7 @@ async function openFileEditor(fullFileName){
             saveFiles(files)
             .then((response) => {
                 if(response.ok){
-
-                    const allMetadataIsPresent = files.map(file => file.directory+'/'+file.fileName).every(v => staticFiles.files.map(file => file.fullFileName).includes(v));
+                    const allMetadataIsPresent = files.map(file => file.directory+(file.directory ? '/' : '')+file.fileName).every(v => staticFiles.files.map(file => file.fullFileName).includes(v));
                     //we hard refresh the files metadata, if:
                     //  1) file was empty before and therefore has no link
                     //     and if it now has content and it was saved
