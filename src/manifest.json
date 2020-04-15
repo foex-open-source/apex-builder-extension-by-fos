@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "FOS APEX Builder Extension",
+    "name": "APEX Builder Extension by FOS",
     "short_name": "FOS",
-    "description": "The FOS APEX Builder Extension is a free and open-source browser extension that enhances the Oracle APEX Builder.",
+    "description": "The APEX Builder Extension by FOS is a free and open-source browser extension that enhances the Oracle APEX Builder.",
     "version": "0.2.0",
     "author": "FOEX GmbH",
     "homepage_url": "http://www.foex.at",

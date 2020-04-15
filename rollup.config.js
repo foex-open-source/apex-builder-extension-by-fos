@@ -14,23 +14,23 @@ const plugins = [
                 'src/assets',
                 'src/css'
             ],
-            dest: 'dist/src'
+            dest: 'dist/extension'
         }, {
             src: [
                 'node_modules/golden-layout/src/css/goldenlayout-base.css',
                 'node_modules/golden-layout/src/css/goldenlayout-dark-theme.css',
                 'node_modules/golden-layout/src/css/goldenlayout-light-theme.css'
             ],
-            dest: 'dist/src/css/golden-layout/'
+            dest: 'dist/extension/css/golden-layout/'
         }, {
             src: 'node_modules/monaco-editor/min',
-            dest: 'dist/src/third-party/monaco-editor/'
+            dest: 'dist/extension/third-party/monaco-editor/'
         }, {
             src: 'node_modules/monaco-editor/min-maps',
-            dest: 'dist/src/third-party/monaco-editor/'
+            dest: 'dist/extension/third-party/monaco-editor/'
         }, {
             src: 'src/third-party/font-apex-2.1',
-            dest: 'dist/src/third-party/'
+            dest: 'dist/extension/third-party/'
         }]
     }),
     resolve({ browser:true, preferBuiltins: true }),
@@ -45,7 +45,7 @@ const plugins = [
 export default {
     input: 'src/script.js',
     output: [{
-        file: 'dist/src/bundle.js',
+        file: 'dist/extension/bundle.js',
         format: 'iife'
     }],
     plugins: plugins

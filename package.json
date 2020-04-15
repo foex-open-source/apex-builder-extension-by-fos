@@ -8,8 +8,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf ./dist && rollup -c",
-    "firefox": "cd dist/src && web-ext run"
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && rollup -c",
+    "firefox": "cd dist/extension && web-ext run", 
+    "build-firefox": "npm run build && cd dist/extension && web-ext build"
   },
   "repository": {
     "type": "git",
