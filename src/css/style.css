@@ -135,7 +135,8 @@
 
 .fos-body-region-maximized .a-EditScreen-header,
 .fos-body-region-maximized .ui-resizable-handle,
-.fos-body-region-maximized .a-IRR-region{
+.fos-body-region-maximized .a-IRR-region,
+.fos-body-region-maximized .a-Header{
     z-index: 1 !important;
 }
 
