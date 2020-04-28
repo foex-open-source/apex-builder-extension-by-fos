@@ -1,8 +1,8 @@
 // rollup.config.js
+import babel from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import copy from 'rollup-plugin-copy';
-import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
 import builtins from 'rollup-plugin-node-builtins';
 
 const plugins = [
@@ -33,12 +33,17 @@ const plugins = [
             dest: 'dist/extension/third-party/'
         }]
     }),
-    resolve({ browser:true, preferBuiltins: true }),
-    commonjs(),
+    resolve({
+        browser: true,
+        preferBuiltins: true
+    }),
+    commonjs({
+        exclude: ['**/lib/MonacoEditor.js']
+    }),
     builtins(),
     babel({
         exclude: 'node_modules/**',
-        runtimeHelpers: true
+        babelHelpers: 'runtime'
     })
 ];
 

@@ -4,7 +4,7 @@ let colorMode;
 
 function isDarkMode(){
     return $('head link[rel="stylesheet"][type="text/css"]').filter(function(){
-        return $(this).attr('href').indexOf('/i/apex_ui/css/Theme-Dark') == 0;
+        return $(this).attr('href').indexOf('apex_ui/css/Theme-Dark') > -1;
     }).length == 1;
 }
 
