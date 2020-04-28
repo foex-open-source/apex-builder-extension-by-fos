@@ -1,5 +1,5 @@
 {
-  "name": "fos-apex-builder-extension",
+  "name": "apex-builder-extension-by-fos",
   "version": "0.2.1",
   "description": "A free Chrome extension for Oracle APEX which enables the editing of static files in the browser.",
   "main": "main.js",
@@ -15,15 +15,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/foex-open-source/fos-browser-extension.git"
+    "url": "git+https://github.com/foex-open-source/apex-builder-extension-by-fos.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/foex-open-source/fos-browser-extension/issues"
+    "url": "https://github.com/foex-open-source/apex-builder-extension-by-fos/issues"
   },
-  "homepage": "https://github.com/foex-open-source/fos-browser-extension#readme",
+  "homepage": "https://github.com/foex-open-source/apex-builder-extension-by-fos#readme",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
