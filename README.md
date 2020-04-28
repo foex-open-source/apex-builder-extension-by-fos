@@ -2,5 +2,5 @@
 <a href="https://chrome.google.com/webstore/detail/apex-builder-extension-by/jhmmfmhnhnnfnejfphieclbibmoaapid">![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jhmmfmhnhnnfnejfphieclbibmoaapid?color=green&label=chrome%20extension)</a>
 <a href="https://addons.mozilla.org/en-US/firefox/addon/apex-builder-extension-by-fos/">![Mozilla Add-on](https://img.shields.io/amo/v/apex-builder-extension-by-fos?color=orange&label=firefox%20add-on)</a>
 
-# APEX Builder Extension by FOS
+<h1 align="center">APEX Builder Extension by FOS</h1>
 A Chrome/Firefox browser extension for the Oracle APEX Builder that enables the editing of static application, workspace and plug-in files.
