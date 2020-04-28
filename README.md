@@ -4,6 +4,25 @@
 
 <h1 align="center">APEX Builder Extension by FOS</h1>
 
-![Screenshot of files editor](https://raw.githubusercontent.com/foex-open-source/apex-builder-extension-by-fos/master/misc/image-dark.png)
+<p align="center"><img width="600" src="https://raw.githubusercontent.com/foex-open-source/apex-builder-extension-by-fos/master/misc/image-dark.png"/></p
 
-A Chrome/Firefox browser extension for the Oracle APEX Builder that enables the editing of static application, workspace and plug-in files.
+The APEX Builder Extension by FOS is a free and open-source Chrome & Firefox browser extension that enables the editing of static application, workspace and plug-in files.
+
+## Build
+
+Feel free to fork this repo if you'd like to contribute or build your own version.
+
+```bash
+npm install
+npm run build
+```
+
+## Changelog
+
+version | changes
+--------|--------------
+0.2.1   | Fixed color mode detection on cloud instances
+
+## License
+
+MIT
