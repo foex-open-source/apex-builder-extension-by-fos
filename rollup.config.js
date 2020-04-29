@@ -5,6 +5,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import copy from 'rollup-plugin-copy';
 import builtins from 'rollup-plugin-node-builtins';
 
+const outputFolder = 'dist/unpacked/';
+
 const plugins = [
     copy({
         targets: [{
@@ -14,23 +16,23 @@ const plugins = [
                 'src/assets',
                 'src/css'
             ],
-            dest: 'dist/extension'
+            dest: outputFolder
         }, {
             src: [
                 'node_modules/golden-layout/src/css/goldenlayout-base.css',
                 'node_modules/golden-layout/src/css/goldenlayout-dark-theme.css',
                 'node_modules/golden-layout/src/css/goldenlayout-light-theme.css'
             ],
-            dest: 'dist/extension/css/golden-layout/'
+            dest: outputFolder + 'css/golden-layout/'
         }, {
             src: 'node_modules/monaco-editor/min',
-            dest: 'dist/extension/third-party/monaco-editor/'
+            dest: outputFolder + 'third-party/monaco-editor/'
         }, {
             src: 'node_modules/monaco-editor/min-maps',
-            dest: 'dist/extension/third-party/monaco-editor/'
+            dest: outputFolder + 'third-party/monaco-editor/'
         }, {
             src: 'src/third-party/font-apex-2.1',
-            dest: 'dist/extension/third-party/'
+            dest: outputFolder + 'third-party/'
         }]
     }),
     resolve({
@@ -50,7 +52,7 @@ const plugins = [
 export default {
     input: 'src/script.js',
     output: [{
-        file: 'dist/extension/bundle.js',
+        file: outputFolder + 'bundle.js',
         format: 'iife'
     }],
     plugins: plugins
