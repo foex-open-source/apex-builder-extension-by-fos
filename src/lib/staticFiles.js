@@ -37,6 +37,9 @@ const util = {
         parts[parts.length-1] = 'min.' + parts[parts.length-1];
         return parts.join('.');
     },
+    getMapFileName: function(fileName){
+        return fileName + '.map';
+    },
     getFullFileNameFromDirectoryAndFileName: function(directory, fileName){
         return directory + (directory ? '/' : '') + fileName;
     },

@@ -2,10 +2,9 @@ import * as common from '../markup.js';
 import * as server from './server.js';
 import * as staticFiles from './staticFiles.js';
 import * as globalUtil from './util.js';
+import * as fileProcesses from './fileProcesses.js';
 import {ApexFileEditor} from './ApexFileEditor.js';
 import {ExpandableRegion} from './ExpandableRegion.js';
-import less from 'less';
-import Terser from 'terser';
 import GoldenLayout from 'golden-layout';
 
 let filesLayout;
@@ -224,35 +223,32 @@ async function openFileEditor(fullFileName){
         var files = [];
 
         const content = editor.getValue();
+        file.content = content;
     
         files.push({
-            content: content,
+            content: file.content,
             fileName: file.fileName,
             directory: file.directory,
             mimeType: file.mimeType
         });
 
         if(options.minify){
-            const terserResult = Terser.minify(content);
-
-            if(terserResult.code !== undefined){
-                files.push({
-                    content: terserResult.code,
-                    fileName: staticFiles.util.getMinifiedFileName(file.fileName),
-                    directory: file.directory,
-                    mimeType: file.mimeType
-                });
-            } else if(terserResult.error){
-                apex.message.alert([
-                    'Could not minify file',
-                    `${terserResult.error.name} at Line ${terserResult.error.line} Column ${terserResult.error.col}`,
-                    terserResult.error.message
-                ].join('\n'));
+            let result;
+            if(file.extension == 'js'){
+                result = fileProcesses.minifyJsFile(file);
+            } else if (file.extension == 'css'){
+                result = fileProcesses.minifyCssFile(file);
+            }
+            if(result.success){
+                files = files.concat(result.files);
+            } else {
+                apex.message.alert(result.message);
                 return {
                     ok: false,
-                    message: terserResult.error
+                    message: result.message
                 };
             }
+
         }
 
         if(options.compile){
@@ -306,7 +302,7 @@ async function openFileEditor(fullFileName){
                 };
             })(false, false) : undefined;
         
-        const minifyFunction = ((file.extension == 'js' && !fileIsMinified) && !readOnly) ?
+        const minifyFunction = ((['js', 'css'].indexOf(file.extension) > -1 && !fileIsMinified) && !readOnly) ?
             (function(minify, compile){
                 return async function(){
                     return saveFile({minify: minify, compile: compile});
