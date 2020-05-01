@@ -8,13 +8,28 @@
 
 The APEX Builder Extension by FOS is a free and open-source Chrome & Firefox browser extension that enables the editing of static application, workspace and plug-in files.
 
+## Features
+
+- Editing of static application, workspace and plug-in files directly in the builder
+- Leverages the same powerful editor as the one behind VS Code
+- Allows the editing of multiple files at once. Simply open a new file, and drag the tab
+- Save changes without a page submit
+- Create new JavaScript, CSS, Less, JSON and HTML files right in the builder
+- Minification of JavaScript files and compilation of Less files
+- many more features to come
+
 ## Build
 
 Feel free to fork this repo if you'd like to contribute or build your own version.
 
 ```bash
+# get up and running
 npm install
-npm run build
+npm run build         # will create dist/unpacked
+
+# create packed extensions
+npm run pack-chrome   # will create dist/chrome.zip
+npm run pack-firefox  # will create dist/firefox.zip
 ```
 
 ## Changelog
