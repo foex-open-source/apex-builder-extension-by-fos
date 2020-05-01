@@ -3,22 +3,39 @@ import * as staticFiles from './staticFiles.js';
 import less from 'less';
 import csso from '../../node_modules/csso/dist/csso.js';
 
+window.Terser = Terser;
+
 const minifyJsFile = file => {
     const files = [];
-    const terserResult = Terser.minify(file.content);
+    const minifiedFileName = staticFiles.util.getMinifiedFileName(file.fileName);
+    const mapFileName = staticFiles.util.getMapFileName(file.fileName);
+    const result = Terser.minify({
+        [file.fileName]: file.content
+    }, {
+        sourceMap: {
+            filename: file.fileName,
+            url: mapFileName
+        }
+    });
 
-    if(terserResult.code !== undefined){
+    if(!result.error){
         files.push({
-            content: terserResult.code,
-            fileName: staticFiles.util.getMinifiedFileName(file.fileName),
+            content: result.code,
+            fileName: minifiedFileName,
             directory: file.directory,
             mimeType: file.mimeType
         });
-    } else if(terserResult.error){
+        files.push({
+            content: result.map,
+            fileName: mapFileName,
+            directory: file.directory,
+            mimeType: 'application/json'
+        });
+    } else {
         const message = [
             'Could not minify file',
-            `${terserResult.error.name} at Line ${terserResult.error.line} Column ${terserResult.error.col}`,
-            terserResult.error.message
+            `${result.error.name} at Line ${result.error.line} Column ${result.error.col}`,
+            result.error.message
         ].join('\n');
         return {
             success: false,
@@ -57,4 +74,33 @@ const minifyCssFile = file => {
     };
 }
 
-export {minifyJsFile, minifyCssFile};
+const compileLessFile = async function(file) {
+    let files = [];
+    let lessResult;
+    try{
+        lessResult = await less.render(file.content);
+    } catch(e) {
+        const message = [
+            'Could not compile file',
+            `${e.type} error at Line ${e.line} Column ${e.column}`,
+            e.message
+        ].join('\n');
+        return {
+            ok: false,
+            message: message
+        };
+    }
+    files.push({
+        content: lessResult.css,
+        fileName: staticFiles.util.replaceExtension(file.fileName, 'css'),
+        directory: file.directory,
+        mimeType: staticFiles.mimeTypes['css']
+    });
+    files = files.concat(minifyCssFile(files[0]).files);
+    return {
+        success: true,
+        files: files
+    };
+}
+
+export {minifyJsFile, minifyCssFile, compileLessFile};

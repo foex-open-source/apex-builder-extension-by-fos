@@ -252,26 +252,16 @@ async function openFileEditor(fullFileName){
         }
 
         if(options.compile){
-            let lessjsResult;
-            try{
-                lessjsResult = await less.render(content);
-            } catch(e) {
-                apex.message.alert([
-                    'Could not compile file',
-                    `${e.type} error at Line ${e.line} Column ${e.column}`,
-                    e.message
-                ].join('\n'));
+            let result = await fileProcesses.compileLessFile(file);
+            if(result.success){
+                files = files.concat(result.files);
+            } else {
+                apex.message.alert(result.message);
                 return {
                     ok: false,
-                    message: e.message
+                    message: result.message
                 };
             }
-            files.push({
-                content: lessjsResult.css,
-                fileName: staticFiles.util.replaceExtension(file.fileName, 'css'),
-                directory: file.directory,
-                mimeType: staticFiles.mimeTypes['css']
-            });
         }
 
         return new Promise(resolve => {
