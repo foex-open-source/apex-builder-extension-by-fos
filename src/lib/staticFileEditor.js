@@ -103,7 +103,6 @@ async function saveFiles(files){
                 resolve({ok: true});
             } else {
                 apex.message.alert('The file could not be saved. Perhaps the session has expired.');
-                console.error('The file could not be saved. Perhaps the session has expired.', response);
                 throw new Error('The file could not be saved');
             }
         }).catch(e => {
@@ -212,7 +211,6 @@ async function openFileEditor(fullFileName){
     try {
         content = await server.fetchFileContent(file.link);
     } catch(error){
-        console.error('Could not fetch file.');
         apex.message.alert('The file could not be loaded. Perhaps the session has expired.');
         return;
     }

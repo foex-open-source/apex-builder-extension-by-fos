@@ -88,7 +88,6 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
                     ok: true
                 };
             } else {
-                console.error('When trying to save the file(s), server responded', result);
                 return {
                     ok: false,
                     error: 'Unknown error'
@@ -96,7 +95,6 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
             }
         })
         .catch(error => {
-            console.error('Could not save file(s)', error);
             return {
                 ok: false,
                 error: error
