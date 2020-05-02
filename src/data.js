@@ -29,20 +29,15 @@ markup.boilerplateRegion =
 `<div class="a-Region a-Region--noPadding a-Region--sideRegion" id="fos-boilerplate">
     <div class="a-Region-header">
         <div class="a-Region-headerItems a-Region-headerItems--title">
-            <h2 class="a-Region-title">Boilerplate Code</h2>
+            <h2 class="a-Region-title">Extras</h2>
         </div>
     </div>
     <div class="a-Region-body">
         <div class="a-Region-bodyHeader"></div>
         <ul class="a-LinksList a-LinksList--showArrow">
             <li class="a-LinksList-item">
-                <a href="javascript:void();" class="a-LinksList-link fos-plsql-boilerplate-link">
-                    <span class="a-LinksList-label">PL/SQL</span>
-                </a>
-            </li>
-            <li class="a-LinksList-item">
-                <a href="javascript:void();" class="a-LinksList-link fos-js-boilerplate-link">
-                    <span class="a-LinksList-label">JavaScript</span>
+                <a href="javascript:void();" class="a-LinksList-link fos-boilerplate-link">
+                    <span class="a-LinksList-label">Boilerplate Code</span>
                 </a>
             </li>
         </ul>

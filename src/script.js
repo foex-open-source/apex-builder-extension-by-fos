@@ -66,58 +66,30 @@ if([40, 312].indexOf(pageId) > -1){
     
     // --------------------------------------------------
     // Adding Boilerplate Code Links
-    /*
+
     const boilerplateRegion = data.markup.boilerplateRegion;
     $('.a-Side').append($(boilerplateRegion));
     
-    function getModalStyle(){
-    
-        var style;
-    
-        function builderIsDarkMode(){
-            return $('head link[rel=stylesheet]').filter(function(){
-                return $(this).attr('href').indexOf('Theme-Dark') > -1;
-            }).length > 0;
-        }
-    
-        switch(global.apexVersion) {
-                case '19.2':
-                    if(builderIsDarkMode()){
-                        style = 'dark';
-                    }
-                    break;
-                case '20.1':
-                    style = builderIsDarkMode() ? 'redwood-dark' : 'redwood-light'
-                    break;
-                default:
-                    break;
-        }
-        return style;
-    }
-    
-    $('#fos-boilerplate .fos-plsql-boilerplate-link').on('click', function(e){
+    $('#fos-boilerplate .fos-boilerplate-link').on('click', function(e){
         e.preventDefault();
     
-        var style = getModalStyle();
-    
-        apex.navigation.dialog(
-            'https://test192xe18.foex.at/ords/f?p=2100:10:::::G_STYLE:' + style,
-            {
-                title: 'PL/SQL Boilerplate Code',
-                height: '500',
-                width: '1000',
-                modal: true,
-                resizable: true
-            },
-            'a-Dialog--uiDialog'
-        );
+        let style = colorMode.getColorMode();
+        let pluginType = apex.item('P4410_PLUGIN_TYPE').getValue();
+        let dialog$ = $('<div></div>');
+        let iframe$ = $('<iframe />').attr('src', 'https://test192xe18.foex.at/ords/f?p=2100:10:::::G_STYLE,P10_PLUGIN_TYPE:' + style + ',' + pluginType);
+        iframe$.css('height', '100%');
+        dialog$.append(iframe$);
+        dialog$.dialog({
+            title: 'Plug-in Boilerplate Code',
+            width: 1000,
+            maxWidth: $(window).width()*0.9,
+            height: 500,
+            modal: true,
+            resizable: true,
+            dialogClass: 'ui-dialog--apex a-Dialog--uiDialog'
+        });
     });
-    
-    $('#fos-boilerplate .fos-js-boilerplate-link').on('click', function(e){
-        e.preventDefault();
-        console.log('js');
-    });
-    */
+
     // -------------------------------------------------------
     // Applying the settings
     

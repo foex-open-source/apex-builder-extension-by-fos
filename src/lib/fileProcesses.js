@@ -3,8 +3,6 @@ import * as staticFiles from './staticFiles.js';
 import less from 'less';
 import csso from '../../node_modules/csso/dist/csso.js';
 
-window.Terser = Terser;
-
 const minifyJsFile = file => {
     const files = [];
     const minifiedFileName = staticFiles.util.getMinifiedFileName(file.fileName);
