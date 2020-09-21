@@ -5,26 +5,6 @@ function createToolbar(features){
     const buttons = [];
     const FOS_TOOLBAR_BUTTON_CLASS = 'fos-code-editor-toolbar-button';
 
-    if(features.compile){
-        buttons.push({
-            buttonClasses: ['fos-compile-button'],
-            title: 'Save & Compile',
-            label: 'Compile',
-            icon: 'fa-play'
-        });
-    }
-
-    if(features.minify){
-        buttons.push({
-            buttonClasses: ['fos-minify-button'],
-            title: 'Save & Minify',
-            label: 'Minify',
-            icon: 'fa-file-archive-o'
-            //icon: 'fa-compress',
-            //iconClass: 'fos-fa-rotate-45'
-        });
-    }
-
     if(features.save){
         buttons.push({
             buttonClasses: ['fos-save-button'],
@@ -81,9 +61,7 @@ export class ApexFileEditor extends MonacoEditor{
         editorElement.classList.add('fos-code-editor');
 
         const toolbarElement = createToolbar({
-            save: !!config.save,
-            minify: !!config.minify,
-            compile: !!config.compile
+            save: !!config.save
         });
         config.element.append(toolbarElement);
 
@@ -96,12 +74,6 @@ export class ApexFileEditor extends MonacoEditor{
 
         if(this.config.save){
             this.saveButton = toolbarElement.getElementsByClassName('fos-save-button')[0];
-        }
-        if(this.config.minify){
-            this.minifyButton = toolbarElement.getElementsByClassName('fos-minify-button')[0];
-        }
-        if(this.config.compile){
-            this.compileButton = toolbarElement.getElementsByClassName('fos-compile-button')[0];
         }
     }
 
@@ -122,32 +94,6 @@ export class ApexFileEditor extends MonacoEditor{
             }
             this.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, this.save);
             this.saveButton.addEventListener('click', this.save);
-        }
-
-        if(this.config.minify){
-            this.minify = function(){
-                me.config.minify().then(response => {
-                    if(response.ok){
-                        me.initialValue = me.editor.getValue();
-                        me.evaluateChangeIcon();
-                    }
-                });
-            }
-            //this.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, this.save);
-            this.minifyButton.addEventListener('click', this.minify);
-        }
-
-        if(this.config.compile){
-            this.compile = function(){
-                me.config.compile().then(response => {
-                    if(response.ok){
-                        me.initialValue = me.editor.getValue();
-                        me.evaluateChangeIcon();
-                    }
-                });
-            }
-            //this.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, this.save);
-            this.compileButton.addEventListener('click', this.compile);
         }
 
         this.editor.onDidChangeModelContent(() => this.evaluateChangeIcon());

@@ -233,7 +233,7 @@ async function openFileEditor(fullFileName){
         if(options.minify){
             let result;
             if(file.extension == 'js'){
-                result = fileProcesses.minifyJsFile(file);
+                result = await fileProcesses.minifyJsFile(file);
             } else if (file.extension == 'css'){
                 result = fileProcesses.minifyCssFile(file);
             }
@@ -283,36 +283,25 @@ async function openFileEditor(fullFileName){
 
     function onNewContainerCreated(container){
 
-        const saveFunction = (!fileIsMinified && !readOnly) ?
-            (function(minify, compile){
-                return async function(){
-                    return saveFile({minify: minify, compile: compile});
-                };
-            })(false, false) : undefined;
-        
-        const minifyFunction = ((['js', 'css'].indexOf(file.extension) > -1 && !fileIsMinified) && !readOnly) ?
-            (function(minify, compile){
-                return async function(){
-                    return saveFile({minify: minify, compile: compile});
-                };
-            })(true, false) : undefined;
-        
-        const compileFunction = (file.extension == 'less' && !readOnly) ?
-            (function(minify, compile){
-                return async function(){
-                    return saveFile({minify: minify, compile: compile});
-                };
-            })(false, true) : undefined;
+        let saveFunction;
+
+        if(!fileIsMinified && !readOnly){
+            saveFunction = async function(){
+                return saveFile({
+                    minify: (['js', 'css'].indexOf(file.extension) > -1 && !fileIsMinified),
+                    compile: file.extension == 'less'
+                });
+            }
+        }
 
         editor = new ApexFileEditor({
             element: container.getElement()[0],
             language: ApexFileEditor.getLanguageByExtension(file.extension),
             value: content,
             readOnly: fileIsMinified || readOnly,
-            save: saveFunction,
-            minify: minifyFunction,
-            compile: compileFunction
+            save: saveFunction
         });
+
         editor.init()
         .then(() => {
             container.on('resize', function(){
@@ -383,6 +372,16 @@ export async function setupEnvironment(options){
         $('.a-Region-headerItems--buttons', fileEditorRegion$).append(createFileButton$);
     }
     fileEditorRegion$.insertAfter(options.insertRegionAfterSelector);
+
+    /*
+     * Preventing horizontal scrolling on the editor container to avoid accidentally going to previous page
+     * This occurs mostly on during two-finger-scroll
+     */
+    $('#fos-files-layout').on('mousewheel', function(event, delta){ 
+        if (event.originalEvent.wheelDeltaX !== 0){
+            event.preventDefault();
+        }
+    });
 
     //fixing some css for the static files pages
     if(['40', '312'].indexOf(pageId) > -1){

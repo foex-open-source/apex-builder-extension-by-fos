@@ -65,7 +65,7 @@ markup.createNewFile =
                 </div>
                 <div class="a-ButtonRegion-col a-ButtonRegion-col--right">
                     <div class="a-ButtonRegion-buttons">
-                        <button id="fos-new-file-dialog-save-button" class="a-Button a-Button--hot" type="button">Save</button>
+                        <button id="fos-new-file-dialog-save-button" class="a-Button a-Button--hot" type="button">Create</button>
                     </div>
                 </div>
             </div>

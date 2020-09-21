@@ -1,22 +1,22 @@
-import Terser from 'terser';
+import {minify} from 'terser';
 import * as staticFiles from './staticFiles.js';
 import less from 'less';
 import csso from '../../node_modules/csso/dist/csso.js';
 
-const minifyJsFile = file => {
+const minifyJsFile = async function(file) {
     const files = [];
     const minifiedFileName = staticFiles.util.getMinifiedFileName(file.fileName);
     const mapFileName = staticFiles.util.getMapFileName(file.fileName);
-    const result = Terser.minify({
-        [file.fileName]: file.content
-    }, {
-        sourceMap: {
-            filename: file.fileName,
-            url: mapFileName
-        }
-    });
 
-    if(!result.error){
+    try {
+        const result = await minify({
+            [file.fileName]: file.content
+        }, {
+            sourceMap: {
+                filename: file.fileName,
+                url: mapFileName
+            }
+        });
         files.push({
             content: result.code,
             fileName: minifiedFileName,
@@ -29,21 +29,20 @@ const minifyJsFile = file => {
             directory: file.directory,
             mimeType: 'application/json'
         });
-    } else {
-        const message = [
-            'Could not minify file',
-            `${result.error.name} at Line ${result.error.line} Column ${result.error.col}`,
-            result.error.message
-        ].join('\n');
+        return {
+            success: true,
+            files: files
+        };
+    } catch (error) {
         return {
             success: false,
-            message: message
+            message: [
+                'Could not minify file',
+                `${error.name} at Line ${error.line} Column ${error.col}`,
+                error.message
+            ].join('\n')
         };
     }
-    return {
-        success: true,
-        files: files
-    };
 }
 
 const minifyCssFile = file => {

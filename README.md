@@ -36,6 +36,7 @@ npm run pack-firefox  # will create dist/firefox.zip
 
 version | changes
 --------|--------------
+0.4.0   | Upgraded Monaco Editor & Terser
 0.3.0   | CSS minification, sourcemap generation, plug-in boilerplate code
 0.2.1   | Fixed color mode detection on cloud instances
 
