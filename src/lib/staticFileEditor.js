@@ -14,7 +14,7 @@ const fileSelectorId = 'FOS_STATIC_FILE_SELECTOR';
 
 let readOnly;
 
-const pageId = document.getElementById('pFlowStepId').value;
+const pageId = globalUtil.getPageId();
 
 // -------------------------------------------------------
 // Utility functions
@@ -40,7 +40,7 @@ const util = {
     },
     getUploadPageUrl: function(){
         let uploadFilesButton$;
-        if(pageId == 4410){
+        if([267, 4410].includes(pageId)){
             uploadFilesButton$ = $('#FILES .a-Region-headerItems.a-Region-headerItems--buttons button').last();
         } else {
             uploadFilesButton$ = $('.a-IRR-region .a-Button.a-Button--hot').last();
@@ -54,7 +54,7 @@ const util = {
         if(!openedFiles || !openedFiles.length){
             return false;
         }
-        return openedFiles.map(file => file.editor.valueHasChanged()).indexOf(true) > -1;
+        return openedFiles.map(file => file.editor.valueHasChanged()).includes(true);
     },
     resizeFilesLayout(){
         if(filesLayout){
@@ -137,7 +137,7 @@ function addNewFileClick(){
         }
 
         //check if extension is allowed
-        if(staticFiles.editableFileExtentions.indexOf(staticFiles.util.getExtensionFromFileName(fileName))==-1){
+        if(!staticFiles.editableFileExtentions.includes(staticFiles.util.getExtensionFromFileName(fileName))){
             globalUtil.showItemError('fos-new-file-name', 'The file\'s extension is not allowed.');
             return;
         }
@@ -288,7 +288,7 @@ async function openFileEditor(fullFileName){
         if(!fileIsMinified && !readOnly){
             saveFunction = async function(){
                 return saveFile({
-                    minify: (['js', 'css'].indexOf(file.extension) > -1 && !fileIsMinified),
+                    minify: (['js', 'css'].includes(file.extension) && !fileIsMinified),
                     compile: file.extension == 'less'
                 });
             }
@@ -384,7 +384,7 @@ export async function setupEnvironment(options){
     });
 
     //fixing some css for the static files pages
-    if(['40', '312'].indexOf(pageId) > -1){
+    if([40, 312].includes(pageId)){
         $('#fos-files-region .a-Region').css('border-top', 'none');
     }
 

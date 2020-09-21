@@ -3,7 +3,7 @@ import * as data from './data.js';
 import * as global from './lib/util.js';
 import * as colorMode from './lib/colorMode.js';
 
-const pageId = parseInt(document.getElementById('pFlowStepId').value);
+const pageId = global.getPageId();
 const fosExtensionBase = window.fosExtensionBase;
 
 function injectStyle(href){
@@ -51,6 +51,15 @@ if([40, 312].indexOf(pageId) > -1){
             readOnly: false,
             listenToApplyChanges: false,
             insertRegionAfterSelector: '#APEX_ERROR_MESSAGE'
+        });
+    })();
+} else if (pageId == 267){
+    (async function(){
+        staticFileEditor.setupEnvironment({
+            autoOpenFiles: [],
+            readOnly: false,
+            listenToApplyChanges: false,
+            insertRegionAfterSelector: '#FILES'
         });
     })();
 } else if (pageId == 4410){

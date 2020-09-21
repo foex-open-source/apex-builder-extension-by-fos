@@ -1,15 +1,24 @@
+import {getPageId} from './util.js';
 
 // files should be passed on as: [{directory, fileName, mimeType, content}]
 // returns a promise that resolves to an object of {ok: boolean, error: string}
 const uploadPluginFiles = async function(uploadPageUrl, files){
 
-    let pageId = document.getElementById('pFlowStepId').value;
-    if(pageId == '4410'){
-        pageId = '4430';
-    } else if(pageId == '312'){
-        pageId = '314';
-    } else if(pageId == '40'){
-        pageId = '271';
+    let pageId = getPageId();
+
+    switch(pageId){
+        case 40:
+            pageId = 271;
+            break;
+        case 267:
+            pageId = 120;
+            break;
+        case 312:
+            pageId = 314;
+            break;
+        case 4410:
+            pageId = 4430;
+            break;
     }
 
     return fetch(uploadPageUrl, {
@@ -53,12 +62,21 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
             salt: $('#pSalt', doc$).val()
         };
 
-        //for plugin files we need to submit one more item
+        // for plugin files we need to also submit the plugin id
         if(pageId == 4430){
             p_json.pageItems.itemsToSubmit.push({ 
                 n: 'P4430_PLUGIN_ID',
                 v: $('#P4430_PLUGIN_ID', doc$).val(),
                 ck: $('input[data-for=P4430_PLUGIN_ID]', doc$).val()
+            });
+        }
+
+        // for theme files we need to also submit the theme id
+        if(pageId == 120){
+            p_json.pageItems.itemsToSubmit.push({ 
+                n: 'P120_THEME_ID',
+                v: $('#P120_THEME_ID', doc$).val(),
+                ck: $('input[data-for=P120_THEME_ID]', doc$).val()
             });
         }
 

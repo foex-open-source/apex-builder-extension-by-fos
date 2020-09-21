@@ -12,7 +12,7 @@
 
 import * as globalUtil from './util.js';
 
-const pageId = document.getElementById('pFlowStepId').value;
+const pageId = globalUtil.getPageId();
 
 let files = [];
 let filesFetchedOnce = false;
@@ -262,7 +262,7 @@ const getFilesDataFromIR = async function(forceRefresh){
 }
 
 const getFilesData = async function(forceRefresh){
-    if(pageId == 4410){
+    if([4410, 267].includes(pageId)){
         return getFilesDataFromCR(forceRefresh);
     } else {
         return getFilesDataFromIR(forceRefresh);

@@ -49,6 +49,8 @@ function injectStyle(href){
 
     head.appendChild(link);  
 }
-
-export {showPageSuccess, showPageError, showItemError, injectScript, injectStyle, apexVersion};
+function getPageId(){
+    return parseInt(document.getElementById('pFlowStepId').value);
+}
+export {showPageSuccess, showPageError, showItemError, injectScript, injectStyle, apexVersion, getPageId};
 
