@@ -32,6 +32,10 @@ npm run pack-chrome   # will create dist/chrome.zip
 npm run pack-firefox  # will create dist/firefox.zip
 ```
 
+## Changelog
+
+See [here](https://github.com/foex-open-source/apex-builder-extension-by-fos/blob/master/CHANGELOG.md)
+
 ## License
 
 MIT
