@@ -32,14 +32,6 @@ npm run pack-chrome   # will create dist/chrome.zip
 npm run pack-firefox  # will create dist/firefox.zip
 ```
 
-## Changelog
-
-version | changes
---------|--------------
-0.4.0   | Upgraded Monaco Editor & Terser. Theme files support. Fixed constant "Go Back" browser action on 2 finger horizontal scroll
-0.3.0   | CSS minification, sourcemap generation, plug-in boilerplate code
-0.2.1   | Fixed color mode detection on cloud instances
-
 ## License
 
 MIT

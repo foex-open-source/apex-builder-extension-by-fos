@@ -1,11 +1,4 @@
-import * as colorMode from './colorMode.js';
-import { setTheme, setupMonaco } from './monacoEditorHelper.js';
-
-document.addEventListener('fosThemeChange', function () {
-    if (window.monaco) {
-        setTheme(colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs');
-    }
-});
+import { setupMonaco, getAppropriateMonacoTheme } from './monacoEditorHelper';
 
 let configuredPromise;
 
@@ -32,17 +25,15 @@ export class MonacoEditor {
 
         return new Promise((resolve) => {
 
-            const theme = colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs';
-
             if (!configuredPromise) {
-                configuredPromise = setupMonaco(theme);
+                configuredPromise = setupMonaco();
             }
 
             configuredPromise.then(() => {
                 self.editor = monaco.editor.create(self.config.element, {
                     value: self.config.value,
                     language: self.config.language,
-                    theme: theme,
+                    theme: getAppropriateMonacoTheme(),
                     scrollbar: {
                         alwaysConsumeMouseWheel: false
                     },

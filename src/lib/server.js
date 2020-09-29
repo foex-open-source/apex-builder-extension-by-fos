@@ -1,4 +1,4 @@
-import {getPageId} from './util.js';
+import {getPageId} from './util';
 
 // files should be passed on as: [{directory, fileName, mimeType, content}]
 // returns a promise that resolves to an object of {ok: boolean, error: string}

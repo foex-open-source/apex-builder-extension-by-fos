@@ -1,4 +1,4 @@
-import { MonacoEditor } from "./MonacoEditor.js";
+import { MonacoEditor } from './MonacoEditor';
 
 function createToolbar(features){
 

@@ -1,12 +1,12 @@
 import {minify} from 'terser';
-import * as staticFiles from './staticFiles.js';
+import * as staticFiles from './staticFiles';
 import less from 'less';
-import csso from '../../node_modules/csso/dist/csso.js';
+import csso from '../../node_modules/csso/dist/csso';
 
 const minifyJsFile = async function(file) {
     const files = [];
-    const minifiedFileName = staticFiles.util.getMinifiedFileName(file.fileName);
-    const mapFileName = staticFiles.util.getMapFileName(file.fileName);
+    const minifiedFileName = staticFiles.filesUtil.getMinifiedFileName(file.fileName);
+    const mapFileName = staticFiles.filesUtil.getMapFileName(file.fileName);
 
     try {
         const result = await minify({
@@ -47,8 +47,8 @@ const minifyJsFile = async function(file) {
 
 const minifyCssFile = file => {
     const files = [];
-    const minifiedFileName = staticFiles.util.getMinifiedFileName(file.fileName);
-    const mapFileName = staticFiles.util.getMapFileName(file.fileName);
+    const minifiedFileName = staticFiles.filesUtil.getMinifiedFileName(file.fileName);
+    const mapFileName = staticFiles.filesUtil.getMapFileName(file.fileName);
     const cssoResult = csso.minify(file.content, {
         sourceMap: true,
         filename: file.fileName
@@ -89,7 +89,7 @@ const compileLessFile = async function(file) {
     }
     files.push({
         content: lessResult.css,
-        fileName: staticFiles.util.replaceExtension(file.fileName, 'css'),
+        fileName: staticFiles.filesUtil.replaceExtension(file.fileName, 'css'),
         directory: file.directory,
         mimeType: staticFiles.mimeTypes['css']
     });

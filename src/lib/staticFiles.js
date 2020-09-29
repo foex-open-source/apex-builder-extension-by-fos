@@ -10,9 +10,9 @@
     }]
 */
 
-import * as globalUtil from './util.js';
+import * as util from './util';
 
-const pageId = globalUtil.getPageId();
+const pageId = util.getPageId();
 
 let files = [];
 let filesFetchedOnce = false;
@@ -28,7 +28,7 @@ const mimeTypes = {
     scss: 'text/plain',
 };
 
-const util = {
+const filesUtil = {
     fileIsMinified: function(fileName){
         return fileName.indexOf('.min.') >= 0;
     },
@@ -61,7 +61,7 @@ const util = {
         return files.map(file => file.fullFileName).indexOf(fullFileName) > -1;
     },
     getMimeTypeFromFileName: function(fileName){
-        const extension = util.getExtensionFromFileName(fileName);
+        const extension = filesUtil.getExtensionFromFileName(fileName);
         return mimeTypes[extension];
     },
     replaceExtension: function(fileName, newExtension){
@@ -97,9 +97,9 @@ const getFilesDataFromCR = async function(forceRefresh){
                     switch ($(this).attr('headers')){
                         case 'FILE_NAME':
                             obj.fullFileName = innerText;
-                            obj.directory = util.getDirectoryFromFullFileName(innerText);
-                            obj.fileName = util.getFileNameFromFullFileName(innerText);
-                            obj.extension = util.getExtensionFromFileName(innerText);
+                            obj.directory = filesUtil.getDirectoryFromFullFileName(innerText);
+                            obj.fileName = filesUtil.getFileNameFromFullFileName(innerText);
+                            obj.extension = filesUtil.getExtensionFromFileName(innerText);
                             break;
                         case 'MIME_TYPE':
                             obj.mimeType = innerText;
@@ -132,7 +132,7 @@ const getFilesDataFromCR = async function(forceRefresh){
             formData.append('p_flow_step_id', '4410');
             formData.append('p_instance', $('#pInstance').val());
             formData.append('p_debug', '');
-            if(globalUtil.apexVersion == '5.1'){
+            if(util.apexVersion == '5.1'){
                 formData.append('p_request', 'APXWGT');
             } else {
                 formData.append('p_request', 'PLUGIN=' + p_request_plugin);
@@ -142,7 +142,7 @@ const getFilesDataFromCR = async function(forceRefresh){
             formData.append('p_pg_max_rows', '1000');
             formData.append('p_pg_rows_fetched', '0');
 
-            if(globalUtil.apexVersion == '5.1'){
+            if(util.apexVersion == '5.1'){
                 formData.append('p_widget_name', 'classic_report');
             }
             
@@ -202,9 +202,9 @@ const getFilesDataFromIR = async function(forceRefresh){
             const cell4 = $(this).children().eq(4);         //file
 
             obj.fullFileName = cell0;
-            obj.directory = util.getDirectoryFromFullFileName(cell0);
-            obj.fileName = util.getFileNameFromFullFileName(cell0);
-            obj.extension = util.getExtensionFromFileName(cell0);
+            obj.directory = filesUtil.getDirectoryFromFullFileName(cell0);
+            obj.fileName = filesUtil.getFileNameFromFullFileName(cell0);
+            obj.extension = filesUtil.getExtensionFromFileName(cell0);
             obj.mimeType = cell1;
             obj.fileSize = cell2;
             obj.link = $(':first-child', cell4).attr('href');
@@ -293,4 +293,4 @@ const getFileObjectByFullFileName = function(fullFileName){
     })[0];
 };
 
-export {getEditableFiles, getFileObjectByFullFileName, util, editableFileExtentions, files, mimeTypes};
+export {getEditableFiles, getFileObjectByFullFileName, filesUtil, editableFileExtentions, files, mimeTypes};

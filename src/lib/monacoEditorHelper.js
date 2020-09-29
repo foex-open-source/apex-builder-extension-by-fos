@@ -1,3 +1,5 @@
+import * as util from './util';
+import * as colorMode from './colorMode';
 
 const base = window.fosExtensionBase;
 
@@ -206,7 +208,8 @@ async function setup(monaco, vsctm, oniguruma, themes, initialTheme, resolve) {
 
 // this function should be invoked only once
 // it sets up the entire monaco environament and resolves the promise it returns when done
-export function setupMonaco(initialTheme) {
+export function setupMonaco() {
+
     return new Promise(resolve => {
 
         const requirejsPromise = window.require == undefined
@@ -217,13 +220,35 @@ export function setupMonaco(initialTheme) {
             require.config({ paths: { 'vs': PATHS.vsBase } });
 
             require([PATHS.monaco, PATHS.vsctm, PATHS.vscog, PATHS.tmThemes], function (monaco, textmate, oniguruma, themes) {
-                setup(monaco, textmate, oniguruma, themes, initialTheme, resolve);
+                setup(monaco, textmate, oniguruma, themes, getAppropriateMonacoTheme(), resolve);
             });
         });
     });
 }
 
-export function setTheme(theme) {
-    registry.setTheme(getTmTheme(theme));
-    monaco.editor.setTheme(theme);
+// expects vs or vs-dark
+function setTheme(theme) {
+    if(window.monaco){
+        registry.setTheme(getTmTheme(theme));
+        monaco.editor.setTheme(theme);
+    }
 }
+
+// returns vs or vs-dark according to the current preference
+export function getAppropriateMonacoTheme(){
+    let theme = util.getPreference(util.PREFERENCES.theme);
+
+    if(theme == 'automatic' || !theme){
+        theme = colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs';
+    }
+
+    return theme;
+}
+
+export function resetTheme(){
+    setTheme(getAppropriateMonacoTheme())
+}
+
+document.addEventListener('fosThemeChange', function () {
+    resetTheme();
+});
