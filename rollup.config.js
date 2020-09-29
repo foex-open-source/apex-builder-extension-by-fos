@@ -30,8 +30,7 @@ const plugins = [
         }, {
             src: 'node_modules/monaco-editor-slim/min-maps',
             dest: outputFolder + 'third-party/monaco-editor/'
-        },
-        {
+        }, {
             src: 'node_modules/vscode-oniguruma/release/*',
             dest: outputFolder + 'third-party/vscode-oniguruma/'
         }, {

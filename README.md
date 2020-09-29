@@ -34,7 +34,8 @@ npm run pack-firefox  # will create dist/firefox.zip
 ## Compatibility
 
 - APEX 5.1+
-- Latest Chrome/Firefox
+- Last 2 versions of Firefox
+- Last 2 versions of Chrome
 
 ## Changelog
 
