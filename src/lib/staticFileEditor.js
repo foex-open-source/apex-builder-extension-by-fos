@@ -99,7 +99,7 @@ async function saveFiles(files) {
         server.uploadPluginFiles(util.getUploadPageUrl(), files)
             .then(response => {
                 if (response.ok) {
-                    util.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
+                    globalUtil.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
                     spinner$.remove();
                     resolve({ ok: true });
                 } else {
@@ -375,11 +375,11 @@ export async function setupEnvironment(options) {
                 items: [{
                     type: 'radioGroup',
                     set: function (value) {
-                        globalUtil.setPreference(util.PREFERENCES.theme, value);
+                        globalUtil.setPreference(globalUtil.PREFERENCES.theme, value);
                         resetTheme();
                     },
                     get: function () {
-                        let theme = globalUtil.getPreference(util.PREFERENCES.theme);
+                        let theme = globalUtil.getPreference(globalUtil.PREFERENCES.theme);
                         if (!theme) {
                             theme = 'automatic';
                         }

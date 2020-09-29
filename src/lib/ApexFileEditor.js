@@ -78,13 +78,15 @@ export class ApexFileEditor extends MonacoEditor{
     }
 
     async init(){
+
         await super.init();
-        this.initialValue = this.config.value;
 
-        const me = this;
-
-        if(this.config.save){
-            this.save = function(){
+        const me = this;    
+        me.initialValue = me.config.value;
+    
+        
+        if(me.config.save){
+            me.save = function(){
                 me.config.save().then(response => {
                     if(response.ok){
                         me.initialValue = me.editor.getValue();
@@ -92,11 +94,11 @@ export class ApexFileEditor extends MonacoEditor{
                     }
                 });
             }
-            this.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, this.save);
-            this.saveButton.addEventListener('click', this.save);
+            me.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, me.save);
+            me.saveButton.addEventListener('click', me.save);
         }
 
-        this.editor.onDidChangeModelContent(() => this.evaluateChangeIcon());
+        me.editor.onDidChangeModelContent(() => me.evaluateChangeIcon());
     }
 
     evaluateChangeIcon(){

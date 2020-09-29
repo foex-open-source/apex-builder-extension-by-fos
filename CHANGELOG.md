@@ -2,10 +2,11 @@
 
 ### 20.1.0
 
+- Added editing of theme files on page 267
 - Syntax highlighting is now based on TextMate grammars
-- Save button now saves, compiles, minifies etc
-- Upgraded Monaco Editor & Terser
+- Save button now saves, compiles and minifies
 - Added settings menu. First option: Theme selection
+- Upgraded Monaco Editor & Terser
 - Added fix to avoid accidental browser "Back" action when horizontally scrolling
 - Changed versioning system to match APEX
 

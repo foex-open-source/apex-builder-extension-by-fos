@@ -32,6 +32,11 @@ npm run pack-chrome   # will create dist/chrome.zip
 npm run pack-firefox  # will create dist/firefox.zip
 ```
 
+## Compatibility
+
+- APEX 5.1+
+- Latest Chrome/Firefox
+
 ## Changelog
 
 See [here](https://github.com/foex-open-source/apex-builder-extension-by-fos/blob/master/CHANGELOG.md)
