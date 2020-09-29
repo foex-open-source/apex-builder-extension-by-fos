@@ -10,9 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && rollup -c",
+    "build-firefox": "npm run clean && rollup -c --environment BROWSER:firefox",
     "firefox": "cd dist/unpacked && web-ext run",
-    "pack-chrome": "zip -r -X -q dist/chrome.zip dist/unpacked",
-    "pack-firefox": "cd dist/unpacked && web-ext build && mv web-ext-artifacts/*.zip ../firefox.zip && rmdir web-ext-artifacts"
+    "pack-chrome": "npm run build && zip -r -X -q dist/chrome.zip dist/unpacked",
+    "pack-firefox": "npm run build-firefox && cd dist/unpacked && web-ext build && mv web-ext-artifacts/*.zip ../firefox.zip && rmdir web-ext-artifacts"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-replace": "^2.3.3",
     "csso": "^4.0.3",
     "golden-layout": "^1.5.9",
     "less": "^3.12.2",

@@ -2,13 +2,14 @@ import * as globalUtil from './util';
 import * as colorMode from './colorMode';
 
 const base = window.fosExtensionBase;
+const monacoBase = __MONACO_BASE__; // gets replaced during the build
 
 const PATHS = {
-    loaderJs: base + 'third-party/monaco-editor/min/vs/loader.js',
-    vsBaseMin: base + 'third-party/monaco-editor/min/',
-    vsBase: base + 'third-party/monaco-editor/min/vs',
+    loaderJs: monacoBase + 'min/vs/loader.js',
+    vsBaseMin: monacoBase + 'min/',
+    vsBase: monacoBase + 'min/vs',
     monaco: 'vs/editor/editor.main',
-    monacoDefaultWorker: base + 'third-party/monaco-editor/min/vs/base/worker/workerMain.js',
+    monacoDefaultWorker: monacoBase + 'min/vs/base/worker/workerMain.js',
     vsctm: base + 'third-party/vscode-textmate/main.js',
     vscog: base + 'third-party/vscode-oniguruma/main.js',
     onigWasm: base + 'third-party/vscode-oniguruma/onig.wasm',

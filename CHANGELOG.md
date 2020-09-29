@@ -10,7 +10,7 @@
 - Added fix to avoid accidental browser "Back" action when horizontally scrolling
 - Changed versioning system to match APEX
 
-#### Breaking changes
+#### Major changes
 
 - The Firefox add-on does not work offline anymore. Due to a file size restriction of 4MB, Monaco cannot be bundled with the extension anymore (tsWorker.js is the culprit). The library will be loaded through a CDN instead.
 

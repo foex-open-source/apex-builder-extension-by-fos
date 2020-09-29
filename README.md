@@ -22,11 +22,12 @@ The APEX Builder Extension by FOS is a free and open-source Chrome & Firefox bro
 Feel free to fork this repo if you'd like to contribute or build your own version.
 
 ```bash
-# get up and running
+# develop
 npm install
 npm run build         # will create dist/unpacked
 
-# create packed extensions
+# create final extensions
+npm install
 npm run pack-chrome   # will create dist/chrome.zip
 npm run pack-firefox  # will create dist/firefox.zip
 ```
