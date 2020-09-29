@@ -25,12 +25,19 @@ const plugins = [
             ],
             dest: outputFolder + 'css/golden-layout/'
         }, {
-            src: 'node_modules/monaco-editor/min',
+            src: 'node_modules/monaco-editor-slim/min',
             dest: outputFolder + 'third-party/monaco-editor/'
         }, {
-            src: 'node_modules/monaco-editor/min-maps',
+            src: 'node_modules/monaco-editor-slim/min-maps',
             dest: outputFolder + 'third-party/monaco-editor/'
+        },
+        {
+            src: 'node_modules/vscode-oniguruma/release/*',
+            dest: outputFolder + 'third-party/vscode-oniguruma/'
         }, {
+            src: 'node_modules/vscode-textmate/release/*',
+            dest: outputFolder + 'third-party/vscode-textmate/'
+        },{
             src: 'src/third-party/font-apex-2.1',
             dest: outputFolder + 'third-party/'
         }]

@@ -2,6 +2,10 @@ const fullVersion = $('.a-Footer-version').text();
 const versionParts = fullVersion.replace('Application Express ', '').split('.');
 const apexVersion = versionParts[0] + '.' + versionParts[1];
 
+const PREFERENCES = {
+    theme: 'theme'
+};
+
 function showPageSuccess(message){
     apex.message.showPageSuccess(message);
 }
@@ -52,5 +56,15 @@ function injectStyle(href){
 function getPageId(){
     return parseInt(document.getElementById('pFlowStepId').value);
 }
-export {showPageSuccess, showPageError, showItemError, injectScript, injectStyle, apexVersion, getPageId};
+
+function getPreferece(name){
+    if(name == PREFERENCES.theme){
+        return 'automatic';
+    }
+
+    console.warn('FOS - Unknown setting name', name);
+    return null;
+}
+
+export {PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle, apexVersion, getPageId, getPreferece};
 

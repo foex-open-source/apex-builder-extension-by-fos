@@ -363,14 +363,50 @@ export async function setupEnvironment(options){
     
     readOnly = options.readOnly;
 
-    //Adding the Edit Files region
+    // Creating the Settings Menu
+    const menu$ = $('<div id="fos-settings-menu"/>');
+    $('body').append(menu$);
+    menu$.menu({
+        items: [{
+            type: 'subMenu',
+            label: 'Theme',
+            menu: {
+                items: [{
+                    type: 'radioGroup',
+                    set: function(value){
+                    },
+                    get: function(){
+                        let theme = globalUtil.getPreferece(globalUtil.PREFERENCES.theme);
+                        if(!theme){
+                            theme = 'autometic';
+                        }
+                        return theme;
+                    },
+                    choices: [
+                        {label: 'Automatic', value: 'automatic'},
+                        {label: 'Light', value: 'light'},
+                        {label: 'Dark', value: 'dark'},
+                    ]
+                }]
+            }
+        }]
+    });
+
+    // Adding the Edit Files region
     const fileEditorRegion$ = $(common.markup.staticFileEditor);
     $('#fos-files-layout', fileEditorRegion$).css('display', 'none');
+
+    const buttonsContainer$ = $('.a-Region-headerItems--buttons', fileEditorRegion$);
+    
+    const settingsButton$ = $('<button data-menu="fos-settings-menu" class="a-Button a-Button--noLabel a-Button--withIcon js-menuButton" aria-label="Create File" title="Create File" type="button" aria-expanded="false"><span aria-hidden="true" class="fa fa-gear"></span></button>');
+    buttonsContainer$.append(settingsButton$);
+
     if(!readOnly){
-        const createFileButton$ = $('<button class="a-Button" type="button">Create File</button>');
+        const createFileButton$ = $('<button type="button" title="Create File" aria-label="Create File" class="a-Button a-Button--noLabel a-Button--withIcon"><span aria-hidden="true" class="fa fa-file-o"></span></button>');
         createFileButton$.on('click', addNewFileClick);
-        $('.a-Region-headerItems--buttons', fileEditorRegion$).append(createFileButton$);
+        buttonsContainer$.append(createFileButton$);
     }
+
     fileEditorRegion$.insertAfter(options.insertRegionAfterSelector);
 
     /*
