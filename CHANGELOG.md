@@ -1,5 +1,9 @@
 ## Changelog
 
+### 20.1.1
+
+- Improved syntax highlighting
+
 ### 20.1.0
 
 - Added editing of theme files on page 267

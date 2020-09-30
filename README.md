@@ -15,7 +15,7 @@ The APEX Builder Extension by FOS is a free and open-source Chrome & Firefox bro
 - Allows the editing of multiple files at once. Simply open a new file, and drag the tab
 - Save changes without a page submit
 - Create new JavaScript, CSS, Less, JSON and HTML files right in the builder
-- Minification of JavaScript files and compilation of Less files
+- Minify JavaScript and CSS files, and compile Less files
 
 ## Build
 
