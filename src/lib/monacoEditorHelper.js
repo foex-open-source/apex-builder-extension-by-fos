@@ -19,6 +19,7 @@ const PATHS = {
 };
 
 let tmThemes;
+let registry;
 
 function getTmTheme(themeName) {
     if (themeName == 'vs') {
@@ -38,15 +39,14 @@ async function setup(monaco, vsctm, oniguruma, themes, initialTheme, resolve) {
         "inherit": false,
         "base": "vs",
         "rules": [],
-        "encodedTokensColors": ["#000000", "#FFFFFF", "#008000", "#0000FF", "#811F3F", "#EE0000", "#098658", "#0451A5", "#267F99", "#795E26", "#AF00DB", "#800000", "#001080", "#FF0000", "#CD3131", "#D16969", "#000080", "#A31515", "#000000FF", "#0070C1"]
+        "encodedTokensColors": ["#000000", "#FFFFFF", "#008000", "#0000FF", "#811F3F", "#EE0000", "#098658", "#0451A5", "#267F99", "#795E26", "#AF00DB", "#800000", "#001080", "#FF0000", "#CD3131", "#D16969", "#000080", "#A31515", "#800080", "#316BCD", "#CD9731", "#0070C1"]
     });
     monaco.editor.defineTheme('vs-dark', {
         "inherit": false,
         "base": "vs-dark",
         "rules": [],
-        "encodedTokensColors": ["#D4D4D4", "#1E1E1E", "#6A9955", "#569CD6", "#D16969", "#D7BA7D", "#B5CEA8", "#CE9178", "#646695", "#4EC9B0", "#DCDCAA", "#C8C8C8", "#C586C0", "#9CDCFE", "#000080", "#F44747", "#6796E6", "#808080", "#4FC1FF"]
+        "encodedTokensColors": ["#D4D4D4", "#1E1E1E", "#6A9955", "#569CD6", "#D16969", "#D7BA7D", "#B5CEA8", "#CE9178", "#646695", "#4EC9B0", "#DCDCAA", "#C8C8C8", "#C586C0", "#9CDCFE", "#000080", "#F44747", "#6796E6", "#808080", "#B267E6", "#CD9731", "#4FC1FF"]
     });
-
 
     // https://github.com/microsoft/monaco-editor-webpack-plugin/issues/42
     window.MonacoEnvironment = {
@@ -61,7 +61,6 @@ async function setup(monaco, vsctm, oniguruma, themes, initialTheme, resolve) {
     };
 
     // beginning of tm grammar logic
-    let registry;
 
     const languages = [{
         id: 'typescript',
@@ -180,8 +179,6 @@ async function setup(monaco, vsctm, oniguruma, themes, initialTheme, resolve) {
         // Note that nothing will display without the theme!
         theme: getTmTheme(initialTheme)
     });
-
-    window.registry = registry;
 
     // We have to register all of the languages with Monaco synchronously before we can configure them.
     for (let i = 0; i < languages.length; i++) {
