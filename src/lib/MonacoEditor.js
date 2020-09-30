@@ -39,7 +39,6 @@ export class MonacoEditor {
                     },
                     readOnly: self.config.readOnly
                 });
-                window.editor = self.editor;
                 resolve();
             });
         });

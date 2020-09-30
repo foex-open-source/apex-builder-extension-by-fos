@@ -1182,8 +1182,5 @@ const tmVsDark = {
 };
 
 define(function () {
-    return {
-        tmVs: tmVs,
-        tmVsDark: tmVsDark
-    };
+    return { tmVs, tmVsDark };
 });

@@ -392,7 +392,7 @@ export async function setupEnvironment(options) {
                     choices: [
                         { label: 'Automatic', value: 'automatic' },
                         { label: 'Light', value: 'vs' },
-                        { label: 'Dark', value: 'vs-dark' },
+                        { label: 'Dark', value: 'vs-dark' }
                     ]
                 }]
             }
