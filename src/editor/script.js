@@ -20,19 +20,19 @@ function injectStyle(href){
 }
 
 const styles = [
-    'css/style.css',
-    'third-party/font-apex-2.1/css/font-apex.min.css',
-    'css/golden-layout/goldenlayout-base.css'
+    'editor/css/style.css',
+    'editor/third-party/font-apex-2.1/css/font-apex.min.css',
+    'editor/css/golden-layout/goldenlayout-base.css'
 ];
 
 const glStyles = {
-    light: 'css/golden-layout/goldenlayout-light-theme.css',
-    dark: 'css/golden-layout/goldenlayout-dark-theme.css'
+    light: 'editor/css/golden-layout/goldenlayout-light-theme.css',
+    dark: 'editor/css/golden-layout/goldenlayout-dark-theme.css'
 }
 
 colorMode.init();
 
-for(let i = 0; i<styles.length; i++){
+for(let i = 0; i < styles.length; i++){
     let elem = injectStyle(styles[i]);
 }
 
@@ -44,7 +44,7 @@ document.addEventListener('fosThemeChange', function(){
     glStyleElem = glStyleElemNew;
 });
 
-if([40, 312].indexOf(pageId) > -1){
+if([40, 312].includes(pageId)){
     (async function(){
         staticFileEditor.setupEnvironment({
             autoOpenFiles: [],

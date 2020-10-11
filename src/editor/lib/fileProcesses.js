@@ -1,7 +1,7 @@
 import {minify} from 'terser';
 import * as staticFiles from './staticFiles';
 import less from 'less';
-import csso from '../../node_modules/csso/dist/csso';
+import csso from '../../../node_modules/csso/dist/csso';
 
 const minifyJsFile = async function(file) {
     const files = [];
