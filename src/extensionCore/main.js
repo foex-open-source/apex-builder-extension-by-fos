@@ -24,6 +24,12 @@ async function injectScript(script) {
     }
 }
 
+const apexVersion = (function(){
+    const fullVersion = document.querySelector('head link[rel="stylesheet"]').href.match(/\?v=(.*)/)[1];
+    const versionParts = fullVersion.split('.');
+    return versionParts[0] + '.' + versionParts[1];
+})();
+
 // app 4000 is assumed
 // due to the match patterns in the manifest file,
 // the page will always be in (40, 267, 312, 4410, 4500)
@@ -39,4 +45,13 @@ const pageId = parseInt(window.location.search.split(':')[1]);
     if([40, 267, 312, 4410].includes(pageId)){
         await injectScript({src: 'bundle-editor.js'});
     }
+
+    if(pageId == 101 && apexVersion == '20.2'){
+        await injectScript({src: 'bundle-embeddedCode.js'});
+    }
+
+    if([1003, 4500, 4410].includes(pageId) && apexVersion == '20.2'){
+        await injectScript({src: 'bundle-monacoFixes.js'});
+    }
+
 })();

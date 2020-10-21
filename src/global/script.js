@@ -1,1 +1,0 @@
-console.log('APEX Browser Extension by FOS v20.2.0 🚀');

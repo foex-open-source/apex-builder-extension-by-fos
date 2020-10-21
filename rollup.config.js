@@ -106,7 +106,48 @@ const pdConfig = {
 }
 
 // -------------------------------------------------
+// Embedded Code Config
+// -------------------------------------------------
+
+const embeddedCodeConfig = {
+    input: 'src/embeddedCode/script.js',
+    output: [{
+        file: outputDir + 'bundle-embeddedCode.js',
+        format: 'iife'
+    }],
+    plugins: [
+        copy({
+            targets: [{
+                src: [
+                    'src/embeddedCode/third-party/prismjs/themes/*'
+                ],
+                dest: outputDir + 'third-party/prismjs/themes'
+        }]}),
+        resolve({
+            browser: true,
+            preferBuiltins: true
+        }),
+        babel({
+            exclude: 'node_modules/**',
+            babelHelpers: 'runtime'
+        })
+    ]
+}
+
+// -------------------------------------------------
+// Monaco Fixes
+// -------------------------------------------------
+
+const monacoFixesConfig = {
+    input: 'src/misc/monacoFixes.js',
+    output: [{
+        file: outputDir + 'bundle-monacoFixes.js',
+        format: 'iife'
+    }],
+}
+
+// -------------------------------------------------
 // Exporting everything
 // -------------------------------------------------
 
-export default [editorConfig, pdConfig];
+export default [editorConfig, pdConfig, embeddedCodeConfig, monacoFixesConfig];
