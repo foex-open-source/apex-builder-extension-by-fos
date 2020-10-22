@@ -49,7 +49,7 @@ function fixUpEditor(editor$){
 
     const renderWhitespaceVal = util.getPreference(util.PREFERENCES.renderWhitespace);
     // it is by default false anyway
-    if(renderWhitespaceVal && renderWhitespaceVal == 'all'){
+    if(renderWhitespaceVal && renderWhitespaceVal == 'true'){
         editor.updateOptions({renderWhitespace: 'all'});
     }
 

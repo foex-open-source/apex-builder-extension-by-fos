@@ -85,7 +85,7 @@ const editorConfig = {
             babelHelpers: 'runtime'
         })
     ]
-}
+};
 
 // -------------------------------------------------
 // Page Designer Config
@@ -103,7 +103,7 @@ const pdConfig = {
             babelHelpers: 'runtime'
         })
     ]
-}
+};
 
 // -------------------------------------------------
 // Embedded Code Config
@@ -132,19 +132,19 @@ const embeddedCodeConfig = {
             babelHelpers: 'runtime'
         })
     ]
-}
+};
 
 // -------------------------------------------------
 // Monaco Fixes
 // -------------------------------------------------
 
 const monacoFixesConfig = {
-    input: 'src/misc/monacoFixes.js',
+    input: 'src/monacoFixes/script.js',
     output: [{
         file: outputDir + 'bundle-monacoFixes.js',
         format: 'iife'
     }]
-}
+};
 
 // -------------------------------------------------
 // Exporting everything
