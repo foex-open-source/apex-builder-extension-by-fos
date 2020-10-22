@@ -1,6 +1,7 @@
 // This code runs on pages 1003, 4500, 4410 and is meant to fix some Monaco issues on APEX 20.2 (for now)
 // hacky, but it works: ping the page every so often and check if monaco was loaded. if so, set up the editor and stop listening
 // Feature #1: An extra settings menu entry that allows the user to disable suggestions. This preference will be stored in local storage
+// Feature #2: An extra setting to toggle on the renderWhitespace option.
 
 import * as util from '../global/util.js';
 
