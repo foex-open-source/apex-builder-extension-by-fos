@@ -8,7 +8,9 @@ const appId = parseInt(document.getElementById('pFlowStepId').value);
 const pageId = parseInt(document.getElementById('pFlowStepId').value);
 
 const PREFERENCES = {
-    theme: 'theme'
+    theme: 'theme',
+    showSuggestions: 'showSuggestions',
+    renderWhitespace: 'renderWhitespace'
 };
 
 const STORAGE_ITEM_NAME = 'fos_ext_preferences';

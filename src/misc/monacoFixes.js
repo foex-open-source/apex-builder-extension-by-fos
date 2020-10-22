@@ -1,7 +1,8 @@
 // This code runs on pages 1003, 4500, 4410 and is meant to fix some Monaco issues on APEX 20.2 (for now)
 // hacky, but it works: ping the page every so often and check if monaco was loaded. if so, set up the editor and stop listening
-
 // Feature #1: An extra settings menu entry that allows the user to disable suggestions. This preference will be stored in local storage
+
+import * as util from '../global/util.js';
 
 (function(){
 
@@ -15,7 +16,7 @@
         const toolbar$ = $('.a-MonacoEditor-toolbar', editor$);
         const context = toolbar$.toolbar('option', 'actionsContext');
 
-        // adding the new action on which the menu entry is based
+        // adding the new context action for suggestions
         context.add({
             name: 'show-suggestions',
             label: 'Show Suggestions',
@@ -24,22 +25,46 @@
             },
             set: function(value) {
                 editor.updateOptions({quickSuggestions: value});
-                localStorage.setItem(SUGGESTION_SETTING_NAME, value ? 'true' : 'false');
+                util.setPreference(util.PREFERENCES.showSuggestions, value ? 'true' : 'false');
+            }
+        });
+
+        // adding the new context action for white space
+        context.add({
+            name: 'render-whitespace',
+            label: 'Render Whitespace',
+            get: function() {
+                return editor.getRawOptions().renderWhitespace == 'all';
+            },
+            set: function(value) {
+                editor.updateOptions({renderWhitespace: value ? 'all' : 'none'});
+                util.setPreference(util.PREFERENCES.renderWhitespace, value ? 'true' : 'false');
             }
         });
 
         // sync local storage with editor
-        var settingVal = localStorage.getItem(SUGGESTION_SETTING_NAME);
+
+
+        const showSuggestionsVal = util.getPreference(util.PREFERENCES.showSuggestions);
         // it is by default true anyway
-        if(settingVal && settingVal == 'false'){
+        if(showSuggestionsVal && showSuggestionsVal == 'false'){
             editor.updateOptions({quickSuggestions: false});
         }
 
+        const renderWhitespaceVal = util.getPreference(util.PREFERENCES.renderWhitespace);
+        // it is by default false anyway
+        if(renderWhitespaceVal && renderWhitespaceVal == 'all'){
+            editor.updateOptions({renderWhitespace: 'all'});
+        }
+
         // now add the control to the menu
-        toolbar$.toolbar('findGroup', 'menuControls').controls[0].menu.items.push({
+        toolbar$.toolbar('findGroup', 'menuControls').controls[0].menu.items.push(...[{
             type: 'toggle',
             action: 'show-suggestions'
-        });
+        }, {
+            type: 'toggle',
+            action: 'render-whitespace'
+        }]);
     }
 
     let counter = 0;
