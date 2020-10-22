@@ -1,5 +1,10 @@
 ## Changelog
 
+### 20.1.2
+
+- APEX 20.2 specific: Ability to disable code editor suggestions
+- APEX 20.2 specific: Added syntax highlighting on the Embedded Code page
+
 ### 20.1.1
 
 - Improved syntax highlighting
