@@ -1,4 +1,4 @@
-import * as globalUtil from '../../global/util.js';
+import * as util from '../../global/util.js';
 import * as colorMode from './colorMode.js';
 
 const base = window.fosExtensionBase + 'editor/';
@@ -211,7 +211,7 @@ export function setupMonaco() {
     return new Promise(resolve => {
 
         const requirejsPromise = window.require == undefined
-            ? globalUtil.injectScript(PATHS.loaderJs)
+            ? util.injectScript(PATHS.loaderJs)
             : Promise.resolve();
 
         requirejsPromise.then(() => {
@@ -226,7 +226,7 @@ export function setupMonaco() {
 
 // expects vs or vs-dark
 function setTheme(theme) {
-    if(window.monaco){
+    if(window.monaco && registry){
         registry.setTheme(getTmTheme(theme));
         monaco.editor.setTheme(theme);
     }
@@ -234,7 +234,7 @@ function setTheme(theme) {
 
 // returns vs or vs-dark according to the current preference
 export function getAppropriateMonacoTheme(){
-    let theme = globalUtil.getPreference(globalUtil.PREFERENCES.theme);
+    let theme = util.getPreference(util.PREFERENCES.theme);
 
     if(theme == 'automatic' || !theme){
         theme = colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs';

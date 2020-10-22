@@ -143,7 +143,7 @@ const monacoFixesConfig = {
     output: [{
         file: outputDir + 'bundle-monacoFixes.js',
         format: 'iife'
-    }],
+    }]
 }
 
 // -------------------------------------------------

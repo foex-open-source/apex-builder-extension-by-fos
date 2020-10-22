@@ -55,8 +55,10 @@
     
             // fix up editors as they appear, for example in Page Designer
             monaco.editor.onDidCreateEditor(function(editor){
-                const editor$ = $(editor._domElement).closest('.a-MonacoEditor');
-                fixUpEditor(editor$);
+                setTimeout(function(){
+                    const editor$ = $(editor._domElement).closest('.a-MonacoEditor');
+                    fixUpEditor(editor$);
+                }, 500);
             });
 
             // fix up editors which are already on the page, for example on the SQL Commands page
