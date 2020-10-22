@@ -1,6 +1,6 @@
 const extensionBase = chrome.extension.getURL('/');
 
-async function injectScript(script) {
+const injectScript = async function (script) {
     const head = document.getElementsByTagName('head')[0];
     const scriptElem = document.createElement('script');
 
@@ -30,28 +30,32 @@ const apexVersion = (function(){
     return versionParts[0] + '.' + versionParts[1];
 })();
 
-// app 4000 is assumed
-// due to the match patterns in the manifest file,
-// the page will always be in (40, 267, 312, 4410, 4500)
-const pageId = parseInt(window.location.search.split(':')[1]);
+const appId = parseInt(document.getElementById('pFlowId').value);
+const pageId = parseInt(document.getElementById('pFlowStepId').value);
 
+// conditionally load features
 (async function(){
+
+    // global variable which will be used when loading extra resources
     await injectScript({code: 'window.fosExtensionBase = "' + extensionBase + '";'});
 
-    if(pageId == 4500) {
-        await injectScript({src: 'bundle-pd.js'})
+    if(appId == 4000 && pageId == 4500) {
+        // does not contain any functionality for now
+        // await injectScript({src: 'bundle-pd.js'})
     }
 
-    if([40, 267, 312, 4410].includes(pageId)){
+    if(appId == 4000 && [40, 267, 312, 4410].includes(pageId)){
         await injectScript({src: 'bundle-editor.js'});
     }
 
-    if(pageId == 101 && apexVersion == '20.2'){
-        await injectScript({src: 'bundle-embeddedCode.js'});
+    // 20.2 specific functionality
+    if(apexVersion == '20.2'){
+        if(appId == 4000 && pageId == 101){
+            await injectScript({src: 'bundle-embeddedCode.js'});
+        }
+    
+        if((appId == 4000 && [4500, 4410].includes(pageId)) || (appId == 4500 && pageId == 1003)){
+            await injectScript({src: 'bundle-monacoFixes.js'});
+        }
     }
-
-    if([1003, 4500, 4410].includes(pageId) && apexVersion == '20.2'){
-        await injectScript({src: 'bundle-monacoFixes.js'});
-    }
-
 })();

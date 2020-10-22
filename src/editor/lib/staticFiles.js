@@ -10,9 +10,9 @@
     }]
 */
 
-import * as util from './util';
+import * as util from '../../global/util.js';
 
-const pageId = util.getPageId();
+const pageId = util.pageId;
 
 let files = [];
 let filesFetchedOnce = false;

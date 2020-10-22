@@ -1,5 +1,5 @@
 // This code runs on pages 1003, 4500, 4410 and is meant to fix some Monaco issues on APEX 20.2 (for now)
-// hacky, but it works: ping the page every so often and check if monaco was loaded then set up the code and stop listening
+// hacky, but it works: ping the page every so often and check if monaco was loaded. if so, set up the editor and stop listening
 
 // Feature #1: An extra settings menu entry that allows the user to disable suggestions. This preference will be stored in local storage
 
@@ -7,6 +7,7 @@
 
     const SUGGESTION_SETTING_NAME = 'fosShowSuggestions';
 
+    // initializes the whole Show Suggestions ordeal
     function fixUpEditor(editor$){
 
         // trying to gather everything we need just from the dom element
@@ -44,7 +45,7 @@
     let counter = 0;
     var intervalId = setInterval(function(){
         counter++;
-        // quite arbitrary number
+        // give up after 10 seconds
         if(counter == 20){
             // for some reason monaco is not on the page, so we stop here
             clearInterval(intervalId);

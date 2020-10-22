@@ -1,4 +1,4 @@
-import * as util from './util.js';
+import {apexVersion} from '../../global/util.js';
 
 let colorMode;
 
@@ -24,9 +24,9 @@ function getColorModeBinary(){
 }
 
 function init(){
-    if(['19.1', '19.2'].indexOf(util.apexVersion) > -1){
+    if(['19.1', '19.2'].indexOf(apexVersion) > -1){
         setColorMode(isDarkMode() ? 'dark' : 'light');
-    } else if (['20.1', '20.2'].indexOf(util.apexVersion) > -1) {
+    } else if (['20.1', '20.2'].indexOf(apexVersion) > -1) {
         function evaluateColorMode(){
             setColorMode(isDarkMode() ? 'dark-redwood' : 'light-redwood');
         }

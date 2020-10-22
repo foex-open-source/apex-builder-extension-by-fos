@@ -1,10 +1,10 @@
-import {getPageId} from './util';
+import * as util from '../../global/util.js';
 
 // files should be passed on as: [{directory, fileName, mimeType, content}]
 // returns a promise that resolves to an object of {ok: boolean, error: string}
 const uploadPluginFiles = async function(uploadPageUrl, files){
 
-    let pageId = getPageId();
+    let pageId = util.pageId;
 
     switch(pageId){
         case 40:

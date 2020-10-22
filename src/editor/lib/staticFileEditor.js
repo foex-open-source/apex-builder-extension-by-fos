@@ -1,7 +1,7 @@
 import * as common from '../markup';
 import * as server from './server';
 import * as staticFiles from './staticFiles';
-import * as globalUtil from './util';
+import * as globalUtil from '../../global/util.js';
 import * as fileProcesses from './fileProcesses';
 import { ApexFileEditor } from './ApexFileEditor';
 import { resetTheme } from './monacoEditorHelper';
@@ -15,7 +15,7 @@ const fileSelectorId = 'FOS_STATIC_FILE_SELECTOR';
 
 let readOnly;
 
-const pageId = globalUtil.getPageId();
+const pageId = globalUtil.pageId;
 
 // -------------------------------------------------------
 // Utility functions

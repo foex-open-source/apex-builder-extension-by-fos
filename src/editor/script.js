@@ -1,23 +1,9 @@
 import * as staticFileEditor from './lib/staticFileEditor.js';
 import * as data from './data.js';
-import * as global from './lib/util.js';
+import * as util from '../global/util.js';
 import * as colorMode from './lib/colorMode.js';
 
-const pageId = global.getPageId();
-const fosExtensionBase = window.fosExtensionBase;
-
-function injectStyle(href){
-    const head = document.getElementsByTagName('head')[0];
-    const link = document.createElement('link');  
-  
-    link.rel = 'stylesheet';  
-    link.type = 'text/css';   
-    link.href = fosExtensionBase + href;  
-
-    head.appendChild(link);
-
-    return link;
-}
+const pageId = util.pageId;
 
 const styles = [
     'editor/css/style.css',
@@ -33,13 +19,13 @@ const glStyles = {
 colorMode.init();
 
 for(let i = 0; i < styles.length; i++){
-    let elem = injectStyle(styles[i]);
+    let elem = util.injectStyle(styles[i]);
 }
 
-let glStyleElem = injectStyle(glStyles[colorMode.getColorModeBinary()]);
+let glStyleElem = util.injectStyle(glStyles[colorMode.getColorModeBinary()]);
 
 document.addEventListener('fosThemeChange', function(){
-    let glStyleElemNew = injectStyle(glStyles[colorMode.getColorModeBinary()]);
+    let glStyleElemNew = util.injectStyle(glStyles[colorMode.getColorModeBinary()]);
     glStyleElem.parentNode.removeChild(glStyleElem);
     glStyleElem = glStyleElemNew;
 });
@@ -70,8 +56,8 @@ if([40, 312].includes(pageId)){
     
     $('.a-Side').append($(data.markup.documentationRegion));
     
-    $('#fos-documentation .fos-plsql-api-link').attr('href', data.apiLinks[global.apexVersion].plsql);
-    $('#fos-documentation .fos-js-api-link').attr('href', data.apiLinks[global.apexVersion].js);
+    $('#fos-documentation .fos-plsql-api-link').attr('href', data.apiLinks[util.apexVersion].plsql);
+    $('#fos-documentation .fos-js-api-link').attr('href', data.apiLinks[util.apexVersion].js);
     
     // --------------------------------------------------
     // Adding Boilerplate Code Links

@@ -1,5 +1,5 @@
-import * as globalUtil from './util';
-import * as colorMode from './colorMode';
+import * as globalUtil from '../../global/util.js';
+import * as colorMode from './colorMode.js';
 
 const base = window.fosExtensionBase + 'editor/';
 const monacoBase = __MONACO_BASE__; // gets replaced during the build
