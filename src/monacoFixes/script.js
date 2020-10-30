@@ -78,7 +78,11 @@ var intervalId = setInterval(function(){
         monaco.editor.onDidCreateEditor(function(editor){
             setTimeout(function(){
                 const editor$ = $(editor._domElement).closest('.a-MonacoEditor');
-                fixUpEditor(editor$);
+                // it could be that some non-APEX Monaco editor was loaded, e.g a FOS editor
+                // we only fix up the APEX ones
+                if(editor$.length){
+                    fixUpEditor(editor$);
+                }
             }, 500);
         });
 
