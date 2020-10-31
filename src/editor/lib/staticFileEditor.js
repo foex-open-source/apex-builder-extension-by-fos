@@ -24,7 +24,7 @@ const util = {
         return openedFiles.filter(openedFile => openedFile.fullFileName == fullFileName)[0];
     },
     setActiveFileEditor: function (fullFileName) {
-        var item = filesLayout.root.getItemsById(fullFileName)[0];
+        const item = filesLayout.root.getItemsById(fullFileName)[0];
         item.parent.setActiveContentItem(item);
     },
     fileIsOpened: function (fullFileName) {
@@ -78,7 +78,7 @@ async function refreshFileSelectList(forceRefresh) {
             .text('- Open File -')
         );
 
-    for (var i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
         $('#' + fileSelectorId)
             .append($('<option></option>')
                 .attr('value', files[i].fullFileName)
@@ -90,8 +90,67 @@ async function refreshFileSelectList(forceRefresh) {
     apex.item(fileSelectorId).setValue(null, null, true);
 }
 
+async function hotReload(file) {
+    // todo check if hotreload is enabled
+
+    // only hot reload javascript and css
+    const fileExtension = staticFiles.filesUtil.getExtensionFromFileName(file.fileName);
+    if(!['js', 'css'].includes(fileExtension)){
+        return;
+    }
+
+    let runtimeWindow = globalUtil.runtimeWindow;
+    if(!runtimeWindow || runtimeWindow.length){
+        globalUtil.runPage();
+        runtimeWindow = globalUtil.runtimeWindow;
+        // as the files will be freshed loaded anyway, we can stop now
+        return;
+    }
+
+    let expectedPathPart;
+    if([40, 312].includes(pageId)){
+        expectedPathPart = '/files/static/';
+    } else if (pageId == 267){
+        expectedPathPart = '/files/theme/';
+    } else if (pageId == 4410){
+        expectedPathPart = '/files/plugin/' + $('#P4410_ID').val();
+    }
+    
+    $(runtimeWindow).ready(function() {
+        let fileName = (file.directory ? file.directory + '/' : '') + file.fileName;
+
+        if(fileExtension == 'js'){
+            $('script[src]', runtimeWindow.document).each(function(){
+                const elem$ = $(this);
+                let src = elem$.attr('src');
+                // ignoring .min
+                src = src.replace('.min.js', '.js');
+                if(src.includes('/r/') && src.includes(expectedPathPart) && src.includes(fileName)){
+                    // for js files we simply refresh the page
+                    runtimeWindow.location.reload();
+                    // stopping each loop
+                    return false;
+                }
+            });    
+        } else if (fileExtension == 'css'){
+            $('link[rel="stylesheet"]', runtimeWindow.document).each(function(){
+                const elem$ = $(this);
+                let href = elem$.attr('href');
+                // ignoring .min
+                href = href.replace('.min.css', '.css');
+                if(href.includes('/r/') && href.includes(expectedPathPart) && href.includes(fileName)){
+                    // for css really the href with a new version
+                    elem$.attr('href', href.split('?')[0] + '?v=' + new Date().valueOf());
+                    // stopping each loop
+                    return false;
+                }
+            });
+        }
+    });
+}
+
 async function saveFiles(files) {
-    var spinner$ = apex.util.showSpinner();
+    let spinner$ = apex.util.showSpinner();
     apex.message.clearErrors();
     apex.message.hidePageSuccess();
 
@@ -101,6 +160,7 @@ async function saveFiles(files) {
                 if (response.ok) {
                     globalUtil.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
                     spinner$.remove();
+
                     resolve({ ok: true });
                 } else {
                     apex.message.alert('The file could not be saved. Perhaps the session has expired.');
@@ -167,7 +227,7 @@ function addNewFileClick() {
 }
 
 function setupGoldenLayout() {
-    var config = {
+    const config = {
         settings: {
             showPopoutIcon: false,
             showMaximiseIcon: false,
@@ -219,7 +279,7 @@ async function openFileEditor(fullFileName) {
     util.showFilesLayout();
 
     const saveFile = async function (options) {
-        var files = [];
+        let files = [];
 
         const content = editor.getValue();
         file.content = content;
@@ -228,7 +288,8 @@ async function openFileEditor(fullFileName) {
             content: file.content,
             fileName: file.fileName,
             directory: file.directory,
-            mimeType: file.mimeType
+            mimeType: file.mimeType,
+            extension: file.extension
         });
 
         if (options.minify) {
@@ -267,6 +328,15 @@ async function openFileEditor(fullFileName) {
             saveFiles(files)
                 .then((response) => {
                     if (response.ok) {
+
+                        if(file.extension == 'js'){
+                            hotReload(files[0]);
+                        } else if (file.extension == 'css'){
+                            hotReload(files[0]);
+                        } else if (file.extension == 'less' && options.compile){
+                            hotReload(files[1]);
+                        }
+
                         const allMetadataIsPresent = files.map(file => file.directory + (file.directory ? '/' : '') + file.fileName).every(v => staticFiles.files.map(file => file.fullFileName).includes(v));
                         //we hard refresh the files metadata, if:
                         //  1) file was empty before and therefore has no link
@@ -383,7 +453,7 @@ export async function setupEnvironment(options) {
                         if (!theme) {
                             theme = 'automatic';
                         }
-                        if (!['automatic', 'vs', 'vs-dark'].includes(theme)){
+                        if (!['automatic', 'vs', 'vs-dark'].includes(theme)) {
                             console.warn('Unknwon theme preference', theme);
                             theme = 'automatic';
                         }

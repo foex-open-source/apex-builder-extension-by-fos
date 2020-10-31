@@ -112,5 +112,30 @@ function setPreference(name, value){
     storePreferencesInStorage(preferences);
 }
 
-export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode};
+
+let runtimeWindow;
+// override the launchAppUnderTest function basially on extension load
+// overrides in order to catch a reference of the runtime window object
+
+(function(){
+    try{
+        const originalLaunchAppFunc = apex.builder.launchAppUnderTest;
+        apex.builder.launchAppUnderTest = function () {
+            const windowObject = originalLaunchAppFunc(...arguments);
+            runtimeWindow = windowObject;
+            return windowObject;
+        }
+    } catch(e) {
+        console.warn('Tried to override the launchAppUnderTest function and failed');
+    }
+})();
+
+
+// clicks the run page button
+// should only be called on pages where that button is actually present
+function runPage(){
+    $('#button-run-page').trigger('click');
+}
+
+export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage};
 
