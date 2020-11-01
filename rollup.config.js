@@ -11,6 +11,18 @@ const outputDir = 'dist/unpacked/';
 const editorOutputDir = 'dist/unpacked/editor/';
 const isFirefox = process.env.BROWSER === 'firefox';
 
+const globalPlugins = [
+    json(),
+    babel({
+        exclude: 'node_modules/**',
+        babelHelpers: 'runtime'
+    }),
+    resolve({
+        browser: true,
+        preferBuiltins: true
+    })
+];
+
 // -------------------------------------------------
 // Editor Config
 // -------------------------------------------------
@@ -66,7 +78,6 @@ const editorConfig = {
         format: 'iife'
     }],
     plugins: [
-        json(),
         replace({
             __MONACO_BASE__: process.env.BROWSER === 'firefox'
                 ? '"https://cdn.jsdelivr.net/npm/monaco-editor-slim@0.21.2/"'
@@ -74,18 +85,11 @@ const editorConfig = {
             include: 'src/editor/lib/monacoEditorHelper.js'
         }),
         copy(copyPluginConfig),
-        resolve({
-            browser: true,
-            preferBuiltins: true
-        }),
         commonjs({
             exclude: ['**/lib/MonacoEditor.js']
         }),
         builtins(),
-        babel({
-            exclude: 'node_modules/**',
-            babelHelpers: 'runtime'
-        })
+        ...globalPlugins
     ]
 };
 
@@ -100,11 +104,7 @@ const pdConfig = {
         format: 'iife'
     }],
     plugins: [
-        json(),
-        babel({
-            exclude: 'node_modules/**',
-            babelHelpers: 'runtime'
-        })
+        ...globalPlugins
     ]
 };
 
@@ -119,22 +119,14 @@ const embeddedCodeConfig = {
         format: 'iife'
     }],
     plugins: [
-        json(),
+        ...globalPlugins,
         copy({
             targets: [{
                 src: [
                     'src/embeddedCode/third-party/prismjs/themes/*'
                 ],
                 dest: outputDir + 'third-party/prismjs/themes'
-        }]}),
-        resolve({
-            browser: true,
-            preferBuiltins: true
-        }),
-        babel({
-            exclude: 'node_modules/**',
-            babelHelpers: 'runtime'
-        })
+        }]})
     ]
 };
 
@@ -148,10 +140,9 @@ const monacoFixesConfig = {
         file: outputDir + 'fos-bundle-monacoFixes.js',
         format: 'iife'
     }],
-    plugins: [json(), babel({
-        exclude: 'node_modules/**',
-        babelHelpers: 'runtime'
-    })]
+    plugins: [
+        ...globalPlugins
+    ]
 };
 
 // -------------------------------------------------
@@ -164,10 +155,9 @@ const globalConfig = {
         file: outputDir + 'fos-bundle-global.js',
         format: 'iife'
     }],
-    plugins: [json(), babel({
-        exclude: 'node_modules/**',
-        babelHelpers: 'runtime'
-    })]
+    plugins: [
+        ...globalPlugins
+    ]
 };
 
 // -------------------------------------------------
