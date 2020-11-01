@@ -36,26 +36,29 @@ const pageId = parseInt(document.getElementById('pFlowStepId').value);
 // conditionally load features
 (async function(){
 
+    // initializing the FOS namespace + the utility functions
+    await injectScript({src: 'fos-bundle-global.js'});
+
     // global variable which will be used when loading extra resources
-    await injectScript({code: 'window.fosExtensionBase = "' + extensionBase + '";'});
+    await injectScript({code: `FOS.extensionBase = "${extensionBase}";`});
 
     if(appId == 4000 && pageId == 4500) {
         // does not contain any functionality for now
-        // await injectScript({src: 'bundle-pd.js'})
+        // await injectScript({src: 'fos-bundle-pd.js'})
     }
 
     if(appId == 4000 && [40, 267, 312, 4410].includes(pageId)){
-        await injectScript({src: 'bundle-editor.js'});
+        await injectScript({src: 'fos-bundle-editor.js'});
     }
 
     // 20.2 specific functionality
     if(apexVersion == '20.2'){
         if(appId == 4000 && pageId == 101){
-            await injectScript({src: 'bundle-embeddedCode.js'});
+            await injectScript({src: 'fos-bundle-embeddedCode.js'});
         }
     
         if((appId == 4000 && [4500, 4410].includes(pageId)) || (appId == 4500 && pageId == 1003)){
-            await injectScript({src: 'bundle-monacoFixes.js'});
+            await injectScript({src: 'fos-bundle-monacoFixes.js'});
         }
     }
 })();

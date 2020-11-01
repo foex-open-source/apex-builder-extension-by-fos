@@ -1,5 +1,11 @@
 ## Changelog
 
+### 20.2.0
+
+- APEX 20.2, inject Code Editor options: Automcomplete, Whitespace
+- Added Hot Reload option
+- Fixed monaco conflict on page 4410 on APEX 20.2 (fallback to old syntax highlighting)
+
 ### 20.1.2
 
 - APEX 20.2 specific: Ability to disable code editor suggestions

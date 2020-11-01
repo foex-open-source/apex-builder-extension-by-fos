@@ -1,7 +1,6 @@
 import './third-party/prismjs/prism.js';
-import * as util from '../global/util.js';
 
-util.injectStyle(`third-party/prismjs/themes/${util.isDarkMode() ? 'dark' : 'light'}.css`);
+FOS.util.injectStyle(`third-party/prismjs/themes/${FOS.util.isDarkMode() ? 'dark' : 'light'}.css`);
 
 function letsGo(){
     $('.a-EmbeddedCode').each(function(){

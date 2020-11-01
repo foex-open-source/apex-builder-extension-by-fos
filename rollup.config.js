@@ -5,6 +5,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import copy from 'rollup-plugin-copy';
 import builtins from 'rollup-plugin-node-builtins';
 import replace from '@rollup/plugin-replace';
+import json from '@rollup/plugin-json';
 
 const outputDir = 'dist/unpacked/';
 const editorOutputDir = 'dist/unpacked/editor/';
@@ -61,14 +62,15 @@ if(!isFirefox){
 const editorConfig = {
     input: 'src/editor/script.js',
     output: [{
-        file: outputDir + 'bundle-editor.js',
+        file: outputDir + 'fos-bundle-editor.js',
         format: 'iife'
     }],
     plugins: [
+        json(),
         replace({
             __MONACO_BASE__: process.env.BROWSER === 'firefox'
                 ? '"https://cdn.jsdelivr.net/npm/monaco-editor-slim@0.21.2/"'
-                : 'window.fosExtensionBase + "editor/third-party/monaco-editor/"',
+                : 'FOS.extensionBase + "editor/third-party/monaco-editor/"',
             include: 'src/editor/lib/monacoEditorHelper.js'
         }),
         copy(copyPluginConfig),
@@ -94,10 +96,11 @@ const editorConfig = {
 const pdConfig = {
     input: 'src/pageDesigner/script.js',
     output: [{
-        file: outputDir + 'bundle-pd.js',
+        file: outputDir + 'fos-bundle-pd.js',
         format: 'iife'
     }],
     plugins: [
+        json(),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'runtime'
@@ -112,10 +115,11 @@ const pdConfig = {
 const embeddedCodeConfig = {
     input: 'src/embeddedCode/script.js',
     output: [{
-        file: outputDir + 'bundle-embeddedCode.js',
+        file: outputDir + 'fos-bundle-embeddedCode.js',
         format: 'iife'
     }],
     plugins: [
+        json(),
         copy({
             targets: [{
                 src: [
@@ -141,13 +145,33 @@ const embeddedCodeConfig = {
 const monacoFixesConfig = {
     input: 'src/monacoFixes/script.js',
     output: [{
-        file: outputDir + 'bundle-monacoFixes.js',
+        file: outputDir + 'fos-bundle-monacoFixes.js',
         format: 'iife'
-    }]
+    }],
+    plugins: [json(), babel({
+        exclude: 'node_modules/**',
+        babelHelpers: 'runtime'
+    })]
+};
+
+// -------------------------------------------------
+// Global config
+// -------------------------------------------------
+
+const globalConfig = {
+    input: 'src/global/script.js',
+    output: [{
+        file: outputDir + 'fos-bundle-global.js',
+        format: 'iife'
+    }],
+    plugins: [json(), babel({
+        exclude: 'node_modules/**',
+        babelHelpers: 'runtime'
+    })]
 };
 
 // -------------------------------------------------
 // Exporting everything
 // -------------------------------------------------
 
-export default [editorConfig, pdConfig, embeddedCodeConfig, monacoFixesConfig];
+export default [globalConfig, editorConfig, pdConfig, embeddedCodeConfig, monacoFixesConfig];

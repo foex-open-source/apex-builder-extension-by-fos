@@ -1,9 +1,8 @@
 import * as staticFileEditor from './lib/staticFileEditor.js';
 import * as data from './data.js';
-import * as util from '../global/util.js';
 import * as colorMode from './lib/colorMode.js';
 
-const pageId = util.pageId;
+const pageId = FOS.util.pageId;
 
 const styles = [
     'editor/css/style.css',
@@ -19,13 +18,13 @@ const glStyles = {
 colorMode.init();
 
 for(let i = 0; i < styles.length; i++){
-    let elem = util.injectStyle(styles[i]);
+    let elem = FOS.util.injectStyle(styles[i]);
 }
 
-let glStyleElem = util.injectStyle(glStyles[colorMode.getColorModeBinary()]);
+let glStyleElem = FOS.util.injectStyle(glStyles[colorMode.getColorModeBinary()]);
 
 document.addEventListener('fosThemeChange', function(){
-    let glStyleElemNew = util.injectStyle(glStyles[colorMode.getColorModeBinary()]);
+    let glStyleElemNew = FOS.util.injectStyle(glStyles[colorMode.getColorModeBinary()]);
     glStyleElem.parentNode.removeChild(glStyleElem);
     glStyleElem = glStyleElemNew;
 });
@@ -56,8 +55,8 @@ if([40, 312].includes(pageId)){
     
     $('.a-Side').append($(data.markup.documentationRegion));
     
-    $('#fos-documentation .fos-plsql-api-link').attr('href', data.apiLinks[util.apexVersion].plsql);
-    $('#fos-documentation .fos-js-api-link').attr('href', data.apiLinks[util.apexVersion].js);
+    $('#fos-documentation .fos-plsql-api-link').attr('href', data.apiLinks[FOS.util.apexVersion].plsql);
+    $('#fos-documentation .fos-js-api-link').attr('href', data.apiLinks[FOS.util.apexVersion].js);
     
     // --------------------------------------------------
     // Adding Boilerplate Code Links

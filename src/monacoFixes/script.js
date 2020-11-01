@@ -3,8 +3,6 @@
 // Feature #1: An extra setting to disable suggestions.
 // Feature #2: An extra setting to toggle on the renderWhitespace option.
 
-import * as util from '../global/util.js';
-
 // applies all new features to a specific editor
 function fixUpEditor(editor$){
 
@@ -22,7 +20,7 @@ function fixUpEditor(editor$){
         },
         set: function(value) {
             editor.updateOptions({quickSuggestions: value});
-            util.setPreference(util.PREFERENCES.showSuggestions, value ? 'true' : 'false');
+            FOS.util.setPreference(FOS.util.PREFERENCES.showSuggestions, value ? 'true' : 'false');
         }
     });
 
@@ -35,19 +33,19 @@ function fixUpEditor(editor$){
         },
         set: function(value) {
             editor.updateOptions({renderWhitespace: value ? 'all' : 'none'});
-            util.setPreference(util.PREFERENCES.renderWhitespace, value ? 'true' : 'false');
+            FOS.util.setPreference(FOS.util.PREFERENCES.renderWhitespace, value ? 'true' : 'false');
         }
     });
 
     // sync local storage with editor
 
-    const showSuggestionsVal = util.getPreference(util.PREFERENCES.showSuggestions);
+    const showSuggestionsVal = FOS.util.getPreference(FOS.util.PREFERENCES.showSuggestions);
     // it is by default true anyway
     if(showSuggestionsVal && showSuggestionsVal == 'false'){
         editor.updateOptions({quickSuggestions: false});
     }
 
-    const renderWhitespaceVal = util.getPreference(util.PREFERENCES.renderWhitespace);
+    const renderWhitespaceVal = FOS.util.getPreference(FOS.util.PREFERENCES.renderWhitespace);
     // it is by default false anyway
     if(renderWhitespaceVal && renderWhitespaceVal == 'true'){
         editor.updateOptions({renderWhitespace: 'all'});

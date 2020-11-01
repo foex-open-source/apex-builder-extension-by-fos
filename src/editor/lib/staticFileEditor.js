@@ -34,10 +34,12 @@ const util = {
     },
     showFilesLayout: function () {
         $('#fos-files-layout').show();
+        $('#fos-files-extra-controls').show();
         util.resizeFilesLayout();
     },
     hideFilesLayout: function () {
         $('#fos-files-layout').hide();
+        $('#fos-files-extra-controls').hide();
     },
     getUploadPageUrl: function () {
         let uploadFilesButton$;
@@ -91,7 +93,10 @@ async function refreshFileSelectList(forceRefresh) {
 }
 
 async function hotReload(file) {
-    // todo check if hotreload is enabled
+    // check if the hot reload option is enabled
+    if(!$('#fos-extra-options-hot-reload:checked').length){
+        return;
+    }
 
     // only hot reload javascript and css
     const fileExtension = staticFiles.filesUtil.getExtensionFromFileName(file.fileName);

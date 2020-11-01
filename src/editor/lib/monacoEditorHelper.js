@@ -1,7 +1,6 @@
-import * as util from '../../global/util.js';
 import * as colorMode from './colorMode.js';
 
-const base = window.fosExtensionBase + 'editor/';
+const base = FOS.extensionBase + 'editor/';
 const monacoBase = __MONACO_BASE__; // gets replaced during the build
 
 const PATHS = {
@@ -211,7 +210,7 @@ export function setupMonaco() {
     return new Promise(resolve => {
 
         const requirejsPromise = window.require == undefined
-            ? util.injectScript(PATHS.loaderJs)
+            ? FOS.util.injectScript(PATHS.loaderJs)
             : Promise.resolve();
 
         requirejsPromise.then(() => {
@@ -234,7 +233,7 @@ function setTheme(theme) {
 
 // returns vs or vs-dark according to the current preference
 export function getAppropriateMonacoTheme(){
-    let theme = util.getPreference(util.PREFERENCES.theme);
+    let theme = FOS.util.getPreference(FOS.util.PREFERENCES.theme);
 
     if(theme == 'automatic' || !theme){
         theme = colorMode.getColorModeBinary() == 'dark' ? 'vs-dark' : 'vs';

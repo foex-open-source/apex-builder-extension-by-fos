@@ -1,3 +1,5 @@
+import helpText from './helpText.json';
+
 const apexVersion = (function(){
     const fullVersion = document.querySelector('head link[rel="stylesheet"]').href.match(/\?v=(.*)/)[1];
     const versionParts = fullVersion.split('.');
@@ -15,14 +17,14 @@ const PREFERENCES = {
 
 const STORAGE_ITEM_NAME = 'fos_ext_preferences';
 
-// assumes fosExtensionBase is already on the page
+// assumes FOS.extensionBase is already on the page
 const injectStyle = function(href){
     const head = document.getElementsByTagName('head')[0];
     const link = document.createElement('link');  
   
     link.rel = 'stylesheet';  
     link.type = 'text/css';   
-    link.href = fosExtensionBase + href;  
+    link.href = FOS.extensionBase + href;  
 
     head.appendChild(link);
 
@@ -137,5 +139,11 @@ function runPage(){
     $('#button-run-page').trigger('click');
 }
 
-export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage};
+function showHelp(id){
+    apex.theme.popupFieldHelp({
+        title: 'Help Text: ' + helpText[id].title,
+        helpText: helpText[id].text
+    });
+}
 
+export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage, showHelp};

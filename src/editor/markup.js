@@ -16,6 +16,22 @@ markup.staticFileEditor =
         </div>
     </div>
     <div id="fos-files-layout"></div>
+    <div id="fos-extra-controls">
+
+        <div class="a-Form-fieldContainer  apex-item-wrapper apex-item-wrapper--checkbox">
+            <div class="a-Form-labelContainer">
+                <label for="fos-extra-options" class="a-Form-label">Extra Editor Options</label>
+            </div>
+            <div class="a-Form-inputContainer">
+                <div tabindex="-1" aria-labelledby="fos-extra-options" class="checkbox_group apex-item-group apex-item-group--rc apex-item-checkbox" role="group">
+                    <div class="apex-item-option"><input type="checkbox" id="fos-extra-options-hot-reload"><label class="u-checkbox" for="fos-extra-options-hot-reload">Hot Reload</label></div>
+                </div>
+                <button class="a-Button a-Button--noUI a-Button--helpButton" onClick="FOS.util.showHelp('editor.extraOptions')" title="Help Text: Extra Editor Options" aria-label="Help Text: Extra Editor Options" tabindex="-1" type="button">
+                    <span class="a-Icon icon-help" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 `;
 
