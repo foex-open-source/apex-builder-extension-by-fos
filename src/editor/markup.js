@@ -37,7 +37,7 @@ markup.staticFileEditor =
 
 markup.createNewFile =
 `
-<div class="a-Dialog-wrap">
+<div class="a-Dialog-wrap ui-dialog-popuplov">
     <div class="a-Dialog-body" style="bottom: 64px;">
         <div class="a-Wizard-region a-Form">
             <div class="a-Wizard-regionHeader">
@@ -61,10 +61,10 @@ markup.createNewFile =
                     </div>
                     <div class="a-Form-inputContainer">
                         <input type="text" id="fos-new-file-name" required="" class="text_field apex-item-text" value="" size="32" maxlength="255">
-                        <!-- TODO: use the actual help text markup -->
-                        <p style="margin: 10px 0;">Allowed file types are: js, json, html, css and less</p>
                     </div>
                 </div>
+                <!-- TODO: use the actual help text markup -->
+                <p style="margin-left: calc(30% + 8px); margin-top: 8px 0;">Allowed file types are: js, json, html, css and less</p>
             </div>
         </div>
     </div>
