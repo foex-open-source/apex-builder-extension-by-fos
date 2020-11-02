@@ -16,6 +16,9 @@ The APEX Builder Extension by FOS is a free and open-source Chrome & Firefox bro
 - Save changes without a page submit
 - Create new JavaScript, CSS, Less, JSON and HTML files right in the builder
 - Minify JavaScript and CSS files, and compile Less files
+- Hot Reloading the Runtime Tab when included JS or CSS files are updated
+
+- Syntax highlighting on the Embedded Code page (APEX 20.2)
 
 ## Build
 
