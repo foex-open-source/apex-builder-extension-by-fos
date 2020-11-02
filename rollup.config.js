@@ -78,6 +78,7 @@ const editorConfig = {
         format: 'iife'
     }],
     plugins: [
+        ...globalPlugins,
         replace({
             __MONACO_BASE__: process.env.BROWSER === 'firefox'
                 ? '"https://cdn.jsdelivr.net/npm/monaco-editor-slim@0.21.2/"'
@@ -88,8 +89,7 @@ const editorConfig = {
         commonjs({
             exclude: ['**/lib/MonacoEditor.js']
         }),
-        builtins(),
-        ...globalPlugins
+        builtins()
     ]
 };
 
