@@ -174,3 +174,8 @@
     border-top-width: 1px;
     border-top-style: solid;
 }
+
+/* fiexes checkbox style on APEX <20.2 */
+#fos-files-region .apex-item-group--rc {
+    vertical-align: middle;
+}

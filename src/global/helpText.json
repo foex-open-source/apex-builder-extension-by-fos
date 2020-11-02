@@ -1,6 +1,6 @@
 {
     "editor.extraOptions": {
         "title": "Extra Editor Options",
-        "text": "<h4>Hot Reload</h4><div>Check this option to refresh the app runtime tab whenever a static file that is included on that page is updated.<br>For JavaScript files, the entire page will be refreshed.<br>For CSS files, the stylesheet will be reloaded without a page refresh.</div>"
+        "text": "<h4>Hot Reload</h4><div>Check this option to refresh the application runtime page whenever a static file that is included on that page is updated.<br>For JavaScript files, the entire page will be refreshed.<br>For CSS files, the stylesheet will be reloaded without a page refresh.</div>"
     }
 }

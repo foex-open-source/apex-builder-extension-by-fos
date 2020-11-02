@@ -1,5 +1,3 @@
-import {apexVersion} from '../../global/util.js';
-
 let colorMode;
 
 function isDarkMode(){
@@ -24,9 +22,9 @@ function getColorModeBinary(){
 }
 
 function init(){
-    if(['19.1', '19.2'].indexOf(apexVersion) > -1){
+    if([191, 192].indexOf(FOS.util.apexVersion) > -1){
         setColorMode(isDarkMode() ? 'dark' : 'light');
-    } else if (['20.1', '20.2'].indexOf(apexVersion) > -1) {
+    } else if ([201, 202].indexOf(FOS.util.apexVersion) > -1) {
         function evaluateColorMode(){
             setColorMode(isDarkMode() ? 'dark-redwood' : 'light-redwood');
         }

@@ -15,10 +15,10 @@ markup.staticFileEditor =
             </div>
         </div>
     </div>
-    <div id="fos-files-layout"></div>
+    <div id="fos-files-layout">
+    </div>
     <div id="fos-extra-controls">
-
-        <div class="a-Form-fieldContainer  apex-item-wrapper apex-item-wrapper--checkbox">
+        <div class="a-Form-fieldContainer apex-item-wrapper apex-item-wrapper--checkbox">
             <div class="a-Form-labelContainer">
                 <label for="fos-extra-options" class="a-Form-label">Extra Editor Options</label>
             </div>

@@ -27,7 +27,7 @@ const injectScript = async function (script) {
 const apexVersion = (function(){
     const fullVersion = document.querySelector('head link[rel="stylesheet"]').href.match(/\?v=(.*)/)[1];
     const versionParts = fullVersion.split('.');
-    return versionParts[0] + '.' + versionParts[1];
+    return parseInt(versionParts[0] + versionParts[1]);
 })();
 
 const appId = parseInt(document.getElementById('pFlowId').value);
@@ -52,7 +52,7 @@ const pageId = parseInt(document.getElementById('pFlowStepId').value);
     }
 
     // 20.2 specific functionality
-    if(apexVersion == '20.2'){
+    if(apexVersion == 202){
         if(appId == 4000 && pageId == 101){
             await injectScript({src: 'fos-bundle-embeddedCode.js'});
         }

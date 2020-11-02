@@ -130,7 +130,7 @@ const getFilesDataFromCR = async function(forceRefresh){
             formData.append('p_flow_step_id', '4410');
             formData.append('p_instance', $('#pInstance').val());
             formData.append('p_debug', '');
-            if(FOS.util.apexVersion == '5.1'){
+            if(FOS.util.apexVersion == 51){
                 formData.append('p_request', 'APXWGT');
             } else {
                 formData.append('p_request', 'PLUGIN=' + p_request_plugin);
@@ -140,7 +140,7 @@ const getFilesDataFromCR = async function(forceRefresh){
             formData.append('p_pg_max_rows', '1000');
             formData.append('p_pg_rows_fetched', '0');
 
-            if(FOS.util.apexVersion == '5.1'){
+            if(FOS.util.apexVersion == 51){
                 formData.append('p_widget_name', 'classic_report');
             }
             

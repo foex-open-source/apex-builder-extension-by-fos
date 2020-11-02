@@ -1,7 +1,6 @@
 import * as common from '../markup';
 import * as server from './server';
 import * as staticFiles from './staticFiles';
-import * as globalUtil from '../../global/util.js';
 import * as fileProcesses from './fileProcesses';
 import { ApexFileEditor } from './ApexFileEditor';
 import { resetTheme } from './monacoEditorHelper';
@@ -15,7 +14,7 @@ const fileSelectorId = 'FOS_STATIC_FILE_SELECTOR';
 
 let readOnly;
 
-const pageId = globalUtil.pageId;
+const pageId = FOS.util.pageId;
 
 // -------------------------------------------------------
 // Utility functions
@@ -33,13 +32,11 @@ const util = {
         }).length == 1;
     },
     showFilesLayout: function () {
-        $('#fos-files-layout').show();
-        $('#fos-files-extra-controls').show();
+        $('#fos-files-layout,#fos-extra-controls').show();
         util.resizeFilesLayout();
     },
     hideFilesLayout: function () {
-        $('#fos-files-layout').hide();
-        $('#fos-files-extra-controls').hide();
+        $('#fos-files-layout,#fos-extra-controls').hide();
     },
     getUploadPageUrl: function () {
         let uploadFilesButton$;
@@ -93,6 +90,12 @@ async function refreshFileSelectList(forceRefresh) {
 }
 
 async function hotReload(file) {
+
+    // this functionality is only available on 19.2+
+    if(FOS.util.apexVersion < 192){
+        return;
+    }
+
     // check if the hot reload option is enabled
     if(!$('#fos-extra-options-hot-reload:checked').length){
         return;
@@ -104,10 +107,10 @@ async function hotReload(file) {
         return;
     }
 
-    let runtimeWindow = globalUtil.runtimeWindow;
+    let runtimeWindow = FOS.util.runtimeWindow;
     if(!runtimeWindow || runtimeWindow.length){
-        globalUtil.runPage();
-        runtimeWindow = globalUtil.runtimeWindow;
+        FOS.util.runPage();
+        runtimeWindow = FOS.util.runtimeWindow;
         // as the files will be freshed loaded anyway, we can stop now
         return;
     }
@@ -163,7 +166,7 @@ async function saveFiles(files) {
         server.uploadPluginFiles(util.getUploadPageUrl(), files)
             .then(response => {
                 if (response.ok) {
-                    globalUtil.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
+                    FOS.util.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
                     spinner$.remove();
 
                     resolve({ ok: true });
@@ -198,13 +201,13 @@ function addNewFileClick() {
 
         //check if filename is provided
         if (!fileName) {
-            globalUtil.showItemError('fos-new-file-name', 'A file name must be provided');
+            FOS.util.showItemError('fos-new-file-name', 'A file name must be provided');
             return;
         }
 
         //check if extension is allowed
         if (!staticFiles.editableFileExtentions.includes(staticFiles.filesUtil.getExtensionFromFileName(fileName))) {
-            globalUtil.showItemError('fos-new-file-name', 'The file\'s extension is not allowed.');
+            FOS.util.showItemError('fos-new-file-name', 'The file\'s extension is not allowed.');
             return;
         }
 
@@ -450,11 +453,11 @@ export async function setupEnvironment(options) {
                 items: [{
                     type: 'radioGroup',
                     set: function (value) {
-                        globalUtil.setPreference(globalUtil.PREFERENCES.theme, value);
+                        FOS.util.setPreference(FOS.util.PREFERENCES.theme, value);
                         resetTheme();
                     },
                     get: function () {
-                        let theme = globalUtil.getPreference(globalUtil.PREFERENCES.theme);
+                        let theme = FOS.util.getPreference(FOS.util.PREFERENCES.theme);
                         if (!theme) {
                             theme = 'automatic';
                         }
@@ -476,7 +479,13 @@ export async function setupEnvironment(options) {
 
     // Adding the Edit Files region
     const fileEditorRegion$ = $(common.markup.staticFileEditor);
-    $('#fos-files-layout', fileEditorRegion$).css('display', 'none');
+    $('#fos-files-layout,#fos-extra-controls', fileEditorRegion$).css('display', 'none');
+
+    // Hot Reload feature is only avaiable on 19.2+
+    // For now this is the simplest way to remove in earlier versions
+    if(FOS.util.apexVersion < 192){
+        $('#fos-extra-controls', fileEditorRegion$).remove();
+    }
 
     const buttonsContainer$ = $('.a-Region-headerItems--buttons', fileEditorRegion$);
 

@@ -3,7 +3,7 @@ import helpText from './helpText.json';
 const apexVersion = (function(){
     const fullVersion = document.querySelector('head link[rel="stylesheet"]').href.match(/\?v=(.*)/)[1];
     const versionParts = fullVersion.split('.');
-    return versionParts[0] + '.' + versionParts[1];
+    return parseInt(versionParts[0] + versionParts[1]);
 })();
 
 const appId = parseInt(document.getElementById('pFlowStepId').value);
@@ -131,7 +131,6 @@ let runtimeWindow;
         console.warn('Tried to override the launchAppUnderTest function and failed');
     }
 })();
-
 
 // clicks the run page button
 // should only be called on pages where that button is actually present
