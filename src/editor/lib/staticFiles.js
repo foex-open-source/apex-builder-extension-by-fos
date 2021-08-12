@@ -1,8 +1,8 @@
 /* array of objects with metadata on the plugin files
     [{
-        fullFileName, 
-        directory, 
-        fileName, 
+        fullFileName,
+        directory,
+        fileName,
         mimeType,
         link,
         extension,
@@ -15,7 +15,7 @@ const pageId = FOS.util.pageId;
 let files = [];
 let filesFetchedOnce = false;
 
-const editableFileExtentions = ['js', 'json', 'html', 'css', 'less', 'scss'];
+const editableFileExtentions = ['js', 'json', 'html', 'css', 'less', 'scss', 'svg', 'txt', 'xml'];
 
 const mimeTypes = {
     js: 'application/javascript',
@@ -24,6 +24,9 @@ const mimeTypes = {
     css: 'text/css',
     less: 'text/plain',
     scss: 'text/plain',
+    svg: 'image/svg+xml',
+    txt: 'text/plain',
+    xml: 'application/xml',
 };
 
 const filesUtil = {
@@ -76,20 +79,20 @@ const getFilesDataFromCR = async function(forceRefresh){
 
         const thereAreFiles = $('#report_FILES').length == 1;
         const thereAreMoreFiles = $('#report_FILES .a-Report-paginationLink').length > 0;
-    
+
         if(!thereAreFiles){
             return [];
         }
 
         function readFilesFromElement(elem$){
-    
+
             const arr = [];
-    
+
             var rows$ = $('.a-Report-tableWrap > table > tbody > tr', elem$);
-            
+
             rows$.each(function(){
                 const obj = {};
-    
+
                 $(this).children().each(function(){
                     const innerText = $.trim($(this).text());
                     switch ($(this).attr('headers')){
@@ -112,7 +115,7 @@ const getFilesDataFromCR = async function(forceRefresh){
                 });
                 arr.push(obj);
             });
-    
+
             return arr;
         }
 
@@ -123,9 +126,9 @@ const getFilesDataFromCR = async function(forceRefresh){
             const params = nextPageLink.match(/'(.*?)'/g).map(part => part.replace(/'/g, ''));
             const x01 = params[0];
             const p_request_plugin = params[1];
-    
+
             let formData = new FormData();
-    
+
             formData.append('p_flow_id', '4000');
             formData.append('p_flow_step_id', '4410');
             formData.append('p_instance', $('#pInstance').val());
@@ -143,15 +146,15 @@ const getFilesDataFromCR = async function(forceRefresh){
             if(FOS.util.apexVersion == 51){
                 formData.append('p_widget_name', 'classic_report');
             }
-            
+
             formData.append('x01', '' + x01);
             formData.append('p_json', JSON.stringify({salt: $('#pSalt').val()}));
-    
+
             const response = await fetch('wwv_flow.ajax', {
                 method: 'POST',
                 body: formData
             });
-            
+
             if(response.ok){
                 const result = await response.text();
                 return readFilesFromElement($(result));
@@ -186,7 +189,7 @@ const getFilesDataFromIR = async function(forceRefresh){
         const arr = [];
 
         var rows$ = $('.a-IRR-table tr', elem$);
-        
+
         rows$.each(function(index){
 
             if(index==0) return;
@@ -249,7 +252,7 @@ const getFilesDataFromIR = async function(forceRefresh){
         method: 'POST',
         body: formData
     });
-    
+
     if(response.ok){
         const result = await response.text();
         return readFilesFromElement($(result));

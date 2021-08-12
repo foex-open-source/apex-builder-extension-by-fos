@@ -85,6 +85,10 @@ async function setup(monaco, vsctm, oniguruma, themes, initialTheme, resolve) {
         id: 'html',
         extensions: ['.html'],
         aliases: ['HTML', 'html']
+    }, {
+        id: 'xml',
+        extensions: ['.xml','.svg'],
+        aliases: ['XML', 'xml']
     }
     ];
 
@@ -113,6 +117,10 @@ async function setup(monaco, vsctm, oniguruma, themes, initialTheme, resolve) {
         'text.html.basic': {
             language: 'html',
             path: 'html.tmLanguage.json'
+        },
+        'text.xml': {
+            language: 'xml',
+            path: 'xml.tmLanguage.json'
         }
     };
 

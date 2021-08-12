@@ -3,14 +3,14 @@
     "name": "APEX Builder Extension by FOS",
     "short_name": "FOS",
     "description": "The APEX Builder Extension by FOS is a free and open-source browser extension that enhances the Oracle APEX Builder.",
-    "version": "20.2.0",
+    "version": "21.1.0",
     "author": "FOEX GmbH",
     "homepage_url": "http://www.foex.at",
     "icons": {
         "128": "assets/icons/FOS_browser_extension_128x128.png"
     },
-    "browser_action": { 
-        "default_icon": "assets/icons/FOS_browser_extension_128x128.png" 
+    "browser_action": {
+        "default_icon": "assets/icons/FOS_browser_extension_128x128.png"
     },
     "content_scripts": [
         {

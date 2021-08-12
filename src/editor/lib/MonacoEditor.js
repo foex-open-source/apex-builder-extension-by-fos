@@ -26,10 +26,10 @@ export class MonacoEditor {
         return new Promise((resolve) => {
 
             // small hack
-            // on apex 20.2, on the plug-in page, there would be a conflict with the apex monaco
+            // on and after apex 20.2, on the plug-in page, there would be a conflict with the apex monaco
             // for now, we won't be able to use the fancy highlighting for js, as it would break the apex plsql code editor
             // so we don't initialize it, which means we'll be using the apex monaco instance
-            if (!configuredPromise && FOS.util.apexVersion == 202 && FOS.util.pageId == 4410) {
+            if (!configuredPromise && FOS.util.apexVersion >= 202 && FOS.util.pageId == 4410) {
                 // dummy promise
                 configuredPromise = new Promise(function(resolve){
                     resolve();

@@ -1,6 +1,6 @@
 const markup = {};
 
-markup.staticFileEditor = 
+markup.staticFileEditor =
 `
 <div id="fos-files-region">
     <div class="a-Region a-Region--noPadding">
@@ -64,7 +64,7 @@ markup.createNewFile =
                     </div>
                 </div>
                 <!-- TODO: use the actual help text markup -->
-                <p style="margin-left: calc(30% + 8px); margin-top: 8px 0;">Allowed file types are: js, json, html, css and less</p>
+                <p style="margin-left: calc(30% + 8px); margin-top: 8px 0;">Allowed file types are: js, json, html, css, less, xml and txt</p>
             </div>
         </div>
     </div>
