@@ -24,7 +24,7 @@ function getColorModeBinary(){
 function init(){
     if([191, 192].indexOf(FOS.util.apexVersion) > -1){
         setColorMode(isDarkMode() ? 'dark' : 'light');
-    } else if ([201, 202].indexOf(FOS.util.apexVersion) > -1) {
+    } else if (FOS.util.apexVersion > 192) {
         function evaluateColorMode(){
             setColorMode(isDarkMode() ? 'dark-redwood' : 'light-redwood');
         }
