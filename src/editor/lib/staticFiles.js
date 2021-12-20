@@ -101,6 +101,7 @@ const getFilesDataFromCR = async function(forceRefresh){
                             obj.directory = filesUtil.getDirectoryFromFullFileName(innerText);
                             obj.fileName = filesUtil.getFileNameFromFullFileName(innerText);
                             obj.extension = filesUtil.getExtensionFromFileName(innerText);
+                            obj.editLink = $(this).children().attr('href');
                             break;
                         case 'MIME_TYPE':
                             obj.mimeType = innerText;
@@ -195,12 +196,21 @@ const getFilesDataFromIR = async function(forceRefresh){
             if(index==0) return;
 
             const obj = {};
-
-            const cell0 = $(this).children().eq(0).text();  //file name
-            const cell1 = $(this).children().eq(1).text();  //mime type
-            const cell2 = $(this).children().eq(2).text();  //file size
-            const cell3 = $(this).children().eq(3);         //reference
-            const cell4 = $(this).children().eq(4);         //file
+            let cell0,cell1,cell2,cell3,cell4;
+            if(FOS.util.apexVersion > 211){
+                cell0 = $(this).children().eq(2).text();  //file name
+                cell1 = $(this).children().eq(3).text();  //mime type
+                cell2 = $(this).children().eq(4).text();  //file size   
+                cell3 = $(this).children().eq(5);         //reference   
+                cell4 = $(this).children().eq(6);         //file    
+            } else {    
+                cell0 = $(this).children().eq(0).text();  //file name
+                cell1 = $(this).children().eq(1).text();  //mime type
+                cell2 = $(this).children().eq(2).text();  //file size
+                cell3 = $(this).children().eq(3);         //reference
+                cell4 = $(this).children().eq(4);         //file
+            }
+            
 
             obj.fullFileName = cell0;
             obj.directory = filesUtil.getDirectoryFromFullFileName(cell0);
@@ -209,9 +219,11 @@ const getFilesDataFromIR = async function(forceRefresh){
             obj.mimeType = cell1;
             obj.fileSize = cell2;
             obj.link = $(':first-child', cell4).attr('href');
+            obj.editLink = $(this).children().eq(2).children().attr('href');
 
             arr.push(obj);
         });
+
 
         return arr;
     }

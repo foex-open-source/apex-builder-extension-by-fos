@@ -19,7 +19,9 @@ const globalPlugins = [
     }),
     resolve({
         browser: true,
-        preferBuiltins: true
+        preferBuiltins: true,
+        ignoreGlobal: false,
+        include: ['node_modules/**']
     })
 ];
 
@@ -83,7 +85,8 @@ const editorConfig = {
             __MONACO_BASE__: process.env.BROWSER === 'firefox'
                 ? '"https://cdn.jsdelivr.net/npm/monaco-editor-slim@0.21.2/"'
                 : 'FOS.extensionBase + "editor/third-party/monaco-editor/"',
-            include: 'src/editor/lib/monacoEditorHelper.js'
+            include: 'src/editor/lib/monacoEditorHelper.js',
+            preventAssignment: true
         }),
         copy(copyPluginConfig),
         commonjs({

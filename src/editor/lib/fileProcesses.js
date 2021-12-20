@@ -1,7 +1,7 @@
 import {minify} from 'terser';
 import * as staticFiles from './staticFiles';
 import less from 'less';
-import csso from '../../../node_modules/csso/dist/csso';
+import {minify as cssoMinify} from 'csso';
 
 const minifyJsFile = async function(file) {
     const files = [];
@@ -49,7 +49,7 @@ const minifyCssFile = file => {
     const files = [];
     const minifiedFileName = staticFiles.filesUtil.getMinifiedFileName(file.fileName);
     const mapFileName = staticFiles.filesUtil.getMapFileName(file.fileName);
-    const cssoResult = csso.minify(file.content, {
+    const cssoResult = cssoMinify(file.content, {
         sourceMap: true,
         filename: file.fileName
     });

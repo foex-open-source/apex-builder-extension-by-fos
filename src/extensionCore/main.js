@@ -47,7 +47,14 @@ const pageId = parseInt(document.getElementById('pFlowStepId').value);
         // await injectScript({src: 'fos-bundle-pd.js'})
     }
 
-    if(appId == 4000 && [40, 267, 312, 4410].includes(pageId)){
+    // - 4309 -> Application Process
+    // - 4111 -> List of Values
+    // - 4500 -> Page Designer
+    // - 4495 -> Authentication Process
+    // - 4861 -> Email Templates
+    // - 1003 -> SQL Commands
+    // - 4050 -> Dynamic Lists
+    if((appId == 4000 && [40, 267, 312, 4050, 4410, 4309, 4111, 4500, 4495, 4861].includes(pageId)) || (appId == 4500 && pageId == 1003) ){
         await injectScript({src: 'fos-bundle-editor.js'});
     }
 

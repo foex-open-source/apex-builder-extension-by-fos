@@ -1,9 +1,40 @@
 import { MonacoEditor } from './MonacoEditor';
 
+function createButton(buttonConfig){
+    const FOS_TOOLBAR_BUTTON_CLASS = 'fos-code-editor-toolbar-button';
+    const buttonElement = document.createElement('button');
+    buttonElement.type = 'button';
+    buttonElement.classList.add('a-Button', 'a-Button--simple', 'u-pullRight');
+    if(buttonConfig.buttonClasses){
+        buttonElement.classList.add(buttonConfig.buttonClasses, FOS_TOOLBAR_BUTTON_CLASS);
+    }
+
+    if(buttonConfig.icon){
+        buttonElement.classList.add('a-Button--withIcon');
+        const spanElement = document.createElement('span');
+        spanElement.classList.add('fa', buttonConfig.icon, 'a-Icon');
+        if(buttonConfig.iconClass){
+            spanElement.classList.add(buttonConfig.iconClass);
+        }
+        buttonElement.append(spanElement);
+    }
+
+    if(buttonConfig.label){
+        const el = document.createElement('span');
+        el.innerText = buttonConfig.label;
+        buttonElement.append(el);
+    } else {
+        buttonElement.classList.add('a-Button--noLabel');
+    }
+
+    buttonElement.title = buttonConfig.title;
+    
+    return buttonElement;
+}
+
 function createToolbar(features){
 
     const buttons = [];
-    const FOS_TOOLBAR_BUTTON_CLASS = 'fos-code-editor-toolbar-button';
 
     if(features.save){
         buttons.push({
@@ -19,33 +50,7 @@ function createToolbar(features){
 
     if(buttons){
         buttons.forEach(function(buttonConfig){
-            const buttonElement = document.createElement('button');
-            buttonElement.type = 'button';
-            buttonElement.classList.add('a-Button', 'a-Button--simple', 'u-pullRight');
-            if(buttonConfig.buttonClasses){
-                buttonElement.classList.add(buttonConfig.buttonClasses, FOS_TOOLBAR_BUTTON_CLASS);
-            }
-
-            if(buttonConfig.icon){
-                buttonElement.classList.add('a-Button--withIcon');
-                const spanElement = document.createElement('span');
-                spanElement.classList.add('fa', buttonConfig.icon, 'a-Icon');
-                if(buttonConfig.iconClass){
-                    spanElement.classList.add(buttonConfig.iconClass);
-                }
-                buttonElement.append(spanElement);
-            }
-
-            if(buttonConfig.label){
-                const el = document.createElement('span');
-                el.innerText = buttonConfig.label;
-                buttonElement.append(el);
-            } else {
-                buttonElement.classList.add('a-Button--noLabel');
-            }
-
-            buttonElement.title = buttonConfig.title;
-            toolbarElement.append(buttonElement);
+            toolbarElement.append(createButton(buttonConfig));
         });
     }
 
@@ -81,9 +86,8 @@ export class ApexFileEditor extends MonacoEditor{
 
         await super.init();
 
-        const me = this;    
+        const me = this;
         me.initialValue = me.config.value;
-    
         
         if(me.config.save){
             me.save = function(){
@@ -120,3 +124,5 @@ export class ApexFileEditor extends MonacoEditor{
         super.setValue(value);
     }
 }
+
+export {createButton};

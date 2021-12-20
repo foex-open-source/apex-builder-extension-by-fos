@@ -54,7 +54,16 @@
     border-top: 1px solid var(--editor-border-color);
 }
 
-.fos-region-fullscreen#fos-files-region{
+.fos-region-fullscreen#fos-files-region,
+.fos-region-fullscreen#SOURCE,
+.fos-region-fullscreen#PROC,
+.fos-region-fullscreen#SRC,
+.fos-region-fullscreen#editorDlg-codeEditor,
+.fos-region-fullscreen#F4000_P4861_HTML_HEADER_CONTAINER,
+.fos-region-fullscreen#F4000_P4861_HTML_BODY_CONTAINER,
+.fos-region-fullscreen#F4000_P4861_HTML_FOOTER_CONTAINER, 
+.fos-region-fullscreen#F4000_P4861_TEXT_TEMPLATE_CONTAINER,
+.fos-region-fullscreen#P4050_LIST_QUERY_CONTAINER {
     background-color: var(--files-region-fs-bc);
 }
 
@@ -129,7 +138,7 @@
     left: 0px;
     width: 100%;
     height: 100vh;
-    z-index: 20;
+    z-index: 1999;
     border: none !important; /* makes dark mode look nicer */
 }
 
@@ -178,4 +187,124 @@
 /* fixes checkbox style on APEX <20.2 */
 #fos-files-region .apex-item-group--rc {
     vertical-align: middle;
+}
+
+/* toolbar fix  */
+.fos-region-fullscreen .a-CodeEditor-toolbar,
+.fos-region-fullscreen .a-MonacoEditor-toolbar {
+    opacity: 1!important;
+}
+
+/* ******************************* */
+/* height of the editor containers */
+/* ******************************* */
+/* plugin PL/SQL editor fullscreen */
+.fos-region-fullscreen#SOURCE .a-Region-body,
+.fos-region-fullscreen#SOURCE .a-Form-inputContainer,
+/* application process */
+.fos-region-fullscreen#PROC .a-Form-inputContainer,
+.fos-region-fullscreen#PROC .a-Region-body,
+/* dynamic lov */
+.fos-region-fullscreen#SRC .a-Region-body,
+/* email template */
+/* -> header */
+.fos-region-fullscreen#F4000_P4861_HTML_HEADER_CONTAINER .a-Form-inputContainer,
+.fos-region-fullscreen#F4000_P4861_HTML_HEADER_CONTAINER .a-Region-body,
+/* -> body */
+.fos-region-fullscreen#F4000_P4861_HTML_BODY_CONTAINER .a-Form-inputContainer,
+.fos-region-fullscreen#F4000_P4861_HTML_BODY_CONTAINER .a-Region-body, 
+/* -> footer */
+.fos-region-fullscreen#F4000_P4861_HTML_FOOTER_CONTAINER .a-Form-inputContainer,
+.fos-region-fullscreen#F4000_P4861_HTML_FOOTER_CONTAINER .a-Region-body, 
+/* -> content */
+.fos-region-fullscreen#F4000_P4861_TEXT_TEMPLATE_CONTAINER .a-Form-inputContainer,
+.fos-region-fullscreen#F4000_P4861_TEXT_TEMPLATE_CONTAINER .a-Region-body {
+    height: 95%;
+}
+
+/* ******************************* */
+/* hide the resize handler         */
+/* ******************************* */
+/* plugin PL/SQL */
+.fos-region-fullscreen#SOURCE .ui-resizable-handle.ui-resizable-s,
+/* application process */
+.fos-region-fullscreen #F4000_P4309_PROCESS_SQL_CONTAINER .ui-resizable-handle.ui-resizable-s,
+/* dynamic lov */
+.fos-region-fullscreen #P4111_LOV_QUERY_SQL_CONTAINER .ui-resizable-handle.ui-resizable-s,
+.fos-region-fullscreen #P4111_SOURCE_TYPE_CONTAINER,
+/* email template */
+/* -> header */
+.fos-region-fullscreen#F4000_P4861_HTML_HEADER_CONTAINER .ui-resizable-handle.ui-resizable-s,
+/* -> body */
+.fos-region-fullscreen#F4000_P4861_HTML_BODY_CONTAINER .ui-resizable-handle.ui-resizable-s,
+/* -> footer */
+.fos-region-fullscreen#F4000_P4861_HTML_FOOTER_CONTAINER .ui-resizable-handle.ui-resizable-s,
+/* -> content */
+.fos-region-fullscreen#F4000_P4861_TEXT_TEMPLATE_CONTAINER .ui-resizable-handle.ui-resizable-s,
+/* dynamic list */
+.fos-region-fullscreen#P4050_LIST_QUERY_CONTAINER .ui-resizable-handle.ui-resizable-s,
+.fos-region-fullscreen#P4050_LIST_QUERY_CONTAINER .a-Form-labelContainer {
+    display: none;
+}
+
+/* editor height */
+/* plugin PL/SQL */
+.fos-region-fullscreen#SOURCE .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #P4410_PLSQL_CODE_CONTAINER,
+.fos-region-fullscreen#SOURCE #P4410_PLSQL_CODE_widget,
+.fos-region-fullscreen#SOURCE .a-Region--noPadding,
+/* authetication process */
+.fos-region-fullscreen#SOURCE #P4495_PLSQL_CODE_CONTAINER,
+.fos-region-fullscreen#SOURCE,
+.fos-region-fullscreen #P4495_PLSQL_CODE_widget,
+/* application process */
+.fos-region-fullscreen#PROC .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #F4000_P4309_PROCESS_SQL_CONTAINER,
+/* dynamic lov */
+.fos-region-fullscreen#SRC .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen#SRC .a-Region--noPadding,
+.fos-region-fullscreen#SRC #P4111_LOV_QUERY_SQL_CONTAINER,
+.fos-region-fullscreen#SRC,
+/* email template */
+/* -> header */
+.fos-region-fullscreen#F4000_P4861_HTML_HEADER_CONTAINER .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #F4000_P4861_HTML_HEADER_widget,
+/* -> body */
+.fos-region-fullscreen#F4000_P4861_HTML_BODY_CONTAINER .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #F4000_P4861_HTML_BODY_widget,
+/* -> footer */
+.fos-region-fullscreen#F4000_P4861_HTML_FOOTER_CONTAINER .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #F4000_P4861_HTML_FOOTER_widget,
+/* -> content */
+.fos-region-fullscreen#F4000_P4861_TEXT_TEMPLATE_CONTAINER .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #F4000_P4861_TEXT_TEMPLATE_widget,
+/* page designer */
+.fos-region-fullscreen#editorDlg-codeEditor,
+/* dynamic list  */
+.fos-region-fullscreen#P4050_LIST_QUERY_CONTAINER .a-CodeEditor--resizeWrapper.ui-resizable,
+.fos-region-fullscreen #P4050_LIST_QUERY_widget
+{
+    height: 100%!important;
+}
+
+.fos-region-fullscreen#SRC .a-Form-inputContainer,
+.fos-region-fullscreen #P4111_LOV_QUERY_SQL_widget,
+.fos-region-fullscreen #F4000_P4309_PROCESS_SQL_widget,
+.fos-region-fullscreen#editorDlg-codeEditor .CodeMirror.cm-s-default,
+.fos-region-fullscreen#SRC .CodeMirror.cm-s-default,
+.fos-region-fullscreen#PROC .CodeMirror.cm-s-default,
+.fos-region-fullscreen#SOURCE .CodeMirror.cm-s-default,
+.fos-region-fullscreen#F4000_P4861_HTML_HEADER_CONTAINER .CodeMirror.cm-s-default,
+.fos-region-fullscreen#F4000_P4861_HTML_BODY_CONTAINER .CodeMirror.cm-s-default,
+.fos-region-fullscreen#F4000_P4861_HTML_FOOTER_CONTAINER .CodeMirror.cm-s-default,
+.fos-region-fullscreen#F4000_P4861_TEXT_TEMPLATE_CONTAINER .CodeMirror.cm-s-default {
+    height: 94%!important;
+}
+
+.a-AlertMessages--page {
+    z-index: 905!important;
+}
+
+.a-CodeEditor-toolbar button.fos-save-button {
+    margin-top: 0!important;
 }

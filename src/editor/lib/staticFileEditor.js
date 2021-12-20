@@ -162,8 +162,15 @@ async function saveFiles(files) {
     apex.message.clearErrors();
     apex.message.hidePageSuccess();
 
+    let link;
+    if(FOS.util.apexVersion > 211 && files.length > 1){
+        link = files[0].editLink;
+    } else {
+        link = util.getUploadPageUrl();
+    }
+
     return new Promise(resolve => {
-        server.uploadPluginFiles(util.getUploadPageUrl(), files)
+        server.uploadPluginFiles(link, files)
             .then(response => {
                 if (response.ok) {
                     FOS.util.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
@@ -297,7 +304,8 @@ async function openFileEditor(fullFileName) {
             fileName: file.fileName,
             directory: file.directory,
             mimeType: file.mimeType,
-            extension: file.extension
+            extension: file.extension,
+            ...(FOS.util.apexVersion > 211 && {editLink: file.editLink}) 
         });
 
         if (options.minify) {
@@ -522,6 +530,30 @@ export async function setupEnvironment(options) {
         onExpand: util.resizeFilesLayout,
         onRestore: util.resizeFilesLayout
     });
+
+    if(pageId === 4410){
+        const plsqlRegion = new ExpandableRegion({
+            regionSelector: '#SOURCE',
+            buttonContainerSelector: '#SOURCE .a-Region-headerItems--buttons',
+            onExpand: ()=>{
+                util.resizeFilesLayout();
+                let editor;
+                if(FOS.util.apexVersion > 201){
+                    editor = $('#P4410_PLSQL_CODE_widget').codeEditor('getEditor');
+                    if(editor){
+                        editor.layout();
+                    }
+                } else {
+                    editor = document.querySelector('.CodeMirror').CodeMirror;
+                    if(editor){
+                        editor.refresh();
+                    }
+                }
+            },
+            onRestore: util.resizeFilesLayout
+        });
+    }
+    
 
     await refreshFileSelectList();
     setupGoldenLayout();

@@ -145,4 +145,21 @@ function showHelp(id){
     });
 }
 
-export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage, showHelp};
+function encode(str){
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (str,idx)=>String.fromCharCode("0x" + idx)));
+}
+
+function throttle (callback, args, limit) {
+    var wait = false;                
+    return function () {             
+        if (!wait) {                 
+            callback.apply(this,args);         
+            wait = true;             
+            setTimeout(function () { 
+                wait = false;        
+            }, limit);
+        }
+    }
+}
+
+export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage, showHelp, encode, throttle};
