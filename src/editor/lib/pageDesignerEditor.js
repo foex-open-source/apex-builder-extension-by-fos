@@ -242,4 +242,17 @@ function save(editor,initValue,saveBtn) {
     })
 }
 
-export { getSelectedComponent, getCurrentPropertyData, getCurrentPageItems, setITSValue, getITSElId, save }
+function overrideSuccessNotification(){
+    pageDesigner.showSuccess = function ( pMsg, pMs = 2000 ) {
+        pageDesigner.hideNotification();
+        $( "#pdNotificationState" ).addClass( "is-success" );
+        $( "#pdNotificationIcon" ).addClass( "icon-check" );
+        pageDesigner.showNotification(pMsg);
+
+        setTimeout(function(){
+            pageDesigner.hideNotification();
+        },pMs);
+    };
+}
+
+export { getSelectedComponent, getCurrentPropertyData, getCurrentPageItems, setITSValue, getITSElId, save, overrideSuccessNotification}

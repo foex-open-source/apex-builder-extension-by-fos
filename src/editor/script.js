@@ -3,7 +3,7 @@ import * as data from './data.js';
 import * as colorMode from './lib/colorMode.js';
 import { ExpandableRegion } from './lib/ExpandableRegion';
 import { createButton } from './lib/ApexFileEditor';
-import { getSelectedComponent, getCurrentPropertyData, getCurrentPageItems, setITSValue, getITSElId, save} from './lib/pageDesignerEditor';
+import { getSelectedComponent, getCurrentPropertyData, getCurrentPageItems, setITSValue, getITSElId, save, overrideSuccessNotification } from './lib/pageDesignerEditor';
 
 const pageId = FOS.util.pageId;
 let plsqlRegion, editor, isCodeMirror = FOS.util.apexVersion < 201;
@@ -137,6 +137,7 @@ if ([40, 312].includes(pageId)) {
         }
     })()
 } else if (pageId === 4500) {
+    // check if the editor is loaded 
     let dialogEditor, counter = 0;
     let intervalId = setInterval(function () {
         counter++;
@@ -146,20 +147,10 @@ if ([40, 312].includes(pageId)) {
         } else if (window.monaco) {
             clearInterval(intervalId);
 
-            $(document).on('modelReady', function () {
-                // override the pageDesigner.showSuccess in order to
-                // autodismiss the successnotifications (e.g. after save)
-                pageDesigner.showSuccess = function ( pMsg, pMs = 2000 ) {
-                    pageDesigner.hideNotification();
-                    $( "#pdNotificationState" ).addClass( "is-success" );
-                    $( "#pdNotificationIcon" ).addClass( "icon-check" );
-                    pageDesigner.showNotification(pMsg);
-
-                    setTimeout(function(){
-                        pageDesigner.hideNotification();
-                    },pMs);
-                };
-            });
+            // auto-hide the success notification
+            if(pageDesigner?.showSuccess){
+                overrideSuccessNotification();
+            }
 
             // when the editor is created
             monaco.editor.onDidCreateEditor((editor) => {
@@ -280,21 +271,10 @@ if ([40, 312].includes(pageId)) {
             });
         } else if (window.CodeMirror) {
             clearInterval(intervalId);
-            try{
-                // override the pageDesigner.showSuccess in order to
-                // autodismiss the successnotifications (e.g. after save)
-                pageDesigner.showSuccess = function ( pMsg, pMs = 2000 ) {
-                    pageDesigner.hideNotification();
-                    $( "#pdNotificationState" ).addClass( "is-success" );
-                    $( "#pdNotificationIcon" ).addClass( "icon-check" );
-                    pageDesigner.showNotification(pMsg);
 
-                    setTimeout(function(){
-                        pageDesigner.hideNotification();
-                    },pMs);
-                };
-            } catch(e){
-                console.warn('Could not override the showSuccess function...');
+            // auto-hide the success notification
+            if(pageDesigner?.showSuccess){
+                overrideSuccessNotification();
             }
             
             $('body').on('dialogopen', function (e) {
