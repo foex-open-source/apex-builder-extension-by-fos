@@ -2,10 +2,11 @@
 function getSelectedComponent(){
     let renderNode = jQuery("#PDrenderingTree").treeView("getSelectedNodes");
     let dynamicNode = jQuery("#PDdynamicActionTree").treeView("getSelectedNodes");
-    let selectedNode = renderNode.length > 0 ? renderNode : dynamicNode;
-    if (selectedNode &&  selectedNode[0].data.typeId) {
-        return pe.getComponents(selectedNode[0].data.typeId, {
-            id: selectedNode[0].data.componentId
+    let processNode = jQuery('#PDprocessingTree').treeView('getSelectedNodes');
+    let selectedNode = renderNode[0] || dynamicNode[0] || processNode[0];
+    if (selectedNode?.data?.typeId) {
+        return pe.getComponents(selectedNode.data.typeId, {
+            id: selectedNode.data.componentId
         })[0];
     }
 }

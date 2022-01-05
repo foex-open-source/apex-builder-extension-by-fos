@@ -1,5 +1,18 @@
 ## Changelog
 
+### 21.2.0
+
+- APEX 21.2 compatibility
+- Full screen option (almost) everywhere
+- Page Designer - Quick Save
+- Page Designer – Autofill “Items To Submit” field
+- Page Designer – Auto dismiss success notification
+
+
+### 21.1.0
+
+- APEX 21.1 compatibility
+
 ### 20.2.0
 
 - APEX 19.2+ Hot Reload for JS & CSS
