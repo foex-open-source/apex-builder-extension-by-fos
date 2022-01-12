@@ -1,6 +1,6 @@
 {
     "name": "apex-builder-extension-by-fos",
-    "version": "21.2.0",
+    "version": "21.2.1",
     "description": "A free Chrome extension for Oracle APEX which enables the editing of static files in the browser.",
     "main": "main.js",
     "directories": {
@@ -52,4 +52,3 @@
       "vscode-textmate": "^5.4.0"
     }
   }
-  
