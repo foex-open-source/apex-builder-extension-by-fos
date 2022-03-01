@@ -308,3 +308,7 @@
 .a-CodeEditor-toolbar button.fos-save-button {
     margin-top: 0!important;
 }
+
+div.ui-dialog.ui-dialog--notification[role="alertdialog"] {
+    z-index: 2000!important;
+}

@@ -11,10 +11,31 @@ function getSelectedComponent(){
     }
 }
 
+function getSelectedTab(){
+    const TAB_CONTAINER = 'peTabs';
+    // get the selected tab
+    let tabContainer = $('#'+TAB_CONTAINER);
+    if(tabContainer.length < 1){
+        return undefined;
+    }
+    let activeTab = tabContainer.data().uiTabs.active;
+    if(!activeTab){
+        return undefined;
+    }
+    let tabName = activeTab.attr('aria-controls');
+    return tabName.toLowerCase().includes('attribute') ? 'attribute' : 'component';
+}
+
 function getCurrentPropertyData(){
     const CODEMIRROR_PE = 'pe';
-    const MONACO_PE = 'peMain';
-    let propertyEditor = $('#' + (FOS.util.apexVersion > 192 ? MONACO_PE : CODEMIRROR_PE)).data().apexPropertyEditor;
+    const MONACO_PE_MAIN = 'peMain';
+    const MONACO_PE_ATTR = 'peAttributes';
+    let selectedTab = getSelectedTab();
+    if(!selectedTab){
+        return undefined;
+    }
+    let monacoPE = selectedTab == 'attribute' ? MONACO_PE_ATTR : MONACO_PE_MAIN;
+    let propertyEditor = $('#' + (FOS.util.apexVersion > 192 ? monacoPE : CODEMIRROR_PE)).data().apexPropertyEditor;
     let currentPropertyId = propertyEditor.currentPropertyName;
     let attributeEl = $('[data-property-id='+currentPropertyId+']');
     let propertyGroupId = attributeEl.closest('.a-PropertyEditor-propertyGroup[data-group-id]').attr('data-group-id');

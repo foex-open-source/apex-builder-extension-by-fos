@@ -136,7 +136,7 @@ if ([40, 312].includes(pageId)) {
             });
         }
     })()
-} else if (pageId === 4500) {
+} else if (pageId === 4500 && FOS.util.apexVersion < 220) {
     // check if the editor is loaded 
     let dialogEditor, counter = 0;
     let intervalId = setInterval(function () {
@@ -174,7 +174,7 @@ if ([40, 312].includes(pageId)) {
                 });
 
                 // if the property can't be found, we stop here
-                let propertyFound = getCurrentPropertyData().attributeEl.length > 0;
+                let propertyFound = getCurrentPropertyData()?.attributeEl.length > 0;
                 if(!propertyFound){
                     return;
                 }
