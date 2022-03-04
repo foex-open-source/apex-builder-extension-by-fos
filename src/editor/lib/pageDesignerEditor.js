@@ -54,7 +54,7 @@ function getCurrentPageItems(){
     // get all the page item components from the current page
     let pageItemComps = pe.getComponents(pe.COMP_TYPE.PAGE_ITEM,{});
     // filter out the items with "Session State Protection" set to "Restricted - May not be set from browser"
-    pageItemComps = pageItemComps.filter(comp => comp.getProperty(pe.PROP.SESSION_STATE_PROTECTION).getValue() != 'I');
+    pageItemComps = pageItemComps.filter(comp => comp.getProperty(pe.PROP.SESSION_STATE_PROTECTION || '172').getValue() != 'I');
     // create an array with the item names
     let pageItems = pageItemComps.map((comp) => {
         return comp.getProperty(pe.PROP.ITEM_NAME).getValue().toLowerCase();
