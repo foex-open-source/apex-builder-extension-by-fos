@@ -9,7 +9,6 @@ import json from '@rollup/plugin-json';
 
 const outputDir = 'dist/unpacked/';
 const editorOutputDir = 'dist/unpacked/editor/';
-const isFirefox = process.env.BROWSER === 'firefox';
 
 const globalPlugins = [
     json(),
@@ -63,15 +62,15 @@ const copyPluginConfig = {
 };
 
 // exclude the monaco-editor files from the firefox build
-if(!isFirefox){
-    copyPluginConfig.targets.push({
-        src: 'node_modules/monaco-editor-slim/min',
-        dest: editorOutputDir + 'third-party/monaco-editor/'
-    }, {
-        src: 'node_modules/monaco-editor-slim/min-maps',
-        dest: editorOutputDir + 'third-party/monaco-editor/'
-    });
-}
+// if(!isFirefox){
+//     copyPluginConfig.targets.push({
+//         src: 'node_modules/monaco-editor-slim/min',
+//         dest: editorOutputDir + 'third-party/monaco-editor/'
+//     }, {
+//         src: 'node_modules/monaco-editor-slim/min-maps',
+//         dest: editorOutputDir + 'third-party/monaco-editor/'
+//     });
+// }
 
 const editorConfig = {
     input: 'src/editor/script.js',
@@ -82,9 +81,7 @@ const editorConfig = {
     plugins: [
         ...globalPlugins,
         replace({
-            __MONACO_BASE__: process.env.BROWSER === 'firefox'
-                ? '"https://cdn.jsdelivr.net/npm/monaco-editor-slim@0.21.2/"'
-                : 'FOS.extensionBase + "editor/third-party/monaco-editor/"',
+            __MONACO_BASE__:  'FOS.extensionBase + "editor/third-party/monaco-editor/"',
             include: 'src/editor/lib/monacoEditorHelper.js',
             preventAssignment: true
         }),
@@ -107,7 +104,12 @@ const pdConfig = {
         format: 'iife'
     }],
     plugins: [
-        ...globalPlugins
+        ...globalPlugins,
+        replace({
+            __MONACO_BASE__:  'FOS.extensionBase + "editor/third-party/monaco-editor/"',
+            include: 'src/editor/lib/monacoEditorHelper.js',
+            preventAssignment: true
+        }),
     ]
 };
 
@@ -129,6 +131,12 @@ const embeddedCodeConfig = {
                     'src/embeddedCode/third-party/prismjs/themes/*'
                 ],
                 dest: outputDir + 'third-party/prismjs/themes'
+        },{
+            src: 'src/embeddedCode/third-party/monaco-editor/min',
+            dest: editorOutputDir + 'third-party/monaco-editor/'
+        }, {
+            src: 'src/embeddedCode/third-party/monaco-editor/min-maps',
+            dest: editorOutputDir + 'third-party/monaco-editor/'
         }]})
     ]
 };

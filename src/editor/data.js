@@ -85,6 +85,10 @@ const apiLinks = {
     "212": {
         js: 'https://docs.oracle.com/en/database/oracle/application-express/21.2/aexjs/index.html',
         plsql: 'https://docs.oracle.com/en/database/oracle/application-express/21.2/aeapi/index.html',
+    },
+    "221": {
+        js: 'https://docs.oracle.com/en/database/oracle/application-express/22.1/aexjs/index.html',
+        plsql: 'https://docs.oracle.com/en/database/oracle/application-express/22.1/aeapi/index.html',
     }
 };
 

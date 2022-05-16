@@ -12,7 +12,8 @@ const pageId = parseInt(document.getElementById('pFlowStepId').value);
 const PREFERENCES = {
     theme: 'theme',
     showSuggestions: 'showSuggestions',
-    renderWhitespace: 'renderWhitespace'
+    renderWhitespace: 'renderWhitespace',
+    autoFillITS: 'autoFillITS'
 };
 
 const STORAGE_ITEM_NAME = 'fos_ext_preferences';
@@ -96,7 +97,7 @@ function getPreferencesFromStorage(){
 }
 
 function getPreference(name){
-    if(!PREFERENCES.theme){
+    if(!PREFERENCES[name]){
         console.warn('FOS - Unknown setting name', name);
         return null;
     }
@@ -105,7 +106,7 @@ function getPreference(name){
 }
 
 function setPreference(name, value){
-    if(!PREFERENCES.theme){
+    if(!PREFERENCES[name]){
         console.warn('FOS - Unknown setting name', name);
         return;
     }

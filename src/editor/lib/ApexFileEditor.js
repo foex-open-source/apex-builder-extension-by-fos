@@ -62,6 +62,7 @@ const CHANGES_PENDING_CLASS = 'fam-blank';
 export class ApexFileEditor extends MonacoEditor{
 
     constructor(config){
+
         const editorElement = document.createElement('div');
         editorElement.classList.add('fos-code-editor');
 
@@ -87,8 +88,10 @@ export class ApexFileEditor extends MonacoEditor{
         await super.init();
 
         const me = this;
+        const newEditorVersion = FOS.util.apexVersion > 212 || FOS.util.apexVersion < 202;
+        const saveKey = ![40,267,312].includes(FOS.util.pageId) ? ( newEditorVersion ? monaco.KeyCode.KeyS : monaco.KeyCode.KEY_S ) : monaco.KeyCode.KeyS;
         me.initialValue = me.config.value;
-        
+
         if(me.config.save){
             me.save = function(){
                 me.config.save().then(response => {
@@ -98,7 +101,7 @@ export class ApexFileEditor extends MonacoEditor{
                     }
                 });
             }
-            me.editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, me.save);
+            me.editor.addCommand(monaco.KeyMod.CtrlCmd | saveKey, me.save);
             me.saveButton.addEventListener('click', me.save);
         }
 

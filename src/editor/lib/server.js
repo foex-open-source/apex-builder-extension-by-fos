@@ -5,6 +5,7 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
     let scope, isCreate = files.length === 1;
     let pageId = FOS.util.pageId;
     let versionMoreThan211 = FOS.util.apexVersion > 211;
+    let versionLessThan221 = FOS.util.apexVersion < 221;
     
     if(versionMoreThan211) {
         pageId = 118;
@@ -24,7 +25,7 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
                 break;
         }    
     }
-      
+
     return fetch(uploadPageUrl, {
         method: 'GET'
     })
@@ -101,11 +102,6 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
                         v: 'Y'
                     },
                     {
-                        n: 'P118_RETURN_TO_URL',
-                        v: $('#P118_RETURN_TO_URL', doc$).val(),
-                        ck: $(`input[data-for=P118_RETURN_TO_URL]`, doc$).val()
-                    },
-                    {
                         n: 'P118_LANGUAGE',
                         v: $('#P118_LANGUAGE', doc$).val(),
                         ck: $(`input[data-for=P118_LANGUAGE]`, doc$).val()
@@ -135,6 +131,14 @@ const uploadPluginFiles = async function(uploadPageUrl, files){
                         ck: $(`input[data-for=P${pageId}_PLUGIN_ID]`, doc$).val()
                     }
                 )
+                if(versionLessThan221){
+                    p_json.pageItems.itemsToSubmit.push({
+                        n: 'P118_RETURN_TO_URL',
+                        v: $('#P118_RETURN_TO_URL', doc$).val(),
+                        ck: $(`input[data-for=P118_RETURN_TO_URL]`, doc$).val()
+                    });
+                }
+                
             }
         } else {
             p_json.pageItems.itemsToSubmit.push(
