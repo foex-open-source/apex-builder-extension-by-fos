@@ -1,5 +1,13 @@
 ## Changelog
 
+
+### 22.1.0
+
+- APEX 22.1 compatibility
+- Page Designer - Modified the Autofill “Items To Submit” field feature to be optional
+  - A toggle menu entry is added to the "Settings" menu to enable/disable the feature.
+- Page Designer - Comment Out/Uncomment menu entries in the context menu of various components to set the Build Option attribute
+
 ### 21.2.0
 
 - APEX 21.2 compatibility
@@ -7,7 +15,6 @@
 - Page Designer - Quick Save
 - Page Designer – Autofill “Items To Submit” field
 - Page Designer – Auto dismiss success notification
-
 
 ### 21.1.0
 
