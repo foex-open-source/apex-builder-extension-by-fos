@@ -338,6 +338,7 @@ for (let i = 0; i < styles.length; i++) {
                 action: false
             }, {
                 label: 'Comment Out',
+                icon: 'fa fa-eye-slash',
                 type: 'action',
                 action: function () {
                     setPropertyTransaction(pe.PROP.BUILD_OPTION, commentedOutOption.id);
@@ -347,6 +348,7 @@ for (let i = 0; i < styles.length; i++) {
                 }
             }, {
                 label: 'Uncomment',
+                icon: 'fa fa-eye',
                 type: 'action',
                 action: function () {
                     setPropertyTransaction(pe.PROP.BUILD_OPTION, '');

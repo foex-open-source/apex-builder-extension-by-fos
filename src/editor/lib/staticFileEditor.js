@@ -497,7 +497,7 @@ export async function setupEnvironment(options) {
 
     const buttonsContainer$ = $('.a-Region-headerItems--buttons', fileEditorRegion$);
 
-    const settingsButton$ = $('<button data-menu="fos-settings-menu" class="a-Button a-Button--noLabel a-Button--withIcon js-menuButton" aria-label="Create File" title="Create File" type="button" aria-expanded="false"><span aria-hidden="true" class="fa fa-gear"></span></button>');
+    const settingsButton$ = $('<button data-menu="fos-settings-menu" class="a-Button a-Button--noLabel a-Button--withIcon js-menuButton" aria-label="Settings" title="Settings" type="button" aria-expanded="false"><span aria-hidden="true" class="fa fa-gear"></span></button>');
     buttonsContainer$.append(settingsButton$);
 
     if (!readOnly) {
