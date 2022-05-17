@@ -9,8 +9,9 @@ import json from '@rollup/plugin-json';
 
 const outputDir = 'dist/unpacked/';
 const editorOutputDir = 'dist/unpacked/editor/';
+const isFirefox = process.env.BROWSER === 'firefox';
 
-const __MONACO_BASE__ = process.env.BROWSER === 'firefox'
+const __MONACO_BASE__ = isFirefox
 ? '"https://cdn.jsdelivr.net/gh/foex-open-source/apex-builder-extension-by-fos@master/src/embeddedCode/third-party/monaco-editor/"'
 : 'FOS.extensionBase + "editor/third-party/monaco-editor/"'
 
@@ -27,6 +28,7 @@ const globalPlugins = [
         include: ['node_modules/**']
     })
 ];
+
 
 // -------------------------------------------------
 // Editor Config
@@ -112,6 +114,23 @@ const pdConfig = {
 // Embedded Code Config
 // -------------------------------------------------
 
+let embeddedCodePlugins = [
+    {
+        src: ['src/embeddedCode/third-party/prismjs/themes/*'],
+        dest: outputDir + 'third-party/prismjs/themes'
+    }
+];
+
+if (!isFirefox) {
+    embeddedCodePlugins.push({
+        src: 'src/embeddedCode/third-party/monaco-editor/min',
+        dest: editorOutputDir + 'third-party/monaco-editor/'
+    }, {
+        src: 'src/embeddedCode/third-party/monaco-editor/min-maps',
+        dest: editorOutputDir + 'third-party/monaco-editor/'
+    });
+}
+
 const embeddedCodeConfig = {
     input: 'src/embeddedCode/script.js',
     output: [{
@@ -121,18 +140,7 @@ const embeddedCodeConfig = {
     plugins: [
         ...globalPlugins,
         copy({
-            targets: [
-                {
-                    src: ['src/embeddedCode/third-party/prismjs/themes/*'],
-                    dest: outputDir + 'third-party/prismjs/themes'
-                },{
-                    src: 'src/embeddedCode/third-party/monaco-editor/min',
-                    dest: editorOutputDir + 'third-party/monaco-editor/'
-                }, {
-                    src: 'src/embeddedCode/third-party/monaco-editor/min-maps',
-                    dest: editorOutputDir + 'third-party/monaco-editor/'
-                }
-            ]
+            targets: embeddedCodePlugins
         })
     ]
 };
