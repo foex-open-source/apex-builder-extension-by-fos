@@ -44,7 +44,7 @@
         "rollup-plugin-css-only": "^2.1.0",
         "rollup-plugin-node-builtins": "^2.1.2",
         "terser": "^5.14.2",
-        "web-ext": "^6.8.0"
+        "web-ext": "^7.2.0"
     },
     "dependencies": {
         "vscode-oniguruma": "^1.5.1",
