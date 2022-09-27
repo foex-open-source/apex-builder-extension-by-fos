@@ -1,14 +1,20 @@
 
 function getSelectedComponents() {
-    let components, result = [];
-    let selectedNodes = jQuery('#PDrenderingTree').treeView('getSelectedNodes');
-
-    if (!selectedNodes.length) {
-        selectedNodes = jQuery('#PDdynamicActionTree').treeView('getSelectedNodes');
+    let components, result = [], selectedNodes = [], selectedTab = getSelectedTab();
+    if (!selectedTab){
+        return undefined;
     }
 
-    if (!selectedNodes.length) {
-        selectedNodes = jQuery('#PDprocessingTree').treeView('getSelectedNodes');
+    switch(selectedTab){
+        case 'renderTree_container':
+            selectedNodes = jQuery('#PDrenderingTree').treeView('getSelectedNodes');
+            break;
+        case 'dynActTree_container':
+            selectedNodes = jQuery('#PDdynamicActionTree').treeView('getSelectedNodes');
+            break;
+        case 'procTree_container':
+            selectedNodes = jQuery('#PDprocessingTree').treeView('getSelectedNodes');
+            break;
     }
 
     selectedNodes.forEach((node) => {
@@ -25,26 +31,37 @@ function getSelectedComponents() {
     return result;
 }
 
-function getSelectedTab() {
-    const TAB_CONTAINER = 'peTabs';
+function getSelectedTab(type) {
+    const TAB_CONTAINER = type === 'property' ? 'peTabs' : 'editor_tabs';
     // get the selected tab
     let tabContainer = $('#' + TAB_CONTAINER);
     if (tabContainer.length < 1) {
         return undefined;
     }
+
     let activeTab = tabContainer.data().uiTabs.active;
     if (!activeTab) {
         return undefined;
     }
+
     let tabName = activeTab.attr('aria-controls');
-    return tabName.toLowerCase().includes('attribute') ? 'attribute' : 'component';
+    if(!tabName){
+        return undefined;
+    }
+
+    if(type === 'property'){
+        return tabName.toLowerCase().includes('attribute') ? 'attribute' : 'component';
+    } else {
+        return tabName;
+    }
+    
 }
 
 function getCurrentPropertyData() {
     const CODEMIRROR_PE = 'pe';
     const MONACO_PE_MAIN = 'peMain';
     const MONACO_PE_ATTR = 'peAttributes';
-    let selectedTab = getSelectedTab();
+    let selectedTab = getSelectedTab('property');
     if (!selectedTab) {
         return undefined;
     }

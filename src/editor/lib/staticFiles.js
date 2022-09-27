@@ -15,7 +15,7 @@ const pageId = FOS.util.pageId;
 let files = [];
 let filesFetchedOnce = false;
 
-const editableFileExtentions = ['js', 'json', 'html', 'css', 'less', 'scss', 'svg', 'txt', 'xml'];
+const editableFileExtensions = ['js', 'json', 'html', 'css', 'less', 'scss', 'svg', 'txt', 'xml'];
 
 const mimeTypes = {
     js: 'application/javascript',
@@ -296,7 +296,7 @@ const getEditableFiles = async function(config){
     }
 
     return files.filter(function(file){
-        return editableFileExtentions.includes(getFileExtension(file.fileName));
+        return editableFileExtensions.includes(getFileExtension(file.fileName));
     });
 }
 
@@ -306,4 +306,4 @@ const getFileObjectByFullFileName = function(fullFileName){
     })[0];
 };
 
-export {getEditableFiles, getFileObjectByFullFileName, filesUtil, editableFileExtentions, files, mimeTypes};
+export {getEditableFiles, getFileObjectByFullFileName, filesUtil, editableFileExtensions, files, mimeTypes};

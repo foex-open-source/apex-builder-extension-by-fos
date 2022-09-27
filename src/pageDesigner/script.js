@@ -112,7 +112,10 @@ for (let i = 0; i < styles.length; i++) {
                         save(editor, initValue, saveBtn);
                         initValue = editor.getValue();
                     });
-
+                    
+                    if(!component){
+                        return;
+                    }
                     // check if it has an "Items To Submit" attribute
                     let itsEl = getITSElId(component);
 
@@ -233,7 +236,7 @@ for (let i = 0; i < styles.length; i++) {
                     });
 
                     // if the property can't be found, we stop here
-                    let propertyFound = getCurrentPropertyData().attributeEl.length > 0;
+                    let propertyFound = getCurrentPropertyData()?.attributeEl.length > 0;
                     if (!propertyFound) {
                         return;
                     }
@@ -263,9 +266,21 @@ for (let i = 0; i < styles.length; i++) {
 
                     // get the selected component from the tree (rendering,da,processing)
                     let component = getSelectedComponents()[0];
+                    
+                    if(!component){
+                        return;
+                    }
+
+                    editor.on('change', function setState(e) {
+                        setEditorState(initValue, editor, saveBtn);
+                    });
 
                     // check if it has an "Items To Submit" attribute
                     let itsEl = getITSElId(component);
+
+                    if(!itsEl){
+                        return;
+                    }
 
                     // get all the page item components from the current page in an array
                     let pageItems = getCurrentPageItems();
@@ -295,10 +310,6 @@ for (let i = 0; i < styles.length; i++) {
                         setITSValue(component, itsEl, itsVal, contentItems);
                     }, 250);
 
-                    editor.on('change', function setState(e) {
-                        setEditorState(initValue, editor, saveBtn);
-                    });
-
                     if (itsEl) {
                         editor.on('change', function(e) {
                             checkITS(itsEl, component);
@@ -309,11 +320,6 @@ for (let i = 0; i < styles.length; i++) {
             });
         }
     }, 200);
-
-    
-    if (FOS.util.apexVersion < 211) {
-        return;
-    }
 
     // add build options context menu entry
     $(document).on('modelReady', () => {
@@ -329,7 +335,15 @@ for (let i = 0; i < styles.length; i++) {
             if (!tree.length) {
                 return;
             }
-            let ctxMenu = tree.treeView('option', 'contextMenu');
+
+            let ctxMenu;
+            try {
+                ctxMenu = tree.treeView('option', 'contextMenu');
+            } catch(e) {
+                console.log(`FOS - Extension Error: Could not extend the context menu, tree ( ${treeSelector} ) was not ready.`, e);
+                return;
+            }
+
             if (!ctxMenu) {
                 return;
             }

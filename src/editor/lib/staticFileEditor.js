@@ -6,6 +6,7 @@ import { ApexFileEditor } from './ApexFileEditor';
 import { resetTheme } from './monacoEditorHelper';
 import { ExpandableRegion } from './ExpandableRegion';
 import GoldenLayout from 'golden-layout';
+import { apexVersion } from '../../global/util';
 
 let filesLayout;
 let openedFiles = [];
@@ -157,20 +158,20 @@ async function hotReload(file) {
     });
 }
 
-async function saveFiles(files) {
+async function saveFiles(files, isNewFile) {
     let spinner$ = apex.util.showSpinner();
     apex.message.clearErrors();
     apex.message.hidePageSuccess();
 
     let link;
-    if(FOS.util.apexVersion > 211 && files.length > 1){
+    if(FOS.util.apexVersion > 211 && !isNewFile){
         link = files[0].editLink;
     } else {
         link = util.getUploadPageUrl();
     }
 
     return new Promise(resolve => {
-        server.uploadPluginFiles(link, files)
+        server.uploadPluginFiles(link, files, isNewFile)
             .then(response => {
                 if (response.ok) {
                     FOS.util.showPageSuccess('File' + (files.length == 1 ? '' : 's') + ' saved successfully');
@@ -212,9 +213,17 @@ function addNewFileClick() {
             return;
         }
 
+        const fileExtension = staticFiles.filesUtil.getExtensionFromFileName(fileName);
+
         //check if extension is allowed
-        if (!staticFiles.editableFileExtentions.includes(staticFiles.filesUtil.getExtensionFromFileName(fileName))) {
+        if (!staticFiles.editableFileExtensions.includes(fileExtension)) {
             FOS.util.showItemError('fos-new-file-name', 'The file\'s extension is not allowed.');
+            return;
+        }
+
+        // +21.1 empty txt file cannot be created
+        if(FOS.util.apexVersion > 211 && fileExtension === 'txt'){
+            FOS.util.showItemError('fos-new-file-name', 'Empty files must be one of: js, css, html, json, less, xml');
             return;
         }
 
@@ -231,7 +240,7 @@ function addNewFileClick() {
             directory: directory,
             mimeType: staticFiles.filesUtil.getMimeTypeFromFileName(fileName),
             content: ''
-        }]).then(() => {
+        }], true).then(() => {
             return refreshFileSelectList(true);
         }).then(() => {
             return openFileEditor(fullFileName);

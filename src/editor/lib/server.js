@@ -1,8 +1,8 @@
 import {encode} from './../../global/util.js';
 // files should be passed on as: [{directory, fileName, mimeType, content}]
 // returns a promise that resolves to an object of {ok: boolean, error: string}
-const uploadPluginFiles = async function(uploadPageUrl, files){
-    let scope, isCreate = files.length === 1;
+const uploadPluginFiles = async function(uploadPageUrl, files, isCreate){
+    let scope;
     let pageId = FOS.util.pageId;
     let versionMoreThan211 = FOS.util.apexVersion > 211;
     let versionLessThan221 = FOS.util.apexVersion < 221;
