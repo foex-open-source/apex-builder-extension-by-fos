@@ -13,6 +13,7 @@ import {
     toggleBuildOption,
     setPropertyTransaction
 } from './lib/pageDesignerEditor';
+import {SUPPORTED_VERSION} from './../global/util';
 
 let editor, newMonacoVersion = FOS.util.apexVersion > 212;
 let isITSEnabled = false;
@@ -29,7 +30,7 @@ for (let i = 0; i < styles.length; i++) {
 }
 
 (function () {
-    if (FOS.util.apexVersion > 221) {
+    if (FOS.util.apexVersion > SUPPORTED_VERSION) {
         return;
     }
     // check if the editor is loaded 

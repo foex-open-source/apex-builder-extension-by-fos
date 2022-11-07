@@ -1,5 +1,8 @@
 import helpText from './helpText.json';
 
+// highest supported apex version
+const SUPPORTED_VERSION = 222;
+
 const apexVersion = (function(){
     const fullVersion = document.querySelector('head link[rel="stylesheet"]').href.match(/\?v=(.*)/)[1];
     const versionParts = fullVersion.split('.');
@@ -163,4 +166,4 @@ function throttle (callback, args, limit) {
     }
 }
 
-export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage, showHelp, encode, throttle};
+export {apexVersion, appId, pageId, PREFERENCES, showPageSuccess, showPageError, showItemError, injectScript, injectStyle,  getPreference, setPreference, isDarkMode, runtimeWindow, runPage, showHelp, encode, throttle, SUPPORTED_VERSION};
