@@ -16,6 +16,8 @@ import {
 import {SUPPORTED_VERSION} from './../global/util';
 
 let editor, newMonacoVersion = FOS.util.apexVersion > 212;
+let addSave = FOS.util.apexVersion < 231;
+let addCommentOut = FOS.util.apexVersion < 232;
 let isITSEnabled = false;
 
 colorMode.init();
@@ -37,7 +39,7 @@ for (let i = 0; i < styles.length; i++) {
     let dialogEditor, counter = 0;
     let intervalId = setInterval(function () {
         counter++;
-        if (counter == 10) {
+        if (counter == 30) {
             // for some reason monaco is not on the page, so we stop here
             clearInterval(intervalId);
         } else if (window.monaco) {
@@ -50,6 +52,7 @@ for (let i = 0; i < styles.length; i++) {
 
             const regionSelector = '#editorDlg-codeEditor';
             const itemRegex = new RegExp('(?<=:)\\w+', 'gi');
+            let saveBtn, saveDisposable;
 
             // when the editor is created
             monaco.editor.onDidCreateEditor((editor) => {
@@ -78,14 +81,21 @@ for (let i = 0; i < styles.length; i++) {
                     return;
                 }
 
-                // add the save button to the toolbar
-                let saveBtn = createButton({
-                    buttonClasses: ['fos-save-button'],
-                    title: 'Save',
-                    label: 'Save',
-                    icon: 'fa-save'
-                });
-                $(dialogEditor.buttonContainerSelector).prepend(saveBtn);
+                if ( addSave ) {
+                    // add the save button to the toolbar
+                    saveBtn = createButton({
+                        buttonClasses: ['fos-save-button'],
+                        title: 'Save',
+                        label: 'Save',
+                        icon: 'fa-save'
+                    });
+                    $(dialogEditor.buttonContainerSelector).prepend(saveBtn);
+                    
+                    saveDisposable = editor.onDidChangeModelContent((e) => {
+                        setEditorState(initValue, editor, saveBtn);
+                    });
+
+                }
 
                 // get the selected component from the tree (rendering,da,processing)
                 let component = getSelectedComponents()[0];
@@ -101,18 +111,20 @@ for (let i = 0; i < styles.length; i++) {
 
                     model = editor.getModel();
 
-                    saveBtn.addEventListener('click', function (e) {
-                        save(editor, initValue, saveBtn);
-                        initValue = editor.getValue();
-                    });
-
-                    let saveKey = newMonacoVersion ? monaco.KeyCode.KeyS : monaco.KeyCode.KEY_S;
-
-                    // //add keyboard shortcut to save
-                    editor.addCommand(monaco.KeyMod.CtrlCmd | saveKey, function (e) {
-                        save(editor, initValue, saveBtn);
-                        initValue = editor.getValue();
-                    });
+                    if ( saveBtn ) {
+                        saveBtn.addEventListener('click', function (e) {
+                            save(editor, initValue, saveBtn);
+                            initValue = editor.getValue();
+                        });
+    
+                        let saveKey = newMonacoVersion ? monaco.KeyCode.KeyS : monaco.KeyCode.KEY_S;
+    
+                        // //add keyboard shortcut to save
+                        editor.addCommand(monaco.KeyMod.CtrlCmd | saveKey, function (e) {
+                            save(editor, initValue, saveBtn);
+                            initValue = editor.getValue();
+                        });
+                    }
                     
                     if(!component){
                         return;
@@ -202,10 +214,6 @@ for (let i = 0; i < styles.length; i++) {
 
                     isITSEnabled = FOS.util.getPreference(FOS.util.PREFERENCES.autoFillITS) == 'true';
                     toggleITS();   
-                });
-
-                let saveDisposable = editor.onDidChangeModelContent((e) => {
-                    setEditorState(initValue, editor, saveBtn);
                 });
 
             });
@@ -322,10 +330,14 @@ for (let i = 0; i < styles.length; i++) {
         }
     }, 200);
 
+    if ( !addCommentOut ) {
+        return;
+    }
+    
     // add build options context menu entry
     $(document).on('modelReady', () => {
-        const BUILD_OPTION_COMMENTED_OUT = 'COMMENTED OUT';
-        let commentedOutOption = pe.getAll().sharedComponents.components[pe.COMP_TYPE.BUILD_OPTION].find(el => el.properties[pe.PROP.NAME]?.toUpperCase() === BUILD_OPTION_COMMENTED_OUT);
+        const BUILD_OPTION_COMMENTED_OUT = ['COMMENTED OUT', 'COMMENT OUT / DISABLED'];
+        let commentedOutOption = pe.getAll().sharedComponents.components[pe.COMP_TYPE.BUILD_OPTION].find(el => BUILD_OPTION_COMMENTED_OUT.includes(el.properties[pe.PROP.NAME]?.toUpperCase()));
         if (!commentedOutOption) {
             return;
         }

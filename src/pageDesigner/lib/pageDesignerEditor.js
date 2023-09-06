@@ -32,9 +32,15 @@ function getSelectedComponents() {
 }
 
 function getSelectedTab(type) {
-    const TAB_CONTAINER = type === 'property' ? 'peTabs' : 'editor_tabs';
-    // get the selected tab
-    let tabContainer = $('#' + TAB_CONTAINER);
+    let tabContainer;
+    if ( type === 'property' ) {
+        tabContainer = $('#peTabs');
+    } else {
+        tabContainer = $('#trees');
+        if ( tabContainer.is(':hidden') ) {
+            tabContainer = $('#editor_tabs')
+        }
+    }
     if (tabContainer.length < 1) {
         return undefined;
     }

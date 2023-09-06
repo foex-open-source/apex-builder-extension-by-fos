@@ -1,7 +1,7 @@
 import helpText from './helpText.json';
 
 // highest supported apex version
-const SUPPORTED_VERSION = 222;
+const SUPPORTED_VERSION = 232;
 
 const apexVersion = (function(){
     const fullVersion = document.querySelector('head link[rel="stylesheet"]').href.match(/\?v=(.*)/)[1];
